@@ -41,7 +41,7 @@
                                     <TextBlock Text="Automatic pipeline enabled (Recursive)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
                                 </StackPanel>
                                 <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                    <TextBlock Text="{Binding IsActive, Converter={x:Null}}" FontSize="{StaticResource FontSize.Small}">
+                                    <TextBlock FontSize="{StaticResource FontSize.Small}">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Setter Property="Text" Value="Active" />

@@ -1,4 +1,6 @@
+using System.Linq;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using NEXUS.Desktop.ViewModels;
 
@@ -56,6 +58,40 @@ public partial class MainWindow : Window
         if (e.OriginalSource == CommandPaletteOverlay)
         {
             _viewModel.IsCommandPaletteOpen = false;
+        }
+    }
+
+    private void OnCommandSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (sender is ListBox listBox && listBox.SelectedItem is CommandPaletteItem selectedItem)
+        {
+            selectedItem.Command?.Execute(null);
+            listBox.SelectedItem = null;
+            _viewModel.IsCommandPaletteOpen = false;
+        }
+    }
+
+    private void OnCommandItemClick(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is FrameworkElement element && element.DataContext is CommandPaletteItem item)
+        {
+            item.Command?.Execute(null);
+            _viewModel.IsCommandPaletteOpen = false;
+            e.Handled = true;
+        }
+    }
+
+    private void OnCommandQueryKeyDown(object sender, KeyEventArgs e)
+    {
+        if (e.Key == Key.Enter)
+        {
+            var firstCommand = _viewModel.FilteredCommands.FirstOrDefault();
+            if (firstCommand != null)
+            {
+                firstCommand.Command?.Execute(null);
+                _viewModel.IsCommandPaletteOpen = false;
+                e.Handled = true;
+            }
         }
     }
 }

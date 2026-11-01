@@ -47,7 +47,7 @@
                                 <StackPanel Grid.Column="0">
                                     <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
                                     <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                    <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" Visibility="{Binding ErrorMessage, Converter={x:Null}}" />
+                                    <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
                                 </StackPanel>
 
                                 <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
