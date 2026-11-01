@@ -51,7 +51,15 @@ public partial class App : System.Windows.Application
             var db = ServiceProvider.GetRequiredService<IDatabaseService>();
             await db.InitializeAsync();
 
-            // 2. Launch Main Window
+            // 2. Warm up Engine in background
+            try
+            {
+                var engine = ServiceProvider.GetService<IFileProcessingEngine>();
+                _ = engine?.CheckHealthAsync();
+            }
+            catch { }
+
+            // 3. Launch Main Window
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             MainWindow = mainWindow;
             ShutdownMode = ShutdownMode.OnMainWindowClose;
@@ -64,6 +72,19 @@ public partial class App : System.Windows.Application
             MessageBox.Show($"NEXUS Startup Exception:\n{ex.Message}\n\nStack:\n{ex.StackTrace}", "NEXUS Fatal Error", MessageBoxButton.OK, MessageBoxImage.Error);
             Shutdown(1);
         }
+    }
+
+    protected override void OnExit(ExitEventArgs e)
+    {
+        try
+        {
+            if (ServiceProvider is IDisposable disposable)
+            {
+                disposable.Dispose();
+            }
+        }
+        catch { }
+        base.OnExit(e);
     }
 
     private static void ConfigureServices(IServiceCollection services)

@@ -68,8 +68,12 @@ public class NamedPipeEngineClient : IFileProcessingEngine, IDisposable, IAsyncD
             var possiblePaths = new[]
             {
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "nexus-engine.exe"),
+                Path.Combine(Directory.GetCurrentDirectory(), "nexus-engine.exe"),
+                Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "processing-engine", "target", "release", "nexus-engine.exe"),
                 Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "..", "processing-engine", "target", "debug", "nexus-engine.exe"),
+                Path.Combine(Directory.GetCurrentDirectory(), "processing-engine", "target", "release", "nexus-engine.exe"),
                 Path.Combine(Directory.GetCurrentDirectory(), "processing-engine", "target", "debug", "nexus-engine.exe"),
+                Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "processing-engine", "target", "release", "nexus-engine.exe")),
                 Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "processing-engine", "target", "debug", "nexus-engine.exe"))
             };
 

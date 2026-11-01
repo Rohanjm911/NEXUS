@@ -40,16 +40,20 @@ if (-not (Test-Path $engineExe)) {
 }
 Write-Host "Found Processing Engine binary at: $engineExe" -ForegroundColor Green
 
-Write-Host "`n[3/4] Publishing NEXUS Desktop UI (.NET)..." -ForegroundColor Yellow
+Write-Host "`n[3/4] Publishing NEXUS Desktop UI (.NET Self-Contained Win-x64)..." -ForegroundColor Yellow
 $env:DOTNET_CLI_TELEMETRY_OPTOUT = 1
 $env:DOTNET_NOLOGO = 1
 
 $desktopProject = Join-Path $repoRoot "src\NEXUS.Desktop\NEXUS.Desktop.csproj"
-dotnet publish $desktopProject -c Release -m:1 --no-restore -o $distDir
+dotnet publish $desktopProject -c Release -r win-x64 --self-contained true -m:1 -o $distDir
 
 Write-Host "`n[4/4] Assembling Portable Bundle..." -ForegroundColor Yellow
 # Copy processing engine into distribution directory
 Copy-Item -Path $engineExe -Destination (Join-Path $distDir "nexus-engine.exe") -Force
+
+# Copy Launchers
+Copy-Item -Path (Join-Path $repoRoot "Launch-NEXUS.vbs") -Destination $distDir -Force
+Copy-Item -Path (Join-Path $repoRoot "Launch-NEXUS.bat") -Destination $distDir -Force
 
 # Copy Assets and Docs
 $assetsDir = Join-Path $repoRoot "assets"
