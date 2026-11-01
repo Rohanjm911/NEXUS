@@ -1,0 +1,67 @@
+<UserControl x:Class="NEXUS.Desktop.Views.AudioStudioView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
+             Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="32,24,32,32">
+            <TextBlock Text="AUDIO STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+            <TextBlock Text="Convert audio, adjust bitrates, sample rates and extract soundtracks" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,24" />
+
+            <!-- File Picker -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="SOURCE AUDIO" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceAudioPath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
+                    </StackPanel>
+                    <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseAudioCommand}" VerticalAlignment="Bottom" Margin="12,0,0,0" Height="36">
+                        <TextBlock Text="Browse Audio..." />
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Settings -->
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="AUDIO PARAMETERS" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="Target Bitrate (e.g. 320k, 192k, 128k)" FontSize="{StaticResource FontSize.Small}" Margin="0,0,0,4" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding Bitrate, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12" />
+
+                        <TextBlock Text="Sample Rate (Hz, e.g. 44100, 48000)" FontSize="{StaticResource FontSize.Small}" Margin="0,0,0,4" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SampleRate, UpdateSourceTrigger=PropertyChanged}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="OUTPUT FORMAT" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="36" Margin="0,0,0,16" />
+                        <TextBlock Text="FLAC: Lossless compression. MP3: Universal compatibility. AAC: High fidelity streaming." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <Border Style="{StaticResource NexusCardStyle}">
+                <Grid>
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessAudioCommand}" HorizontalAlignment="Right" Padding="24,10">
+                        <TextBlock Text="Process Audio" FontWeight="Bold" />
+                    </Button>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

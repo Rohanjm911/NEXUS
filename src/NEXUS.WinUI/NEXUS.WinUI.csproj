@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net11.0-windows</TargetFramework>
+    <RootNamespace>NEXUS.WinUI</RootNamespace>
+    <AssemblyName>NEXUS.WinUI</AssemblyName>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NEXUS.Core\NEXUS.Core.csproj" />
+  </ItemGroup>
+</Project>

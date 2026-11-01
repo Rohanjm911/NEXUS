@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net11.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>NEXUS.Desktop</RootNamespace>
+    <AssemblyName>NEXUS.Desktop</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NEXUS.Core\NEXUS.Core.csproj" />
+    <ProjectReference Include="..\NEXUS.Application\NEXUS.Application.csproj" />
+    <ProjectReference Include="..\NEXUS.Infrastructure\NEXUS.Infrastructure.csproj" />
+    <ProjectReference Include="..\NEXUS.ProcessingBridge\NEXUS.ProcessingBridge.csproj" />
+    <ProjectReference Include="..\NEXUS.Plugins\NEXUS.Plugins.csproj" />
+    <ProjectReference Include="..\NEXUS.WinUI\NEXUS.WinUI.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+  </ItemGroup>
+</Project>

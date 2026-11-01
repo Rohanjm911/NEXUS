@@ -1,0 +1,60 @@
+<UserControl x:Class="NEXUS.Desktop.Views.StorageAnalyzerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
+             Background="Transparent">
+
+    <Grid Margin="32,24,32,32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="STORAGE ANALYZER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+            <TextBlock Text="Inspect directory breakdown by media type, file counts, and storage space" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" Text="{Binding SelectedDirectory, TargetNullValue='No directory selected'}" VerticalAlignment="Center" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                <Button Grid.Column="1" Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ScanCommand}" Margin="12,0,0,0">
+                    <TextBlock Text="Select &amp; Scan Directory..." />
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}">
+            <ListBox ItemsSource="{Binding Stats}" Background="Transparent" BorderThickness="0">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="140" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="120" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBlock Grid.Column="0" Text="{Binding Category}" FontWeight="Bold" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="1" Text="{Binding TotalFiles, StringFormat={}{0:N0} files}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" VerticalAlignment="Center" />
+                                <TextBlock Grid.Column="2" Text="{Binding TotalSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" VerticalAlignment="Center" />
+
+                                <Grid Grid.Column="3" Margin="16,0,0,0" VerticalAlignment="Center">
+                                    <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding Percentage}" Maximum="100" Height="8" />
+                                    <TextBlock Text="{Binding Percentage, StringFormat={}{0:F1}%}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Right" Margin="0,-18,0,0" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Border>
+    </Grid>
+</UserControl>

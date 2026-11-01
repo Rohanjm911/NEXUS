@@ -1,0 +1,257 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Colors.xaml" />
+        <ResourceDictionary Source="Typography.xaml" />
+        <ResourceDictionary Source="Icons.xaml" />
+    </ResourceDictionary.MergedDictionaries>
+
+    <!-- Global Base Text Style -->
+    <Style TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+    </Style>
+
+    <!-- Window Control Buttons (Minimize, Maximize, Close) -->
+    <Style x:Key="WindowButtonStyle" TargetType="Button">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Secondary}" />
+        <Setter Property="Width" Value="46" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#1FFFFFFF" />
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#33FFFFFF" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WindowCloseButtonStyle" TargetType="Button" BasedOn="{StaticResource WindowButtonStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Status.Danger}" />
+                            <Setter Property="Foreground" Value="#FFFFFF" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#B22B29" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Primary Accent Button -->
+    <Style x:Key="PrimaryButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="FontWeight" Value="SemiBold" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.OnAccent}" />
+        <Setter Property="Background" Value="{StaticResource Brush.Accent.Primary}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Accent.Hover}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Accent.Pressed}" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Text.Disabled}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Secondary Dark Button -->
+    <Style x:Key="SecondaryButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Brush.Border.Subtle}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="14,8" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Background.Elevated}" />
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Brush.Border.Active}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="#30363D" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Navigation Sidebar Button -->
+    <Style x:Key="NavButtonStyle" TargetType="Button">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Secondary}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalContentAlignment" Value="Left" />
+        <Setter Property="Padding" Value="12,0" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" CornerRadius="6" Margin="4,2">
+                        <Grid>
+                            <Rectangle x:Name="ActivePill" Width="3" HorizontalAlignment="Left" Fill="{StaticResource Brush.Accent.Primary}" Visibility="Collapsed" RadiusX="1.5" RadiusY="1.5" Margin="2,6" />
+                            <ContentPresenter Margin="8,0" VerticalAlignment="Center" />
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+                        </Trigger>
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="Active">
+                            <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Accent.Muted}" />
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Accent.Hover}" />
+                            <Setter TargetName="ActivePill" Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Modern Dark Card Container -->
+    <Style x:Key="NexusCardStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Brush.Background.Secondary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Brush.Border.Subtle}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Padding" Value="16" />
+    </Style>
+
+    <!-- Modern Text Box -->
+    <Style x:Key="NexusTextBoxStyle" TargetType="TextBox">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+        <Setter Property="BorderBrush" Value="{StaticResource Brush.Border.Subtle}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="10,8" />
+        <Setter Property="CaretBrush" Value="{StaticResource Brush.Accent.Primary}" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border x:Name="Bd" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="6">
+                        <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="#58A6FF" />
+                        </Trigger>
+                        <Trigger Property="IsFocused" Value="True">
+                            <Setter TargetName="Bd" Property="BorderBrush" Value="{StaticResource Brush.Accent.Primary}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Smooth Progress Bar -->
+    <Style x:Key="NexusProgressBarStyle" TargetType="ProgressBar">
+        <Setter Property="Height" Value="6" />
+        <Setter Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Accent.Primary}" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ProgressBar">
+                    <Grid x:Name="Root">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="3" />
+                        <Border x:Name="PART_Track" />
+                        <Border x:Name="PART_Indicator" Background="{TemplateBinding Foreground}" CornerRadius="3" HorizontalAlignment="Left" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Modern Badge Style -->
+    <Style x:Key="NexusBadgeStyle" TargetType="Border">
+        <Setter Property="Background" Value="{StaticResource Brush.Accent.Muted}" />
+        <Setter Property="CornerRadius" Value="4" />
+        <Setter Property="Padding" Value="6,2" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+    </Style>
+
+    <!-- Modern Thin ScrollBar -->
+    <Style TargetType="ScrollBar">
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Tertiary}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Width" Value="8" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ScrollBar">
+                    <Grid x:Name="GridRoot" Width="8" Background="{TemplateBinding Background}">
+                        <Track x:Name="PART_Track" IsDirectionReversed="true">
+                            <Track.Thumb>
+                                <Thumb>
+                                    <Thumb.Template>
+                                        <ControlTemplate TargetType="Thumb">
+                                            <Border Background="#484F58" CornerRadius="4" />
+                                        </ControlTemplate>
+                                    </Thumb.Template>
+                                </Thumb>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>

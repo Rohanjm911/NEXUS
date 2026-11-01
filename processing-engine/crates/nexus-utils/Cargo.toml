@@ -1,0 +1,13 @@
+[package]
+name = "nexus-utils"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+nexus-core = { path = "../nexus-core" }
+sha2 = { workspace = true }
+hex = { workspace = true }
+base64 = { workspace = true }
+uuid = { workspace = true }
+anyhow = { workspace = true }
+walkdir = { workspace = true }

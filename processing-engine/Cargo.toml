@@ -1,0 +1,29 @@
+[workspace]
+members = [
+    "crates/nexus-core",
+    "crates/nexus-ipc",
+    "crates/nexus-utils",
+    "crates/nexus-image",
+    "crates/nexus-audio",
+    "crates/nexus-video",
+    "crates/nexus-pdf",
+    "crates/nexus-archive",
+    "crates/nexus-metadata",
+    "nexus-engine"
+]
+resolver = "2"
+
+[workspace.dependencies]
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.154"
+tokio = { version = "1.54.1", features = ["full"] }
+uuid = { version = "1.29.0", features = ["v4", "serde"] }
+chrono = { version = "0.4.45", features = ["serde"] }
+anyhow = "1.0.104"
+sha2 = "0.10.9"
+hex = "0.4.3"
+base64 = "0.23.1"
+image = { version = "0.25.10", default-features = false, features = ["png", "jpeg", "webp", "bmp", "tiff", "gif"] }
+tar = "0.4.46"
+flate2 = "1.1.10"
+walkdir = "2.5.0"

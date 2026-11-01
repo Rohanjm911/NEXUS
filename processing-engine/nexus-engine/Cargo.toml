@@ -1,0 +1,20 @@
+[package]
+name = "nexus-engine"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+nexus-core = { path = "../crates/nexus-core" }
+nexus-ipc = { path = "../crates/nexus-ipc" }
+nexus-utils = { path = "../crates/nexus-utils" }
+nexus-image = { path = "../crates/nexus-image" }
+nexus-audio = { path = "../crates/nexus-audio" }
+nexus-video = { path = "../crates/nexus-video" }
+nexus-pdf = { path = "../crates/nexus-pdf" }
+nexus-archive = { path = "../crates/nexus-archive" }
+nexus-metadata = { path = "../crates/nexus-metadata" }
+
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }

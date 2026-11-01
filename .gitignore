@@ -1,0 +1,21 @@
+# .NET / Visual Studio
+[Bb]in/
+[Oo]bj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+.vs/
+TestResults/
+*.db
+*.db-wal
+*.db-shm
+
+# Rust / Cargo
+processing-engine/target/
+**/*.rs.bk
+Cargo.lock
+
+# Distribution / Build output
+dist/
+*.log

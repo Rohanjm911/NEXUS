@@ -1,0 +1,53 @@
+<UserControl x:Class="NEXUS.Desktop.Views.ArchiveManagerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
+             Background="Transparent">
+
+    <Grid Margin="32,24,32,32">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <TextBlock Text="ARCHIVE MANAGER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+            <TextBlock Text="Create and inspect ZIP, 7Z, TAR, and GZ archives with path traversal protection" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+        </StackPanel>
+
+        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="ARCHIVE FORMAT:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,12,0" />
+                <ComboBox Grid.Column="1" SelectedValue="{Binding ArchiveFormat}" SelectedValuePath="Content" Height="34">
+                    <ComboBoxItem Content="zip" IsSelected="True" />
+                    <ComboBoxItem Content="7z" />
+                    <ComboBoxItem Content="tar.gz" />
+                </ComboBox>
+
+                <Button Grid.Column="3" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFilesCommand}">
+                    <TextBlock Text="Add Files to Archive..." />
+                </Button>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}">
+            <ListBox ItemsSource="{Binding FilesToArchive}" Background="Transparent" BorderThickness="0" />
+        </Border>
+
+        <Grid Grid.Row="3" Margin="0,16,0,0">
+            <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" />
+            <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding CreateArchiveCommand}" HorizontalAlignment="Right" Padding="24,10">
+                <TextBlock Text="Generate Archive" FontWeight="Bold" />
+            </Button>
+        </Grid>
+    </Grid>
+</UserControl>

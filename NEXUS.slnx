@@ -1,0 +1,17 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/NEXUS.Core/NEXUS.Core.csproj" />
+    <Project Path="src/NEXUS.Infrastructure/NEXUS.Infrastructure.csproj" />
+    <Project Path="src/NEXUS.ProcessingBridge/NEXUS.ProcessingBridge.csproj" />
+    <Project Path="src/NEXUS.Plugins/NEXUS.Plugins.csproj" />
+    <Project Path="src/NEXUS.Application/NEXUS.Application.csproj" />
+    <Project Path="src/NEXUS.WinUI/NEXUS.WinUI.csproj" />
+    <Project Path="src/NEXUS.Desktop/NEXUS.Desktop.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/NEXUS.UnitTests/NEXUS.UnitTests.csproj" />
+    <Project Path="tests/NEXUS.IntegrationTests/NEXUS.IntegrationTests.csproj" />
+    <Project Path="tests/NEXUS.PerformanceTests/NEXUS.PerformanceTests.csproj" />
+    <Project Path="tests/NEXUS.UITests/NEXUS.UITests.csproj" />
+  </Folder>
+</Solution>

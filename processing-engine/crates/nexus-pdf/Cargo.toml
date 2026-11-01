@@ -1,0 +1,13 @@
+[package]
+name = "nexus-pdf"
+version = "1.0.0"
+edition = "2021"
+
+[dependencies]
+nexus-core = { path = "../nexus-core" }
+nexus-utils = { path = "../nexus-utils" }
+nexus-image = { path = "../nexus-image" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+anyhow = { workspace = true }
+image = { workspace = true }

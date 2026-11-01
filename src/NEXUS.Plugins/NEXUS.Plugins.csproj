@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <RootNamespace>NEXUS.Plugins</RootNamespace>
+    <AssemblyName>NEXUS.Plugins</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NEXUS.Core\NEXUS.Core.csproj" />
+  </ItemGroup>
+</Project>

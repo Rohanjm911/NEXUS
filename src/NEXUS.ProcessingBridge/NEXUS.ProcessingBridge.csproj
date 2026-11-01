@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <RootNamespace>NEXUS.ProcessingBridge</RootNamespace>
+    <AssemblyName>NEXUS.ProcessingBridge</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NEXUS.Core\NEXUS.Core.csproj" />
+  </ItemGroup>
+</Project>

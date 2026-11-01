@@ -1,0 +1,69 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Obsidian Dark Theme Color Tokens -->
+    <Color x:Key="Color.Background.Primary">#0D1117</Color>
+    <Color x:Key="Color.Background.Secondary">#161B22</Color>
+    <Color x:Key="Color.Background.Tertiary">#21262D</Color>
+    <Color x:Key="Color.Background.Elevated">#1F242C</Color>
+    <Color x:Key="Color.Background.Sidebar">#090D12</Color>
+    <Color x:Key="Color.Background.DropZone">#12171F</Color>
+
+    <!-- Borders -->
+    <Color x:Key="Color.Border.Subtle">#30363D</Color>
+    <Color x:Key="Color.Border.Active">#58A6FF</Color>
+    <Color x:Key="Color.Border.DropZone">#388BFD</Color>
+
+    <!-- Electric Blue Accents -->
+    <Color x:Key="Color.Accent.Primary">#388BFD</Color>
+    <Color x:Key="Color.Accent.Hover">#58A6FF</Color>
+    <Color x:Key="Color.Accent.Pressed">#1F6FEB</Color>
+    <Color x:Key="Color.Accent.Muted">#1D2E49</Color>
+    <Color x:Key="Color.Accent.Glow">#20388BFD</Color>
+
+    <!-- Status Colors -->
+    <Color x:Key="Color.Status.Success">#238636</Color>
+    <Color x:Key="Color.Status.SuccessText">#3FB950</Color>
+    <Color x:Key="Color.Status.Warning">#D29922</Color>
+    <Color x:Key="Color.Status.Danger">#DA3633</Color>
+    <Color x:Key="Color.Status.DangerText">#F85149</Color>
+    <Color x:Key="Color.Status.Info">#58A6FF</Color>
+
+    <!-- Text Colors -->
+    <Color x:Key="Color.Text.Primary">#F0F6FC</Color>
+    <Color x:Key="Color.Text.Secondary">#8B949E</Color>
+    <Color x:Key="Color.Text.Tertiary">#6E7681</Color>
+    <Color x:Key="Color.Text.Disabled">#484F58</Color>
+    <Color x:Key="Color.Text.OnAccent">#FFFFFF</Color>
+
+    <!-- Solid Brushes -->
+    <SolidColorBrush x:Key="Brush.Background.Primary" Color="{StaticResource Color.Background.Primary}" />
+    <SolidColorBrush x:Key="Brush.Background.Secondary" Color="{StaticResource Color.Background.Secondary}" />
+    <SolidColorBrush x:Key="Brush.Background.Tertiary" Color="{StaticResource Color.Background.Tertiary}" />
+    <SolidColorBrush x:Key="Brush.Background.Elevated" Color="{StaticResource Color.Background.Elevated}" />
+    <SolidColorBrush x:Key="Brush.Background.Sidebar" Color="{StaticResource Color.Background.Sidebar}" />
+    <SolidColorBrush x:Key="Brush.Background.DropZone" Color="{StaticResource Color.Background.DropZone}" />
+
+    <SolidColorBrush x:Key="Brush.Border.Subtle" Color="{StaticResource Color.Border.Subtle}" />
+    <SolidColorBrush x:Key="Brush.Border.Active" Color="{StaticResource Color.Border.Active}" />
+
+    <SolidColorBrush x:Key="Brush.Accent.Primary" Color="{StaticResource Color.Accent.Primary}" />
+    <SolidColorBrush x:Key="Brush.Accent.Hover" Color="{StaticResource Color.Accent.Hover}" />
+    <SolidColorBrush x:Key="Brush.Accent.Pressed" Color="{StaticResource Color.Accent.Pressed}" />
+    <SolidColorBrush x:Key="Brush.Accent.Muted" Color="{StaticResource Color.Accent.Muted}" />
+    <SolidColorBrush x:Key="Brush.Accent.Glow" Color="{StaticResource Color.Accent.Glow}" />
+
+    <SolidColorBrush x:Key="Brush.Status.Success" Color="{StaticResource Color.Status.Success}" />
+    <SolidColorBrush x:Key="Brush.Status.SuccessText" Color="{StaticResource Color.Status.SuccessText}" />
+    <SolidColorBrush x:Key="Brush.Status.Warning" Color="{StaticResource Color.Status.Warning}" />
+    <SolidColorBrush x:Key="Brush.Status.Danger" Color="{StaticResource Color.Status.Danger}" />
+    <SolidColorBrush x:Key="Brush.Status.DangerText" Color="{StaticResource Color.Status.DangerText}" />
+    <SolidColorBrush x:Key="Brush.Status.Info" Color="{StaticResource Color.Status.Info}" />
+
+    <SolidColorBrush x:Key="Brush.Text.Primary" Color="{StaticResource Color.Text.Primary}" />
+    <SolidColorBrush x:Key="Brush.Text.Secondary" Color="{StaticResource Color.Text.Secondary}" />
+    <SolidColorBrush x:Key="Brush.Text.Tertiary" Color="{StaticResource Color.Text.Tertiary}" />
+    <SolidColorBrush x:Key="Brush.Text.Disabled" Color="{StaticResource Color.Text.Disabled}" />
+    <SolidColorBrush x:Key="Brush.Text.OnAccent" Color="{StaticResource Color.Text.OnAccent}" />
+
+</ResourceDictionary>
