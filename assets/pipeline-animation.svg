@@ -1,0 +1,163 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 260" width="100%" height="260">
+  <defs>
+    <style>
+      @keyframes dashFlow {
+        from { stroke-dashoffset: 40; }
+        to { stroke-dashoffset: 0; }
+      }
+      @keyframes pulseRing {
+        0% { r: 6px; opacity: 0.9; }
+        50% { r: 12px; opacity: 0.3; }
+        100% { r: 6px; opacity: 0.9; }
+      }
+      @keyframes glowNode {
+        0%, 100% { filter: drop-shadow(0 0 4px rgba(56, 139, 253, 0.4)); }
+        50% { filter: drop-shadow(0 0 12px rgba(56, 139, 253, 0.8)); }
+      }
+      @keyframes glowRust {
+        0%, 100% { filter: drop-shadow(0 0 4px rgba(229, 57, 53, 0.4)); }
+        50% { filter: drop-shadow(0 0 12px rgba(229, 57, 53, 0.8)); }
+      }
+      .flow-path {
+        stroke-dasharray: 8 6;
+        animation: dashFlow 1.2s linear infinite;
+      }
+      .flow-pulse {
+        animation: pulseRing 2s ease-in-out infinite;
+      }
+      .node-glow-blue {
+        animation: glowNode 3s ease-in-out infinite;
+      }
+      .node-glow-red {
+        animation: glowRust 3s ease-in-out infinite;
+      }
+      .label-title {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-weight: 700;
+        font-size: 13px;
+        fill: #FFFFFF;
+      }
+      .label-sub {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+        font-size: 11px;
+        fill: #8B949E;
+      }
+      .badge-text {
+        font-family: "Fira Code", monospace;
+        font-size: 10px;
+        font-weight: 600;
+      }
+    </style>
+
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0D1117" />
+      <stop offset="100%" stop-color="#161B22" />
+    </linearGradient>
+
+    <linearGradient id="cardGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#21262D" />
+      <stop offset="100%" stop-color="#161B22" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#388BFD" />
+      <stop offset="100%" stop-color="#58A6FF" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#58A6FF" />
+      <stop offset="100%" stop-color="#E53935" />
+    </linearGradient>
+
+    <linearGradient id="lineGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#E53935" />
+      <stop offset="100%" stop-color="#3FB950" />
+    </linearGradient>
+  </defs>
+
+  <!-- Container Box -->
+  <rect x="2" y="2" width="956" height="256" rx="12" fill="url(#bgGrad)" stroke="#30363D" stroke-width="1.5" />
+
+  <!-- Connecting Lines with Animated Dash Streams -->
+  <!-- Line 1 -> 2 -->
+  <line x1="210" y1="130" x2="280" y2="130" stroke="#30363D" stroke-width="3" stroke-linecap="round" />
+  <line x1="210" y1="130" x2="280" y2="130" stroke="url(#lineGrad1)" stroke-width="3" stroke-linecap="round" class="flow-path" />
+
+  <!-- Line 2 -> 3 -->
+  <line x1="450" y1="130" x2="520" y2="130" stroke="#30363D" stroke-width="3" stroke-linecap="round" />
+  <line x1="450" y1="130" x2="520" y2="130" stroke="url(#lineGrad2)" stroke-width="3" stroke-linecap="round" class="flow-path" />
+
+  <!-- Line 3 -> 4 -->
+  <line x1="690" y1="130" x2="760" y2="130" stroke="#30363D" stroke-width="3" stroke-linecap="round" />
+  <line x1="690" y1="130" x2="760" y2="130" stroke="url(#lineGrad3)" stroke-width="3" stroke-linecap="round" class="flow-path" />
+
+  <!-- Pulsing Flow Indicator Particles -->
+  <circle cx="245" cy="130" r="8" fill="#388BFD" opacity="0.3" class="flow-pulse" />
+  <circle cx="245" cy="130" r="4" fill="#58A6FF" />
+
+  <circle cx="485" cy="130" r="8" fill="#E53935" opacity="0.3" class="flow-pulse" />
+  <circle cx="485" cy="130" r="4" fill="#E53935" />
+
+  <circle cx="725" cy="130" r="8" fill="#3FB950" opacity="0.3" class="flow-pulse" />
+  <circle cx="725" cy="130" r="4" fill="#3FB950" />
+
+  <!-- Node 1: Ingestion & Drag-Drop -->
+  <g class="node-glow-blue">
+    <rect x="40" y="70" width="170" height="120" rx="10" fill="url(#cardGrad)" stroke="#388BFD" stroke-width="1.5" />
+    <circle cx="70" cy="100" r="14" fill="#388BFD" fill-opacity="0.2" />
+    <!-- Folder/File Icon -->
+    <path d="M63 94 h6 l2 2 h7 a2 2 0 0 1 2 2 v8 a2 2 0 0 1 -2 2 h-15 a2 2 0 0 1 -2 -2 v-10 a2 2 0 0 1 2 -2 z" fill="#388BFD" />
+    <text x="92" y="105" class="label-title">Drop Ingestion</text>
+    <text x="56" y="132" class="label-sub">MIME Detection</text>
+    <text x="56" y="150" class="label-sub">Smart Recommendations</text>
+    <rect x="56" y="162" width="75" height="18" rx="4" fill="#0D1117" />
+    <text x="64" y="174" fill="#58A6FF" class="badge-text">WPF C# 13</text>
+  </g>
+
+  <!-- Node 2: Named Pipe Streaming IPC -->
+  <g class="node-glow-blue">
+    <rect x="280" y="70" width="170" height="120" rx="10" fill="url(#cardGrad)" stroke="#58A6FF" stroke-width="1.5" />
+    <circle cx="310" cy="100" r="14" fill="#58A6FF" fill-opacity="0.2" />
+    <!-- Lightning/Bolt Icon -->
+    <path d="M312 90 L303 101 h6 l-3 9 11 -12 h-6 z" fill="#58A6FF" />
+    <text x="332" y="105" class="label-title">Named Pipe IPC</text>
+    <text x="296" y="132" class="label-sub">\\.\pipe\nexus-engine</text>
+    <text x="296" y="150" class="label-sub">Async JSON Streaming</text>
+    <rect x="296" y="162" width="92" height="18" rx="4" fill="#0D1117" />
+    <text x="304" y="174" fill="#58A6FF" class="badge-text">&lt; 1ms LATENCY</text>
+  </g>
+
+  <!-- Node 3: Rust Multi-Crate Engine -->
+  <g class="node-glow-red">
+    <rect x="520" y="70" width="170" height="120" rx="10" fill="url(#cardGrad)" stroke="#E53935" stroke-width="1.5" />
+    <circle cx="550" cy="100" r="14" fill="#E53935" fill-opacity="0.2" />
+    <!-- Gear/Core Icon -->
+    <path d="M545 96 a5 5 0 1 0 10 0 a5 5 0 1 0 -10 0 m-2 4 h14 v2 h-14 z" fill="#E53935" />
+    <text x="572" y="105" class="label-title">Tokio Daemon</text>
+    <text x="536" y="132" class="label-sub">Multi-Threaded Pool</text>
+    <text x="536" y="150" class="label-sub">Image / Audio / Video / PDF</text>
+    <rect x="536" y="162" width="95" height="18" rx="4" fill="#0D1117" />
+    <text x="544" y="174" fill="#E53935" class="badge-text">RUST 2021 CRATES</text>
+  </g>
+
+  <!-- Node 4: Validated Output Artifact -->
+  <g class="node-glow-blue">
+    <rect x="760" y="70" width="160" height="120" rx="10" fill="url(#cardGrad)" stroke="#3FB950" stroke-width="1.5" />
+    <circle cx="790" cy="100" r="14" fill="#3FB950" fill-opacity="0.2" />
+    <!-- Checkmark Shield Icon -->
+    <path d="M785 99 l3 3 l7 -7" stroke="#3FB950" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    <text x="812" y="105" class="label-title">Verified Output</text>
+    <text x="776" y="132" class="label-sub">Zip-Slip Traversal Safe</text>
+    <text x="776" y="150" class="label-sub">Metadata Stripped</text>
+    <rect x="776" y="162" width="98" height="18" rx="4" fill="#0D1117" />
+    <text x="784" y="174" fill="#3FB950" class="badge-text">100% OFFLINE</text>
+  </g>
+
+  <!-- Top Status Banner -->
+  <g>
+    <circle cx="50" cy="36" r="4" fill="#3FB950">
+      <animate attributeName="opacity" values="1;0.3;1" dur="1.5s" repeatCount="indefinite" />
+    </circle>
+    <text x="64" y="40" class="label-title" font-size="11" fill="#8B949E">PIPELINE ARCHITECTURE &amp; HIGH-THROUGHPUT IPC FLOW</text>
+  </g>
+</svg>

@@ -5,7 +5,12 @@
     <UseWPF>true</UseWPF>
     <RootNamespace>NEXUS.Desktop</RootNamespace>
     <AssemblyName>NEXUS.Desktop</AssemblyName>
+    <ApplicationIcon>Assets\app.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\**" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\NEXUS.Core\NEXUS.Core.csproj" />

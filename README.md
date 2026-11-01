@@ -2,9 +2,19 @@
 
 <div align="center">
 
+<img src="assets/logo.png" alt="NEXUS Logo" width="220" />
+
 ### Any Format. One Destination.
 
+<a href="#">
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=388BFD&center=true&vCenter=true&width=640&lines=Universal+File+Conversion+Studio;Offline-First+%E2%80%A2+100%25+Privacy-Focused;High-Performance+Rust+Tokio+Daemon;Zero+Cloud+Uploads+%E2%80%A2+Pure+Local+Power;Modern+Obsidian+Dark+WPF+Interface" alt="NEXUS Typing Animation" />
+</a>
+
+<br/>
+
 **NEXUS** is an enterprise-grade, privacy-focused, modular universal file conversion and processing desktop application engineered specifically for **Windows 10 and Windows 11**.
+
+<br/>
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6?logo=windows)](https://microsoft.com/windows)
 [![UI](https://img.shields.io/badge/UI-C%23%2013%20%7C%20.NET%2011%20WPF-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
@@ -16,7 +26,7 @@
 
 </div>
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Table of Contents
 
@@ -42,7 +52,7 @@
 - [Troubleshooting & Logs](#troubleshooting--logs)
 - [License](#license)
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Overview
 
@@ -50,9 +60,15 @@ Modern desktop workflows often force users to juggle ad-hoc web converters, bloa
 
 **NEXUS** replaces this fragmented experience with a single, high-performance, **100% offline-first command center**. By decoupling an expressive **Obsidian Dark WPF UI** from a native, multithreaded **Rust processing daemon (`nexus-engine.exe`)** via high-throughput **Windows Named Pipes**, NEXUS guarantees zero UI frame drops, robust memory safety, and complete data privacy.
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Architecture & Tech Stack
+
+<div align="center">
+  <img src="assets/pipeline-animation.svg" alt="NEXUS High-Throughput Pipeline Flow" width="100%" />
+</div>
+
+<br/>
 
 ```mermaid
 graph TD
@@ -102,7 +118,7 @@ graph TD
 | **Telemetry** | Win32 P/Invoke | Microsecond-accurate CPU usage via `GetSystemTimes` and physical RAM utilization via `GlobalMemoryStatusEx`. |
 | **Media Processing** | Rust + Native Tooling | Native Lanczos3 image resampling, multi-stream PDF stitching, safe TAR/GZ archive engines, and optional path-detected FFmpeg for audio/video transcoding. |
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## How to Launch & Run
 
@@ -122,7 +138,7 @@ Double-click **`Launch-NEXUS.bat`** (spawns the GUI and exits the terminal autom
 > [!NOTE]
 > When `NEXUS.Desktop.exe` initializes, it automatically verifies and launches the native `nexus-engine.exe` daemon in the background if it is not already running.
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Complete Application Modules
 
@@ -184,7 +200,7 @@ Double-click **`Launch-NEXUS.bat`** (spawns the GUI and exits the terminal autom
 ### 11. Storage Analyzer
 * **Disk Space Allocation Scanner:** Recursively scans specified directories to compute space breakdown across images, videos, audio, documents, archives, and code.
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Directory Layout
 
@@ -228,7 +244,7 @@ NEXUS/
     └── nexus-portable/           # Standalone portable distribution package
 ```
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Building from Source
 
@@ -270,7 +286,7 @@ Execute the automated release script:
 ```
 This builds both projects in Release mode, copies all dependencies and native runtimes into `dist/nexus-portable/`, and generates ready-to-run launchers.
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Automated Verification & Test Suite
 
@@ -289,7 +305,7 @@ The solution contains **33 automated tests** verifying every layer:
 ======================================================================
 ```
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Security & Privacy Standards
 
@@ -298,7 +314,7 @@ The solution contains **33 automated tests** verifying every layer:
 * **Memory Safety & Process Isolation:** Heavy processing runs inside the Rust engine daemon. Malformed or corrupted media files cannot crash the presentation layer.
 * **Safe Temporary File Cleanup:** All transient chunks and conversion artifacts are generated with unique GUID prefixes and purged automatically upon task completion.
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## Troubleshooting & Logs
 
@@ -309,7 +325,7 @@ The solution contains **33 automated tests** verifying every layer:
 | **Engine connection failure** | `nexus-engine.exe` blocked by security software | Check if `nexus-engine.exe` exists alongside `NEXUS.Desktop.exe` and allow local named pipes (`\\.\pipe\nexus-engine`). |
 | **Crash diagnosis** | Unhandled exception | Inspect `nexus_crash.log` in the application directory for complete call stacks and error details. |
 
----
+<img src="assets/animated-divider.svg" width="100%" height="8" />
 
 ## License
 

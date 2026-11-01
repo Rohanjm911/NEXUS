@@ -18,9 +18,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 
-                <StackPanel>
-                    <TextBlock Text="NEXUS COMMAND CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Primary}" />
-                    <TextBlock Text="Universal File Conversion &amp; Processing Engine • Offline &amp; Privacy-First" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Image Source="pack://application:,,,/Assets/logo.png" Width="52" Height="52" Margin="0,0,16,0" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
+                    <StackPanel VerticalAlignment="Center">
+                        <TextBlock Text="NEXUS COMMAND CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Primary}" />
+                        <TextBlock Text="Universal File Conversion &amp; Processing Engine • Offline &amp; Privacy-First" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                    </StackPanel>
                 </StackPanel>
 
                 <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" VerticalAlignment="Center">
