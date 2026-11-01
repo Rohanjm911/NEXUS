@@ -6,6 +6,7 @@ using NEXUS.Core.Enums;
 using NEXUS.Core.Interfaces;
 using NEXUS.Core.Models;
 using NEXUS.Core.Services;
+using NEXUS.Desktop.Services;
 using NEXUS.Desktop.ViewModels;
 using NEXUS.Infrastructure.Database;
 using NEXUS.Infrastructure.Repositories;
@@ -30,11 +31,15 @@ public class ViewModelTests : IDisposable
         services.AddLogging();
         services.AddNexusCoreAndInfrastructure(_testDbPath);
 
+        // Services
+        services.AddSingleton<IThemeService, ThemeService>();
+
         // Register ViewModels
         services.AddSingleton<MainViewModel>();
         services.AddTransient<DashboardViewModel>();
         services.AddTransient<UniversalConversionViewModel>();
         services.AddTransient<ImageStudioViewModel>();
+        services.AddTransient<ImageUpscalerViewModel>();
         services.AddTransient<AudioStudioViewModel>();
         services.AddTransient<VideoStudioViewModel>();
         services.AddTransient<PdfStudioViewModel>();
