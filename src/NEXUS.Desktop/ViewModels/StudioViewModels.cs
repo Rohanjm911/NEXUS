@@ -96,6 +96,7 @@ public class UniversalConversionViewModel : ViewModelBase
             QueuedItems.Clear();
             FilteredQueuedItems.Clear();
             SelectedTaskItem = null;
+            StatusMessage = "Queue cleared.";
         });
         StartConversionCommand = new AsyncRelayCommand(StartConversionAsync);
 
@@ -130,6 +131,65 @@ public class UniversalConversionViewModel : ViewModelBase
         Presets.Add("Maximum Master Quality");
         Presets.Add("Fast Streaming / Web");
         Presets.Add("Ultra Compressed");
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            var app = System.Windows.Application.Current;
+            if (app != null)
+            {
+                app.Dispatcher.InvokeAsync(() =>
+                {
+                    var existing = QueuedItems.FirstOrDefault(t => t.Id == progress.TaskId);
+                    if (existing != null)
+                    {
+                        existing.Status = progress.Status;
+                        existing.ProgressPercentage = progress.ProgressPercentage;
+                        existing.SpeedBytesPerSec = progress.SpeedBytesPerSec;
+
+                        if (progress.Status == ProcessingStatus.Completed)
+                        {
+                            StatusMessage = $"Completed '{existing.Name}'";
+                        }
+                        else if (progress.Status == ProcessingStatus.Failed)
+                        {
+                            StatusMessage = $"Failed '{existing.Name}': {progress.Message}";
+                        }
+                    }
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFiles(IEnumerable<string> files)
+    {
+        foreach (var file in files)
+        {
+            if (!File.Exists(file)) continue;
+            var detection = _formatDetector.DetectFormat(file);
+            var info = new FileInfo(file);
+
+            var item = new TaskItem
+            {
+                Name = info.Name,
+                SourceFilePath = file,
+                SourceFormat = detection.Extension,
+                TargetFormat = SelectedTargetFormat,
+                Category = detection.Category,
+                FileSizeBytes = info.Length,
+                Status = ProcessingStatus.Queued
+            };
+
+            QueuedItems.Add(item);
+        }
+
+        ApplyCategoryFilter();
+
+        if (SelectedTaskItem == null && FilteredQueuedItems.Count > 0)
+        {
+            SelectedTaskItem = FilteredQueuedItems[0];
+        }
+
+        StatusMessage = $"{QueuedItems.Count} files in conversion queue.";
     }
 
     private void AddFiles()
@@ -142,31 +202,7 @@ public class UniversalConversionViewModel : ViewModelBase
 
         if (dlg.ShowDialog() == true)
         {
-            foreach (var file in dlg.FileNames)
-            {
-                var detection = _formatDetector.DetectFormat(file);
-                var info = new FileInfo(file);
-
-                var item = new TaskItem
-                {
-                    Name = info.Name,
-                    SourceFilePath = file,
-                    SourceFormat = detection.Extension,
-                    TargetFormat = SelectedTargetFormat,
-                    Category = detection.Category,
-                    FileSizeBytes = info.Length,
-                    Status = ProcessingStatus.Queued
-                };
-
-                QueuedItems.Add(item);
-            }
-
-            ApplyCategoryFilter();
-
-            if (SelectedTaskItem == null && FilteredQueuedItems.Count > 0)
-            {
-                SelectedTaskItem = FilteredQueuedItems[0];
-            }
+            HandleDroppedFiles(dlg.FileNames);
         }
     }
 
@@ -197,15 +233,21 @@ public class UniversalConversionViewModel : ViewModelBase
 
     private async Task StartConversionAsync()
     {
-        if (QueuedItems.Count == 0) return;
+        if (QueuedItems.Count == 0)
+        {
+            StatusMessage = "No files in queue. Click 'Import Files...' or drag & drop files here.";
+            return;
+        }
+
+        var itemsToProcess = QueuedItems.Where(i => i.Status == ProcessingStatus.Queued || i.Status == ProcessingStatus.Failed).ToList();
+        if (itemsToProcess.Count == 0)
+        {
+            StatusMessage = "All queued files have already been processed.";
+            return;
+        }
 
         IsBusy = true;
-        StatusMessage = $"Submitting {QueuedItems.Count} tasks to processing engine...";
-
-        var itemsToProcess = QueuedItems.ToList();
-        QueuedItems.Clear();
-        FilteredQueuedItems.Clear();
-        SelectedTaskItem = null;
+        StatusMessage = $"Submitting {itemsToProcess.Count} tasks to processing engine...";
 
         foreach (var item in itemsToProcess)
         {
@@ -215,12 +257,13 @@ public class UniversalConversionViewModel : ViewModelBase
                 : (Path.GetDirectoryName(item.SourceFilePath) ?? "");
             var name = Path.GetFileNameWithoutExtension(item.SourceFilePath);
             item.OutputFilePath = Path.Combine(dir, $"{name}_converted.{SelectedTargetFormat}");
+            item.Status = ProcessingStatus.Processing;
 
             await _taskExecutionService.EnqueueAndProcessTaskAsync(item);
         }
 
         IsBusy = false;
-        StatusMessage = $"{itemsToProcess.Count} tasks submitted to engine successfully.";
+        StatusMessage = $"{itemsToProcess.Count} tasks running in processing engine.";
     }
 }
 
@@ -233,7 +276,34 @@ public class ImageStudioViewModel : ViewModelBase
     public string SourceImagePath
     {
         get => _sourceImagePath;
-        set => SetProperty(ref _sourceImagePath, value);
+        set
+        {
+            if (SetProperty(ref _sourceImagePath, value))
+            {
+                OnSourceImageChanged(value);
+            }
+        }
+    }
+
+    private string _originalDimensions = "-";
+    public string OriginalDimensions
+    {
+        get => _originalDimensions;
+        set => SetProperty(ref _originalDimensions, value);
+    }
+
+    private string _originalFileSize = "-";
+    public string OriginalFileSize
+    {
+        get => _originalFileSize;
+        set => SetProperty(ref _originalFileSize, value);
+    }
+
+    private bool _hasImageSelected;
+    public bool HasImageSelected
+    {
+        get => _hasImageSelected;
+        set => SetProperty(ref _hasImageSelected, value);
     }
 
     private int _targetWidth = 1920;
@@ -271,10 +341,25 @@ public class ImageStudioViewModel : ViewModelBase
         set => SetProperty(ref _stripMetadata, value);
     }
 
+    private string? _lastOutputFilePath;
+    public string? LastOutputFilePath
+    {
+        get => _lastOutputFilePath;
+        set => SetProperty(ref _lastOutputFilePath, value);
+    }
+
+    private bool _canOpenOutput;
+    public bool CanOpenOutput
+    {
+        get => _canOpenOutput;
+        set => SetProperty(ref _canOpenOutput, value);
+    }
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "webp", "png", "jpg", "avif", "bmp", "tiff", "gif" };
 
     public IRelayCommand BrowseImageCommand { get; }
     public IRelayCommand ProcessImageCommand { get; }
+    public IRelayCommand OpenOutputFolderCommand { get; }
 
     public ImageStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -295,9 +380,21 @@ public class ImageStudioViewModel : ViewModelBase
             }
         });
 
+        OpenOutputFolderCommand = new RelayCommand(() =>
+        {
+            if (!string.IsNullOrWhiteSpace(LastOutputFilePath) && File.Exists(LastOutputFilePath))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{LastOutputFilePath}\"");
+            }
+        });
+
         ProcessImageCommand = new AsyncRelayCommand(async () =>
         {
-            if (string.IsNullOrWhiteSpace(SourceImagePath) || !File.Exists(SourceImagePath)) return;
+            if (string.IsNullOrWhiteSpace(SourceImagePath) || !File.Exists(SourceImagePath))
+            {
+                StatusMessage = "Please select an image file first.";
+                return;
+            }
 
             var dir = Path.GetDirectoryName(SourceImagePath) ?? "";
             var name = Path.GetFileNameWithoutExtension(SourceImagePath);
@@ -322,9 +419,74 @@ public class ImageStudioViewModel : ViewModelBase
                 })
             };
 
+            Guid activeTaskId = task.Id;
+            LastOutputFilePath = outPath;
+            CanOpenOutput = false;
+            StatusMessage = "Processing image in Rust engine...";
+
             await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
-            StatusMessage = $"Image processing submitted to engine: '{Path.GetFileName(outPath)}'";
         });
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            if (!string.IsNullOrEmpty(LastOutputFilePath) && progress.Status == ProcessingStatus.Completed)
+            {
+                var app = System.Windows.Application.Current;
+                app?.Dispatcher.InvokeAsync(() =>
+                {
+                    CanOpenOutput = true;
+                    StatusMessage = $"Image processed successfully: '{Path.GetFileName(LastOutputFilePath)}'";
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFile(string path)
+    {
+        if (File.Exists(path))
+        {
+            SourceImagePath = path;
+        }
+    }
+
+    private void OnSourceImageChanged(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        {
+            HasImageSelected = false;
+            OriginalDimensions = "-";
+            OriginalFileSize = "-";
+            return;
+        }
+
+        try
+        {
+            var info = new FileInfo(path);
+            OriginalFileSize = $"{info.Length / 1024.0:F1} KB";
+
+            using var stream = File.OpenRead(path);
+            var decoder = System.Windows.Media.Imaging.BitmapDecoder.Create(
+                stream,
+                System.Windows.Media.Imaging.BitmapCreateOptions.DelayCreation,
+                System.Windows.Media.Imaging.BitmapCacheOption.None);
+
+            if (decoder.Frames.Count > 0)
+            {
+                var frame = decoder.Frames[0];
+                OriginalDimensions = $"{frame.PixelWidth} × {frame.PixelHeight} px";
+                TargetWidth = frame.PixelWidth;
+                TargetHeight = frame.PixelHeight;
+            }
+
+            HasImageSelected = true;
+            StatusMessage = $"Loaded image: {info.Name} ({OriginalDimensions})";
+        }
+        catch
+        {
+            HasImageSelected = true;
+            OriginalDimensions = "Custom";
+            StatusMessage = $"Selected image: {Path.GetFileName(path)}";
+        }
     }
 }
 
@@ -337,7 +499,27 @@ public class AudioStudioViewModel : ViewModelBase
     public string SourceAudioPath
     {
         get => _sourceAudioPath;
-        set => SetProperty(ref _sourceAudioPath, value);
+        set
+        {
+            if (SetProperty(ref _sourceAudioPath, value))
+            {
+                OnSourceAudioChanged(value);
+            }
+        }
+    }
+
+    private bool _hasAudioSelected;
+    public bool HasAudioSelected
+    {
+        get => _hasAudioSelected;
+        set => SetProperty(ref _hasAudioSelected, value);
+    }
+
+    private string _audioFileInfo = "-";
+    public string AudioFileInfo
+    {
+        get => _audioFileInfo;
+        set => SetProperty(ref _audioFileInfo, value);
     }
 
     private string _bitrate = "320k";
@@ -361,10 +543,25 @@ public class AudioStudioViewModel : ViewModelBase
         set => SetProperty(ref _targetFormat, value);
     }
 
+    private string? _lastOutputFilePath;
+    public string? LastOutputFilePath
+    {
+        get => _lastOutputFilePath;
+        set => SetProperty(ref _lastOutputFilePath, value);
+    }
+
+    private bool _canOpenOutput;
+    public bool CanOpenOutput
+    {
+        get => _canOpenOutput;
+        set => SetProperty(ref _canOpenOutput, value);
+    }
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "mp3", "wav", "flac", "aac", "ogg", "m4a", "wma" };
 
     public IRelayCommand BrowseAudioCommand { get; }
     public IRelayCommand ProcessAudioCommand { get; }
+    public IRelayCommand OpenOutputFolderCommand { get; }
 
     public AudioStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -385,9 +582,21 @@ public class AudioStudioViewModel : ViewModelBase
             }
         });
 
+        OpenOutputFolderCommand = new RelayCommand(() =>
+        {
+            if (!string.IsNullOrWhiteSpace(LastOutputFilePath) && File.Exists(LastOutputFilePath))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{LastOutputFilePath}\"");
+            }
+        });
+
         ProcessAudioCommand = new AsyncRelayCommand(async () =>
         {
-            if (string.IsNullOrWhiteSpace(SourceAudioPath) || !File.Exists(SourceAudioPath)) return;
+            if (string.IsNullOrWhiteSpace(SourceAudioPath) || !File.Exists(SourceAudioPath))
+            {
+                StatusMessage = "Please select an audio file first.";
+                return;
+            }
 
             var dir = Path.GetDirectoryName(SourceAudioPath) ?? "";
             var name = Path.GetFileNameWithoutExtension(SourceAudioPath);
@@ -406,9 +615,48 @@ public class AudioStudioViewModel : ViewModelBase
                 OptionsJson = JsonSerializer.Serialize(new { bitrate = Bitrate, sample_rate = SampleRate })
             };
 
+            LastOutputFilePath = outPath;
+            CanOpenOutput = false;
+            StatusMessage = "Processing audio stream...";
+
             await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
-            StatusMessage = $"Audio processing submitted: '{Path.GetFileName(outPath)}'";
         });
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            if (!string.IsNullOrEmpty(LastOutputFilePath) && progress.Status == ProcessingStatus.Completed)
+            {
+                var app = System.Windows.Application.Current;
+                app?.Dispatcher.InvokeAsync(() =>
+                {
+                    CanOpenOutput = true;
+                    StatusMessage = $"Audio processing completed: '{Path.GetFileName(LastOutputFilePath)}'";
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFile(string path)
+    {
+        if (File.Exists(path))
+        {
+            SourceAudioPath = path;
+        }
+    }
+
+    private void OnSourceAudioChanged(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        {
+            HasAudioSelected = false;
+            AudioFileInfo = "-";
+            return;
+        }
+
+        var info = new FileInfo(path);
+        AudioFileInfo = $"{info.Length / (1024.0 * 1024.0):F2} MB • {info.Extension.ToUpper().TrimStart('.')}";
+        HasAudioSelected = true;
+        StatusMessage = $"Selected audio: {info.Name} ({AudioFileInfo})";
     }
 }
 
@@ -421,7 +669,27 @@ public class VideoStudioViewModel : ViewModelBase
     public string SourceVideoPath
     {
         get => _sourceVideoPath;
-        set => SetProperty(ref _sourceVideoPath, value);
+        set
+        {
+            if (SetProperty(ref _sourceVideoPath, value))
+            {
+                OnSourceVideoChanged(value);
+            }
+        }
+    }
+
+    private bool _hasVideoSelected;
+    public bool HasVideoSelected
+    {
+        get => _hasVideoSelected;
+        set => SetProperty(ref _hasVideoSelected, value);
+    }
+
+    private string _videoFileInfo = "-";
+    public string VideoFileInfo
+    {
+        get => _videoFileInfo;
+        set => SetProperty(ref _videoFileInfo, value);
     }
 
     private string _resolution = "1920x1080";
@@ -438,10 +706,25 @@ public class VideoStudioViewModel : ViewModelBase
         set => SetProperty(ref _targetFormat, value);
     }
 
+    private string? _lastOutputFilePath;
+    public string? LastOutputFilePath
+    {
+        get => _lastOutputFilePath;
+        set => SetProperty(ref _lastOutputFilePath, value);
+    }
+
+    private bool _canOpenOutput;
+    public bool CanOpenOutput
+    {
+        get => _canOpenOutput;
+        set => SetProperty(ref _canOpenOutput, value);
+    }
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "mp4", "mkv", "mov", "avi", "webm" };
 
     public IRelayCommand BrowseVideoCommand { get; }
     public IRelayCommand ProcessVideoCommand { get; }
+    public IRelayCommand OpenOutputFolderCommand { get; }
 
     public VideoStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -462,9 +745,21 @@ public class VideoStudioViewModel : ViewModelBase
             }
         });
 
+        OpenOutputFolderCommand = new RelayCommand(() =>
+        {
+            if (!string.IsNullOrWhiteSpace(LastOutputFilePath) && File.Exists(LastOutputFilePath))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{LastOutputFilePath}\"");
+            }
+        });
+
         ProcessVideoCommand = new AsyncRelayCommand(async () =>
         {
-            if (string.IsNullOrWhiteSpace(SourceVideoPath) || !File.Exists(SourceVideoPath)) return;
+            if (string.IsNullOrWhiteSpace(SourceVideoPath) || !File.Exists(SourceVideoPath))
+            {
+                StatusMessage = "Please select a video file first.";
+                return;
+            }
 
             var dir = Path.GetDirectoryName(SourceVideoPath) ?? "";
             var name = Path.GetFileNameWithoutExtension(SourceVideoPath);
@@ -483,9 +778,48 @@ public class VideoStudioViewModel : ViewModelBase
                 OptionsJson = JsonSerializer.Serialize(new { resolution = Resolution })
             };
 
+            LastOutputFilePath = outPath;
+            CanOpenOutput = false;
+            StatusMessage = "Encoding video stream...";
+
             await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
-            StatusMessage = $"Video processing submitted: '{Path.GetFileName(outPath)}'";
         });
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            if (!string.IsNullOrEmpty(LastOutputFilePath) && progress.Status == ProcessingStatus.Completed)
+            {
+                var app = System.Windows.Application.Current;
+                app?.Dispatcher.InvokeAsync(() =>
+                {
+                    CanOpenOutput = true;
+                    StatusMessage = $"Video processed successfully: '{Path.GetFileName(LastOutputFilePath)}'";
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFile(string path)
+    {
+        if (File.Exists(path))
+        {
+            SourceVideoPath = path;
+        }
+    }
+
+    private void OnSourceVideoChanged(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path) || !File.Exists(path))
+        {
+            HasVideoSelected = false;
+            VideoFileInfo = "-";
+            return;
+        }
+
+        var info = new FileInfo(path);
+        VideoFileInfo = $"{info.Length / (1024.0 * 1024.0):F2} MB • {info.Extension.ToUpper().TrimStart('.')}";
+        HasVideoSelected = true;
+        StatusMessage = $"Selected video: {info.Name} ({VideoFileInfo})";
     }
 }
 
@@ -496,9 +830,25 @@ public class PdfStudioViewModel : ViewModelBase
 
     public ObservableCollection<string> PdfFiles { get; } = new();
 
+    private string? _lastOutputFilePath;
+    public string? LastOutputFilePath
+    {
+        get => _lastOutputFilePath;
+        set => SetProperty(ref _lastOutputFilePath, value);
+    }
+
+    private bool _canOpenOutput;
+    public bool CanOpenOutput
+    {
+        get => _canOpenOutput;
+        set => SetProperty(ref _canOpenOutput, value);
+    }
+
     public IRelayCommand AddPdfCommand { get; }
+    public IRelayCommand<string> RemovePdfCommand { get; }
     public IRelayCommand ClearPdfCommand { get; }
     public IRelayCommand MergePdfCommand { get; }
+    public IRelayCommand OpenOutputFolderCommand { get; }
 
     public PdfStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -516,11 +866,32 @@ public class PdfStudioViewModel : ViewModelBase
             };
             if (dlg.ShowDialog() == true)
             {
-                foreach (var f in dlg.FileNames) PdfFiles.Add(f);
+                HandleDroppedFiles(dlg.FileNames);
             }
         });
 
-        ClearPdfCommand = new RelayCommand(PdfFiles.Clear);
+        RemovePdfCommand = new RelayCommand<string>(path =>
+        {
+            if (path != null && PdfFiles.Contains(path))
+            {
+                PdfFiles.Remove(path);
+                StatusMessage = $"{PdfFiles.Count} PDF documents queued.";
+            }
+        });
+
+        ClearPdfCommand = new RelayCommand(() =>
+        {
+            PdfFiles.Clear();
+            StatusMessage = "PDF list cleared.";
+        });
+
+        OpenOutputFolderCommand = new RelayCommand(() =>
+        {
+            if (!string.IsNullOrWhiteSpace(LastOutputFilePath) && File.Exists(LastOutputFilePath))
+            {
+                System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{LastOutputFilePath}\"");
+            }
+        });
 
         MergePdfCommand = new AsyncRelayCommand(async () =>
         {
@@ -546,10 +917,42 @@ public class PdfStudioViewModel : ViewModelBase
                 OptionsJson = JsonSerializer.Serialize(new { files = PdfFiles.ToArray(), operation = "merge" })
             };
 
+            LastOutputFilePath = outPath;
+            CanOpenOutput = false;
+            StatusMessage = "Merging PDF documents...";
+
             await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
-            PdfFiles.Clear();
-            StatusMessage = "PDF Merge task submitted to processing engine.";
         });
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            if (!string.IsNullOrEmpty(LastOutputFilePath) && progress.Status == ProcessingStatus.Completed)
+            {
+                var app = System.Windows.Application.Current;
+                app?.Dispatcher.InvokeAsync(() =>
+                {
+                    CanOpenOutput = true;
+                    StatusMessage = $"PDF merge completed: '{Path.GetFileName(LastOutputFilePath)}'";
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFiles(IEnumerable<string> files)
+    {
+        int added = 0;
+        foreach (var f in files)
+        {
+            if (File.Exists(f) && string.Equals(Path.GetExtension(f), ".pdf", StringComparison.OrdinalIgnoreCase))
+            {
+                if (!PdfFiles.Contains(f))
+                {
+                    PdfFiles.Add(f);
+                    added++;
+                }
+            }
+        }
+        StatusMessage = $"{PdfFiles.Count} PDF documents queued.";
     }
 }
 
@@ -559,6 +962,14 @@ public class ArchiveManagerViewModel : ViewModelBase
     private readonly ITaskRepository _taskRepository;
 
     public ObservableCollection<string> FilesToArchive { get; } = new();
+
+    private bool _isExtractMode;
+    public bool IsExtractMode
+    {
+        get => _isExtractMode;
+        set => SetProperty(ref _isExtractMode, value);
+    }
+
     private string _archiveFormat = "tar.gz";
     public string ArchiveFormat
     {
@@ -566,11 +977,45 @@ public class ArchiveManagerViewModel : ViewModelBase
         set => SetProperty(ref _archiveFormat, value);
     }
 
+    private string _extractSourcePath = string.Empty;
+    public string ExtractSourcePath
+    {
+        get => _extractSourcePath;
+        set => SetProperty(ref _extractSourcePath, value);
+    }
+
+    private string _extractDestinationPath = string.Empty;
+    public string ExtractDestinationPath
+    {
+        get => _extractDestinationPath;
+        set => SetProperty(ref _extractDestinationPath, value);
+    }
+
+    private string? _lastOutputFilePath;
+    public string? LastOutputFilePath
+    {
+        get => _lastOutputFilePath;
+        set => SetProperty(ref _lastOutputFilePath, value);
+    }
+
+    private bool _canOpenOutput;
+    public bool CanOpenOutput
+    {
+        get => _canOpenOutput;
+        set => SetProperty(ref _canOpenOutput, value);
+    }
+
     public ObservableCollection<string> SupportedArchiveFormats { get; } = new() { "tar.gz", "tar", "zip" };
 
     public IRelayCommand AddFilesCommand { get; }
+    public IRelayCommand<string> RemoveFileCommand { get; }
     public IRelayCommand ClearFilesCommand { get; }
     public IRelayCommand CreateArchiveCommand { get; }
+    public IRelayCommand BrowseExtractSourceCommand { get; }
+    public IRelayCommand BrowseExtractDestinationCommand { get; }
+    public IRelayCommand ExtractArchiveCommand { get; }
+    public IRelayCommand ToggleModeCommand { get; }
+    public IRelayCommand OpenOutputFolderCommand { get; }
 
     public ArchiveManagerViewModel(
         ITaskExecutionService taskExecutionService,
@@ -579,20 +1024,90 @@ public class ArchiveManagerViewModel : ViewModelBase
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
 
+        ToggleModeCommand = new RelayCommand(() =>
+        {
+            IsExtractMode = !IsExtractMode;
+            StatusMessage = IsExtractMode ? "Extract Archive mode active." : "Create Archive mode active.";
+        });
+
         AddFilesCommand = new RelayCommand(() =>
         {
             var dlg = new Microsoft.Win32.OpenFileDialog { Multiselect = true, Title = "Select Files for Archive" };
             if (dlg.ShowDialog() == true)
             {
-                foreach (var f in dlg.FileNames) FilesToArchive.Add(f);
+                HandleDroppedFiles(dlg.FileNames);
             }
         });
 
-        ClearFilesCommand = new RelayCommand(FilesToArchive.Clear);
+        RemoveFileCommand = new RelayCommand<string>(file =>
+        {
+            if (file != null && FilesToArchive.Contains(file))
+            {
+                FilesToArchive.Remove(file);
+                StatusMessage = $"{FilesToArchive.Count} files in archive queue.";
+            }
+        });
+
+        ClearFilesCommand = new RelayCommand(() =>
+        {
+            FilesToArchive.Clear();
+            StatusMessage = "Archive file queue cleared.";
+        });
+
+        BrowseExtractSourceCommand = new RelayCommand(() =>
+        {
+            var dlg = new Microsoft.Win32.OpenFileDialog
+            {
+                Filter = "Archive Files (*.tar.gz;*.tar;*.zip)|*.tar.gz;*.tar;*.zip|All Files (*.*)|*.*",
+                Title = "Select Archive to Extract"
+            };
+            if (dlg.ShowDialog() == true)
+            {
+                ExtractSourcePath = dlg.FileName;
+                if (string.IsNullOrWhiteSpace(ExtractDestinationPath))
+                {
+                    var dir = Path.GetDirectoryName(dlg.FileName) ?? "";
+                    var name = Path.GetFileNameWithoutExtension(dlg.FileName);
+                    if (name.EndsWith(".tar", StringComparison.OrdinalIgnoreCase))
+                    {
+                        name = Path.GetFileNameWithoutExtension(name);
+                    }
+                    ExtractDestinationPath = Path.Combine(dir, $"{name}_extracted");
+                }
+            }
+        });
+
+        BrowseExtractDestinationCommand = new RelayCommand(() =>
+        {
+            var dlg = new Microsoft.Win32.OpenFolderDialog { Title = "Select Destination Folder" };
+            if (dlg.ShowDialog() == true)
+            {
+                ExtractDestinationPath = dlg.FolderName;
+            }
+        });
+
+        OpenOutputFolderCommand = new RelayCommand(() =>
+        {
+            if (!string.IsNullOrWhiteSpace(LastOutputFilePath))
+            {
+                if (Directory.Exists(LastOutputFilePath))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", $"\"{LastOutputFilePath}\"");
+                }
+                else if (File.Exists(LastOutputFilePath))
+                {
+                    System.Diagnostics.Process.Start("explorer.exe", $"/select,\"{LastOutputFilePath}\"");
+                }
+            }
+        });
 
         CreateArchiveCommand = new AsyncRelayCommand(async () =>
         {
-            if (FilesToArchive.Count == 0) return;
+            if (FilesToArchive.Count == 0)
+            {
+                StatusMessage = "Please add files to create an archive.";
+                return;
+            }
 
             var first = FilesToArchive[0];
             var dir = Path.GetDirectoryName(first) ?? "";
@@ -611,10 +1126,82 @@ public class ArchiveManagerViewModel : ViewModelBase
                 OptionsJson = JsonSerializer.Serialize(new { files = FilesToArchive.ToArray(), operation = "create" })
             };
 
+            LastOutputFilePath = outPath;
+            CanOpenOutput = false;
+            StatusMessage = $"Creating {ArchiveFormat.ToUpper()} archive in Rust engine...";
+
             await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
-            FilesToArchive.Clear();
-            StatusMessage = "Archive creation task submitted to engine.";
         });
+
+        ExtractArchiveCommand = new AsyncRelayCommand(async () =>
+        {
+            if (string.IsNullOrWhiteSpace(ExtractSourcePath) || !File.Exists(ExtractSourcePath))
+            {
+                StatusMessage = "Please select a valid archive file to extract.";
+                return;
+            }
+
+            var dest = string.IsNullOrWhiteSpace(ExtractDestinationPath)
+                ? Path.Combine(Path.GetDirectoryName(ExtractSourcePath) ?? "", "Extracted")
+                : ExtractDestinationPath;
+
+            var task = new TaskItem
+            {
+                Name = $"Extract {Path.GetFileName(ExtractSourcePath)}",
+                SourceFilePath = ExtractSourcePath,
+                OutputFilePath = dest,
+                SourceFormat = Path.GetExtension(ExtractSourcePath).TrimStart('.'),
+                TargetFormat = "directory",
+                Category = FileCategory.Archive,
+                Status = ProcessingStatus.Queued,
+                OptionsJson = JsonSerializer.Serialize(new { operation = "extract" })
+            };
+
+            LastOutputFilePath = dest;
+            CanOpenOutput = false;
+            StatusMessage = "Extracting archive safely...";
+
+            await _taskExecutionService.EnqueueAndProcessTaskAsync(task);
+        });
+
+        _taskExecutionService.TaskProgressUpdated += (s, progress) =>
+        {
+            if (!string.IsNullOrEmpty(LastOutputFilePath) && progress.Status == ProcessingStatus.Completed)
+            {
+                var app = System.Windows.Application.Current;
+                app?.Dispatcher.InvokeAsync(() =>
+                {
+                    CanOpenOutput = true;
+                    StatusMessage = $"Archive operation completed: '{Path.GetFileName(LastOutputFilePath)}'";
+                });
+            }
+        };
+    }
+
+    public void HandleDroppedFiles(IEnumerable<string> files)
+    {
+        var list = files.ToList();
+        if (list.Count == 1 && (list[0].EndsWith(".tar.gz", StringComparison.OrdinalIgnoreCase) ||
+                                list[0].EndsWith(".tar", StringComparison.OrdinalIgnoreCase) ||
+                                list[0].EndsWith(".zip", StringComparison.OrdinalIgnoreCase)))
+        {
+            IsExtractMode = true;
+            ExtractSourcePath = list[0];
+            var dir = Path.GetDirectoryName(list[0]) ?? "";
+            var name = Path.GetFileNameWithoutExtension(list[0]);
+            ExtractDestinationPath = Path.Combine(dir, $"{name}_extracted");
+            StatusMessage = $"Archive loaded for extraction: {Path.GetFileName(list[0])}";
+            return;
+        }
+
+        foreach (var f in list)
+        {
+            if (File.Exists(f) && !FilesToArchive.Contains(f))
+            {
+                FilesToArchive.Add(f);
+            }
+        }
+        StatusMessage = $"{FilesToArchive.Count} files in archive queue.";
     }
 }
 

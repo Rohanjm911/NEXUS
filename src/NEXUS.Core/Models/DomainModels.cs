@@ -1,23 +1,108 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using NEXUS.Core.Enums;
 
 namespace NEXUS.Core.Models;
 
-public class TaskItem
+public class TaskItem : INotifyPropertyChanged
 {
+    public event PropertyChangedEventHandler? PropertyChanged;
+    protected void OnPropertyChanged([CallerMemberName] string? propName = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
+
     public Guid Id { get; set; } = Guid.NewGuid();
-    public string Name { get; set; } = string.Empty;
-    public string SourceFilePath { get; set; } = string.Empty;
-    public string OutputFilePath { get; set; } = string.Empty;
-    public string SourceFormat { get; set; } = string.Empty;
-    public string TargetFormat { get; set; } = string.Empty;
-    public FileCategory Category { get; set; } = FileCategory.Unknown;
-    public ProcessingStatus Status { get; set; } = ProcessingStatus.Queued;
-    public double ProgressPercentage { get; set; }
-    public double SpeedBytesPerSec { get; set; }
-    public long FileSizeBytes { get; set; }
-    public long OutputSizeBytes { get; set; }
-    public PriorityLevel Priority { get; set; } = PriorityLevel.Normal;
-    public string? ErrorMessage { get; set; }
+    
+    private string _name = string.Empty;
+    public string Name
+    {
+        get => _name;
+        set { if (_name != value) { _name = value; OnPropertyChanged(); } }
+    }
+
+    private string _sourceFilePath = string.Empty;
+    public string SourceFilePath
+    {
+        get => _sourceFilePath;
+        set { if (_sourceFilePath != value) { _sourceFilePath = value; OnPropertyChanged(); } }
+    }
+
+    private string _outputFilePath = string.Empty;
+    public string OutputFilePath
+    {
+        get => _outputFilePath;
+        set { if (_outputFilePath != value) { _outputFilePath = value; OnPropertyChanged(); } }
+    }
+
+    private string _sourceFormat = string.Empty;
+    public string SourceFormat
+    {
+        get => _sourceFormat;
+        set { if (_sourceFormat != value) { _sourceFormat = value; OnPropertyChanged(); } }
+    }
+
+    private string _targetFormat = string.Empty;
+    public string TargetFormat
+    {
+        get => _targetFormat;
+        set { if (_targetFormat != value) { _targetFormat = value; OnPropertyChanged(); } }
+    }
+
+    private FileCategory _category = FileCategory.Unknown;
+    public FileCategory Category
+    {
+        get => _category;
+        set { if (_category != value) { _category = value; OnPropertyChanged(); } }
+    }
+
+    private ProcessingStatus _status = ProcessingStatus.Queued;
+    public ProcessingStatus Status
+    {
+        get => _status;
+        set { if (_status != value) { _status = value; OnPropertyChanged(); } }
+    }
+
+    private double _progressPercentage;
+    public double ProgressPercentage
+    {
+        get => _progressPercentage;
+        set { if (Math.Abs(_progressPercentage - value) > 0.001) { _progressPercentage = value; OnPropertyChanged(); } }
+    }
+
+    private double _speedBytesPerSec;
+    public double SpeedBytesPerSec
+    {
+        get => _speedBytesPerSec;
+        set { if (Math.Abs(_speedBytesPerSec - value) > 0.001) { _speedBytesPerSec = value; OnPropertyChanged(); } }
+    }
+
+    private long _fileSizeBytes;
+    public long FileSizeBytes
+    {
+        get => _fileSizeBytes;
+        set { if (_fileSizeBytes != value) { _fileSizeBytes = value; OnPropertyChanged(); } }
+    }
+
+    private long _outputSizeBytes;
+    public long OutputSizeBytes
+    {
+        get => _outputSizeBytes;
+        set { if (_outputSizeBytes != value) { _outputSizeBytes = value; OnPropertyChanged(); } }
+    }
+
+    private PriorityLevel _priority = PriorityLevel.Normal;
+    public PriorityLevel Priority
+    {
+        get => _priority;
+        set { if (_priority != value) { _priority = value; OnPropertyChanged(); } }
+    }
+
+    private string? _errorMessage;
+    public string? ErrorMessage
+    {
+        get => _errorMessage;
+        set { if (_errorMessage != value) { _errorMessage = value; OnPropertyChanged(); } }
+    }
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     public DateTime? StartedAt { get; set; }
     public DateTime? CompletedAt { get; set; }

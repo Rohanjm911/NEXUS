@@ -108,20 +108,20 @@ public partial class App : System.Windows.Application
         // Services
         services.AddSingleton<IThemeService, ThemeService>();
 
-        // ViewModels
+        // ViewModels (Singletons ensure tabs retain file lists, queue state, and settings across navigation)
         services.AddSingleton<MainViewModel>();
-        services.AddTransient<DashboardViewModel>();
-        services.AddTransient<UniversalConversionViewModel>();
-        services.AddTransient<ImageStudioViewModel>();
-        services.AddTransient<AudioStudioViewModel>();
-        services.AddTransient<VideoStudioViewModel>();
-        services.AddTransient<PdfStudioViewModel>();
-        services.AddTransient<ArchiveManagerViewModel>();
-        services.AddTransient<DevToolkitViewModel>();
-        services.AddTransient<ProcessingCenterViewModel>();
-        services.AddTransient<AutomationCenterViewModel>();
-        services.AddTransient<StorageAnalyzerViewModel>();
-        services.AddTransient<SettingsViewModel>();
+        services.AddSingleton<DashboardViewModel>();
+        services.AddSingleton<UniversalConversionViewModel>();
+        services.AddSingleton<ImageStudioViewModel>();
+        services.AddSingleton<AudioStudioViewModel>();
+        services.AddSingleton<VideoStudioViewModel>();
+        services.AddSingleton<PdfStudioViewModel>();
+        services.AddSingleton<ArchiveManagerViewModel>();
+        services.AddSingleton<DevToolkitViewModel>();
+        services.AddSingleton<ProcessingCenterViewModel>();
+        services.AddSingleton<AutomationCenterViewModel>();
+        services.AddSingleton<StorageAnalyzerViewModel>();
+        services.AddSingleton<SettingsViewModel>();
 
         // Views
         services.AddSingleton<MainWindow>();
