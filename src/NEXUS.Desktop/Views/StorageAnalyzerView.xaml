@@ -48,8 +48,12 @@
                                     <TextBlock Grid.Column="2" Text="{Binding TotalSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" VerticalAlignment="Center" />
 
                                     <Grid Grid.Column="3" Margin="16,0,0,0" VerticalAlignment="Center">
-                                        <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding Percentage}" Maximum="100" Height="8" />
-                                        <TextBlock Text="{Binding Percentage, StringFormat={}{0:F1}%}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Right" Margin="0,-18,0,0" />
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="50" />
+                                        </Grid.ColumnDefinitions>
+                                        <ProgressBar Grid.Column="0" Style="{StaticResource NexusProgressBarStyle}" Value="{Binding Percentage}" Maximum="100" Height="8" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                        <TextBlock Grid.Column="1" Text="{Binding Percentage, StringFormat={}{0:F1}%}" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" VerticalAlignment="Center" />
                                     </Grid>
                                 </Grid>
                             </Border>

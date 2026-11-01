@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
         xmlns:views="clr-namespace:NEXUS.Desktop.Views"
+        xmlns:converters="clr-namespace:NEXUS.Desktop.Converters"
         mc:Ignorable="d"
         Title="NEXUS — Any Format. One Destination." 
         Icon="Assets/app.ico"
@@ -30,6 +31,7 @@
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BoolToVisConverter" />
+        <converters:StringEqualsConverter x:Key="StringEqualsConverter" />
 
         <!-- DataTemplates mapping ViewModels to Views -->
         <DataTemplate DataType="{x:Type vm:DashboardViewModel}">
@@ -97,7 +99,7 @@
                         </StackPanel>
 
                         <!-- Global Command Palette Search Bar Trigger -->
-                        <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleCommandPaletteCommand}" HorizontalAlignment="Center" Width="440" Height="28" Padding="10,0" WindowChrome.IsHitTestVisibleInChrome="True">
+                        <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleCommandPaletteCommand}" HorizontalAlignment="Center" Width="440" Height="30" Padding="10,0" WindowChrome.IsHitTestVisibleInChrome="True">
                             <Grid Width="420">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Path Data="{StaticResource Icon.Search}" Fill="{StaticResource Brush.Text.Tertiary}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,8,0" />
@@ -153,56 +155,56 @@
                                 <StackPanel Margin="8,12,8,8">
                                     <TextBlock Text="STUDIOS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="12,6,0,6" />
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" Tag="{Binding CurrentViewName}">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Dashboard}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Dashboard}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Command Center" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Universal">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Universal" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Universal}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Universal Studio" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Image">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Image" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Image}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Image Studio" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Audio">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Audio" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Audio}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Audio}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Audio Studio" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Video">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Video" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Video}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Video}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Video Studio" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Pdf">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Pdf" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Pdf}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Pdf}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="PDF Studio" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Archive">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Archive" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Archive}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Archive}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Archive Manager" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="DevTools">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="DevTools" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=DevTools}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Code}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Developer Toolkit" />
@@ -211,7 +213,7 @@
 
                                     <TextBlock Text="MANAGEMENT" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="12,18,0,6" />
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Processing">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Processing" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Processing}">
                                         <Grid Width="200">
                                             <StackPanel Orientation="Horizontal">
                                                 <Path Data="{StaticResource Icon.Queue}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
@@ -223,14 +225,14 @@
                                         </Grid>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Automation">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Automation" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Automation}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Automation}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Automation Center" />
                                         </StackPanel>
                                     </Button>
 
-                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Storage">
+                                    <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Storage" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Storage}">
                                         <StackPanel Orientation="Horizontal">
                                             <Path Data="{StaticResource Icon.Storage}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Storage Analyzer" />
@@ -241,7 +243,7 @@
 
                             <!-- Bottom Settings Button -->
                             <Border Grid.Row="1" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,1,0,0" Padding="8,8">
-                                <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Settings">
+                                <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Settings" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Settings}">
                                     <StackPanel Orientation="Horizontal">
                                         <Path Data="{StaticResource Icon.Settings}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                         <TextBlock Text="Settings &amp; Info" />

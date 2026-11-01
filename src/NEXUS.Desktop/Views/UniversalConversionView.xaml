@@ -17,80 +17,100 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-        <!-- Header -->
-        <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="UNIVERSAL CONVERSION STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Batch convert across Images, Audio, Video, Documents and Archives" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-        </StackPanel>
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,24">
+                <TextBlock Text="UNIVERSAL CONVERSION STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Batch convert across Images, Audio, Video, Documents and Archives with Rust Tokio speed" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
-        <!-- Configuration Bar -->
-        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="180" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <!-- Configuration Bar -->
+            <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="200" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Column="0" Text="TARGET FORMAT:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,12,0" />
-                <ComboBox Grid.Column="1" ItemsSource="{Binding TargetFormats}" SelectedItem="{Binding SelectedTargetFormat}" Height="34" VerticalAlignment="Center" />
+                    <TextBlock Grid.Column="0" Text="TARGET FORMAT:" FontWeight="SemiBold" VerticalAlignment="Center" Margin="0,0,14,0" />
+                    <ComboBox Grid.Column="1" ItemsSource="{Binding TargetFormats}" SelectedItem="{Binding SelectedTargetFormat}" Height="38" VerticalAlignment="Center" />
 
-                <StackPanel Grid.Column="3" Orientation="Horizontal">
-                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFilesCommand}" Margin="0,0,8,0">
+                    <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFilesCommand}" Height="38" Padding="18,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Add Files..." FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearQueueCommand}" Height="38" Padding="14,0">
+                            <TextBlock Text="Clear List" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Queue Items List -->
+            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="260">
+                <Grid>
+                    <ListBox ItemsSource="{Binding QueuedItems}" Background="Transparent" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,10">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="120" />
+                                            <ColumnDefinition Width="140" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding SourceFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" />
+                                        </StackPanel>
+
+                                        <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding SourceFormat, StringFormat={}.{0}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                                        </Border>
+
+                                        <TextBlock Grid.Column="2" Text="{Binding FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Empty State Placeholder -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,32">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding QueuedItems.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                        <TextBlock Text="No conversion items in queue" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="Click 'Add Files...' or drag &amp; drop files to start universal batch conversion" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Action Footer -->
+            <Border Grid.Row="3" Style="{StaticResource NexusCardStyle}" Margin="0,16,0,0">
+                <Grid>
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartConversionCommand}" HorizontalAlignment="Right" Height="42" Padding="28,0">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource Icon.Drop}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,6,0" />
-                            <TextBlock Text="Add Files" />
+                            <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                            <TextBlock Text="Start Batch Conversion" FontWeight="Bold" />
                         </StackPanel>
                     </Button>
-                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearQueueCommand}">
-                        <TextBlock Text="Clear List" />
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
-
-        <!-- Queue Items List -->
-        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="220">
-            <ListBox ItemsSource="{Binding QueuedItems}" Background="Transparent" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="120" />
-                                </Grid.ColumnDefinitions>
-
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                                    <TextBlock Text="{Binding SourceFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                </StackPanel>
-
-                                <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                    <TextBlock Text="{Binding SourceFormat}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
-                                </Border>
-
-                                <TextBlock Grid.Column="2" Text="{Binding FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Border>
-
-        <!-- Action Footer -->
-        <Grid Grid.Row="3" Margin="0,16,0,0">
-            <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartConversionCommand}" HorizontalAlignment="Right" Height="40" Padding="24,0">
-                <StackPanel Orientation="Horizontal">
-                    <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
-                    <TextBlock Text="Start Batch Conversion" FontWeight="Bold" />
-                </StackPanel>
-            </Button>
+                </Grid>
+            </Border>
         </Grid>
-    </Grid>
     </ScrollViewer>
 </UserControl>
-

@@ -150,7 +150,7 @@
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
                             <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
                         </Trigger>
-                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="Active">
+                        <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
                             <Setter TargetName="Bd" Property="Background" Value="{StaticResource Brush.Accent.Muted}" />
                             <Setter Property="Foreground" Value="{StaticResource Brush.Accent.Hover}" />
                             <Setter TargetName="ActivePill" Property="Visibility" Value="Visible" />
@@ -199,6 +199,9 @@
         </Setter>
     </Style>
 
+    <!-- Implicit TextBox Style -->
+    <Style TargetType="TextBox" BasedOn="{StaticResource NexusTextBoxStyle}" />
+
     <!-- Smooth Progress Bar -->
     <Style x:Key="NexusProgressBarStyle" TargetType="ProgressBar">
         <Setter Property="Height" Value="6" />
@@ -216,6 +219,67 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
+    </Style>
+
+    <!-- Implicit ProgressBar Style -->
+    <Style TargetType="ProgressBar" BasedOn="{StaticResource NexusProgressBarStyle}" />
+
+    <!-- Modern Dark ListBoxItem Style -->
+    <Style TargetType="ListBoxItem">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="10,8" />
+        <Setter Property="Margin" Value="0,1" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ListBoxItem">
+                    <Border x:Name="ItemBorder"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="Transparent"
+                            BorderThickness="1"
+                            CornerRadius="6"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="True">
+                        <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource Brush.Background.Tertiary}" />
+                        </Trigger>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource Brush.Accent.Muted}" />
+                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource Brush.Border.Active}" />
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Accent.Hover}" />
+                        </Trigger>
+                        <MultiTrigger>
+                            <MultiTrigger.Conditions>
+                                <Condition Property="IsSelected" Value="True" />
+                                <Condition Property="IsMouseOver" Value="True" />
+                            </MultiTrigger.Conditions>
+                            <Setter TargetName="ItemBorder" Property="Background" Value="{StaticResource Brush.Accent.Muted}" />
+                            <Setter TargetName="ItemBorder" Property="BorderBrush" Value="{StaticResource Brush.Accent.Hover}" />
+                        </MultiTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Modern Dark ListBox Style -->
+    <Style TargetType="ListBox">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+        <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+        <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
     </Style>
 
     <!-- Modern Badge Style -->
@@ -441,6 +505,96 @@
                             Padding="{TemplateBinding Padding}">
                         <ContentPresenter />
                     </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Modern Dark Slider Thumb Template -->
+    <ControlTemplate x:Key="SliderThumbTemplate" TargetType="Thumb">
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Ellipse x:Name="ThumbGlow" Width="22" Height="22" Fill="{StaticResource Brush.Accent.Primary}" Opacity="0.3" Visibility="Collapsed" />
+            <Ellipse x:Name="ThumbBody" Width="14" Height="14" Fill="{StaticResource Brush.Accent.Primary}" Stroke="#FFFFFF" StrokeThickness="2" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="ThumbBody" Property="Fill" Value="{StaticResource Brush.Accent.Hover}" />
+                <Setter TargetName="ThumbGlow" Property="Visibility" Value="Visible" />
+            </Trigger>
+            <Trigger Property="IsDragging" Value="True">
+                <Setter TargetName="ThumbBody" Property="Fill" Value="{StaticResource Brush.Accent.Pressed}" />
+                <Setter TargetName="ThumbGlow" Property="Visibility" Value="Visible" />
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Modern Dark Slider Style -->
+    <Style TargetType="Slider">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="False" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Focusable" Value="True" />
+        <Setter Property="Height" Value="24" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Slider">
+                    <Grid VerticalAlignment="Center">
+                        <Border Height="6" CornerRadius="3" Background="{StaticResource Brush.Background.Tertiary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" />
+                        <Track x:Name="PART_Track">
+                            <Track.Thumb>
+                                <Thumb Template="{StaticResource SliderThumbTemplate}" Cursor="Hand" />
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <!-- Modern Dark CheckBox Style -->
+    <Style TargetType="CheckBox">
+        <Setter Property="FontFamily" Value="{StaticResource FontFamily.Primary}" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize.Body}" />
+        <Setter Property="Foreground" Value="{StaticResource Brush.Text.Primary}" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="VerticalContentAlignment" Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="CheckBox">
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Border x:Name="CheckBorder"
+                                Width="18" Height="18"
+                                CornerRadius="4"
+                                Background="{StaticResource Brush.Background.Tertiary}"
+                                BorderBrush="{StaticResource Brush.Border.Subtle}"
+                                BorderThickness="1.5"
+                                Margin="0,0,10,0">
+                            <Path x:Name="CheckMark"
+                                  Data="M2,7 L6,11 L13,3"
+                                  Stroke="#FFFFFF"
+                                  StrokeThickness="2"
+                                  StrokeLineJoin="Round"
+                                  StrokeStartLineCap="Round"
+                                  StrokeEndLineCap="Round"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Center"
+                                  Visibility="Collapsed" />
+                        </Border>
+                        <ContentPresenter VerticalAlignment="Center" />
+                    </StackPanel>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{StaticResource Brush.Accent.Hover}" />
+                        </Trigger>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter TargetName="CheckBorder" Property="Background" Value="{StaticResource Brush.Accent.Primary}" />
+                            <Setter TargetName="CheckBorder" Property="BorderBrush" Value="{StaticResource Brush.Accent.Primary}" />
+                            <Setter TargetName="CheckMark" Property="Visibility" Value="Visible" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="{StaticResource Brush.Text.Disabled}" />
+                            <Setter TargetName="CheckBorder" Property="Opacity" Value="0.5" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

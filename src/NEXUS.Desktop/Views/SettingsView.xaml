@@ -4,39 +4,86 @@
              xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
              Background="Transparent">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <StackPanel Margin="32,24,32,32">
-            <TextBlock Text="NEXUS SETTINGS" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Personalization, performance limits, security preferences and telemetry" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,24" />
+            <!-- Header -->
+            <StackPanel Margin="0,0,0,24">
+                <TextBlock Text="NEXUS SETTINGS" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Personalization, hardware concurrency, background engine IPC and privacy preferences" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
+            <!-- Appearance & Theme Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="APPEARANCE &amp; THEME" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
-                    <ComboBox SelectedIndex="{Binding ThemeIndex}" Height="36" Width="240" HorizontalAlignment="Left">
-                        <ComboBoxItem Content="Obsidian Dark (Default)" />
-                        <ComboBoxItem Content="Clean Light" />
-                        <ComboBoxItem Content="System Adaptive" />
+                    <TextBlock Text="APPEARANCE &amp; PALETTE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <ComboBox SelectedIndex="{Binding ThemeIndex}" Height="38" Width="320" HorizontalAlignment="Left" Margin="0,0,0,8">
+                        <ComboBoxItem Content="Obsidian Dark (Official Default)" IsSelected="True" />
+                        <ComboBoxItem Content="Clean Light (High Contrast)" />
+                        <ComboBoxItem Content="Windows System Adaptive" />
                     </ComboBox>
+                    <TextBlock Text="Obsidian Dark uses GitHub Prime dark palette (#0D1117 / #161B22) optimized for OLED and IPS displays." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" />
                 </StackPanel>
             </Border>
 
+            <!-- Performance & Concurrency Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="PERFORMANCE &amp; CONCURRENCY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
-                    <TextBlock Text="{Binding MaxConcurrency, StringFormat={}Maximum Parallel Tasks: {0}}" FontSize="{StaticResource FontSize.Body}" Margin="0,0,0,8" />
-                    <Slider Minimum="1" Maximum="16" Value="{Binding MaxConcurrency}" Width="300" HorizontalAlignment="Left" />
+                    <TextBlock Text="PERFORMANCE &amp; ENGINE CONCURRENCY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <Grid Margin="0,0,0,8" MaxWidth="380" HorizontalAlignment="Left">
+                        <TextBlock Text="Maximum Parallel Processing Threads" FontSize="{StaticResource FontSize.Body}" />
+                        <TextBlock Text="{Binding MaxConcurrency, StringFormat={}{0} Workers}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                    </Grid>
+                    <Slider Minimum="1" Maximum="16" Value="{Binding MaxConcurrency}" Width="380" HorizontalAlignment="Left" Margin="0,0,0,12" />
+                    <TextBlock Text="Controls how many file conversions run concurrently in the Rust Tokio engine thread pool." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" />
                 </StackPanel>
             </Border>
 
-            <Border Style="{StaticResource NexusCardStyle}">
+            <!-- Engine Architecture & Telemetry Card -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="ABOUT NEXUS" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
-                    <TextBlock Text="NEXUS Desktop Studio — Version 1.0.0" FontWeight="Bold" />
-                    <TextBlock Text="Local-First, Privacy-Protected Universal Processing Platform." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-                    <TextBlock Text="No mandatory cloud accounts. No automatic file telemetry." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,2,0,0" />
+                    <TextBlock Text="BACKGROUND ENGINE &amp; IPC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Daemon Pipe Endpoint:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="\\.\pipe\nexus-engine" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    </Grid>
+                    <Grid Margin="0,0,0,8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Task Database Storage:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="Local SQLite (Encrypted / Isolated WAL Mode)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="Privacy &amp; Telemetry:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="Zero Cloud Telemetry • 100% Local-First Processing" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.SuccessText}" FontWeight="SemiBold" />
+                    </Grid>
                 </StackPanel>
+            </Border>
+
+            <!-- About NEXUS Card -->
+            <Border Style="{StaticResource NexusCardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="pack://application:,,,/Assets/logo.png" Width="64" Height="64" Margin="0,0,20,0" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
+                    <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                        <TextBlock Text="NEXUS Desktop Studio — Version 1.0.0" FontWeight="Bold" FontSize="{StaticResource FontSize.Header}" />
+                        <TextBlock Text="Universal File Conversion &amp; Processing Platform for Windows 10 &amp; 11" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                        <TextBlock Text="Engineered with C# .NET 11 WPF &amp; Rust Tokio Native Engine. Licensed under MIT." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="0,2,0,0" />
+                    </StackPanel>
+                </Grid>
             </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>
-

@@ -4,25 +4,35 @@
              xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
              Background="Transparent">
 
-    <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <StackPanel Margin="32,24,32,32">
-            <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Resize, crop, convert, optimize and strip metadata with Rust performance" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,24" />
+            <!-- Header -->
+            <StackPanel Margin="0,0,0,24">
+                <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Resize, crop, convert, optimize and strip metadata with Rust Lanczos3 engine" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
             <!-- File Selection Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Column="0">
-                        <TextBlock Text="SOURCE IMAGE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
-                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" />
-                    </StackPanel>
-                    <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseImageCommand}" VerticalAlignment="Bottom" Margin="12,0,0,0" Height="36">
-                        <TextBlock Text="Browse Image..." />
-                    </Button>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0" Text="SOURCE IMAGE FILE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, TargetNullValue='No image selected. Click Browse to select an image...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
+                        <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseImageCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Browse Image..." FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
                 </Grid>
             </Border>
 
@@ -39,26 +49,29 @@
                     <StackPanel>
                         <TextBlock Text="TRANSFORMATION SETTINGS" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
 
-                        <Grid Margin="0,0,0,12">
+                        <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="12" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="Width (px)" FontSize="{StaticResource FontSize.Small}" Margin="0,0,0,4" />
-                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetWidth, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="Target Width (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetWidth, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Height (px)" FontSize="{StaticResource FontSize.Small}" Margin="0,0,0,4" />
-                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetHeight, UpdateSourceTrigger=PropertyChanged}" />
+                                <TextBlock Text="Target Height (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetHeight, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
                             </StackPanel>
                         </Grid>
 
-                        <TextBlock Text="{Binding Quality, StringFormat={}Quality: {0}%}" FontSize="{StaticResource FontSize.Small}" Margin="0,0,0,4" />
-                        <Slider Minimum="1" Maximum="100" Value="{Binding Quality}" Margin="0,0,0,16" />
+                        <Grid Margin="0,0,0,6">
+                            <TextBlock Text="Compression Quality" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                            <TextBlock Text="{Binding Quality, StringFormat={}{0}%}" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                        </Grid>
+                        <Slider Minimum="1" Maximum="100" Value="{Binding Quality}" Margin="0,0,0,20" />
 
-                        <CheckBox IsChecked="{Binding StripMetadata}" Foreground="{StaticResource Brush.Text.Primary}" Content="Strip EXIF / Camera Metadata (Privacy Protection)" />
+                        <CheckBox IsChecked="{Binding StripMetadata}" Foreground="{StaticResource Brush.Text.Primary}" Content="Strip EXIF &amp; GPS Location Metadata (Privacy Protection)" />
                     </StackPanel>
                 </Border>
 
@@ -66,19 +79,22 @@
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
                         <TextBlock Text="OUTPUT FORMAT" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
-                        <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="36" Margin="0,0,0,16" />
-                        <TextBlock Text="Recommended for web: WebP (up to 30% smaller than JPEG with identical quality)." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,16" />
+                        
+                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,8,0,0">
+                            <TextBlock Text="Recommended for web: WebP / AVIF (up to 40% smaller than JPEG with identical perceptual quality).&#x0a;PNG: Lossless graphics with alpha channel.&#x0a;JPG: Standard photograph compression." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                        </Border>
                     </StackPanel>
                 </Border>
             </Grid>
 
-            <!-- Action & Status -->
+            <!-- Action & Status Card -->
             <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
-                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" />
-                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessImageCommand}" HorizontalAlignment="Right" Padding="24,10">
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                    <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessImageCommand}" HorizontalAlignment="Right" Height="42" Padding="28,0">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                            <Path Data="{StaticResource Icon.Image}" Fill="#FFFFFF" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Process Image" FontWeight="Bold" />
                         </StackPanel>
                     </Button>
@@ -88,4 +104,3 @@
         </StackPanel>
     </ScrollViewer>
 </UserControl>
-

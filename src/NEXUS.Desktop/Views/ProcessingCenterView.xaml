@@ -12,75 +12,110 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+            <!-- Header -->
+            <StackPanel Grid.Row="0" Margin="0,0,0,24">
                 <TextBlock Text="PROCESSING CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                <TextBlock Text="Centralized queue management, task priorities, progress monitoring and error recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Centralized task priority queue, real-time telemetry, progress tracking and error recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
+            <!-- Action Bar -->
             <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <Grid>
-                    <TextBlock Text="TASK QUEUE MANAGEMENT" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <TextBlock Text="ENGINE TASK QUEUE" FontWeight="SemiBold" VerticalAlignment="Center" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" Margin="0,0,8,0">
-                            <TextBlock Text="Refresh Tasks" />
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" Height="38" Padding="16,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Refresh Tasks" FontWeight="SemiBold" />
+                            </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearCompletedCommand}">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearCompletedCommand}" Height="38" Padding="14,0">
                             <TextBlock Text="Clear Completed" />
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="250">
-                <ListBox ItemsSource="{Binding Tasks}" Background="Transparent" BorderThickness="0">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="100" />
-                                        <ColumnDefinition Width="150" />
-                                        <ColumnDefinition Width="80" />
-                                        <ColumnDefinition Width="140" />
-                                    </Grid.ColumnDefinitions>
+            <!-- Tasks List -->
+            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="260">
+                <Grid>
+                    <ListBox ItemsSource="{Binding Tasks}" Background="Transparent" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="100" />
+                                            <ColumnDefinition Width="170" />
+                                            <ColumnDefinition Width="90" />
+                                            <ColumnDefinition Width="150" />
+                                        </Grid.ColumnDefinitions>
 
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                                        <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                        <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis">
+                                                <TextBlock.Style>
+                                                    <Style TargetType="TextBlock">
+                                                        <Style.Triggers>
+                                                            <Trigger Property="Text" Value="">
+                                                                <Setter Property="Visibility" Value="Collapsed" />
+                                                            </Trigger>
+                                                        </Style.Triggers>
+                                                    </Style>
+                                                </TextBlock.Style>
+                                            </TextBlock>
+                                        </StackPanel>
 
-                                    <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                        <TextBlock Text="{Binding Priority}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
-                                    </Border>
+                                        <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
+                                            <TextBlock Text="{Binding Priority}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                                        </Border>
 
-                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0">
-                                        <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Margin="0,0,0,4" />
-                                        <TextBlock Text="{Binding Status}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
-                                    </StackPanel>
+                                        <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0">
+                                            <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Margin="0,0,0,4" />
+                                            <TextBlock Text="{Binding Status}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
+                                        </StackPanel>
 
-                                    <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                                    <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                        <Button Style="{StaticResource SecondaryButtonStyle}"
-                                                Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}"
-                                                Padding="8,4" Margin="0,0,6,0">
-                                            <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" />
-                                        </Button>
-                                        <Button Style="{StaticResource SecondaryButtonStyle}"
-                                                Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                                CommandParameter="{Binding}"
-                                                Padding="8,4">
-                                            <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
-                                        </Button>
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
+                                        <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                    Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Padding="12,6" Margin="0,0,8,0">
+                                                <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" />
+                                            </Button>
+                                            <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                    Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    CommandParameter="{Binding}"
+                                                    Padding="12,6">
+                                                <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                    <!-- Empty State Placeholder -->
+                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,32">
+                        <StackPanel.Style>
+                            <Style TargetType="StackPanel">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Tasks.Count}" Value="0">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </StackPanel.Style>
+                        <Path Data="{StaticResource Icon.Queue}" Fill="{StaticResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                        <TextBlock Text="No active processing tasks" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="Queued and running tasks from all studios will appear here in real time" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                    </StackPanel>
+                </Grid>
             </Border>
         </Grid>
     </ScrollViewer>
