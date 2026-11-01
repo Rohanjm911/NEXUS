@@ -223,6 +223,7 @@ public partial class MainViewModel : ViewModelBase
             "Dashboard" => _serviceProvider.GetRequiredService<DashboardViewModel>(),
             "Universal" => _serviceProvider.GetRequiredService<UniversalConversionViewModel>(),
             "Image" => _serviceProvider.GetRequiredService<ImageStudioViewModel>(),
+            "Upscaler" => _serviceProvider.GetRequiredService<ImageUpscalerViewModel>(),
             "Audio" => _serviceProvider.GetRequiredService<AudioStudioViewModel>(),
             "Video" => _serviceProvider.GetRequiredService<VideoStudioViewModel>(),
             "Pdf" => _serviceProvider.GetRequiredService<PdfStudioViewModel>(),
@@ -246,6 +247,7 @@ public partial class MainViewModel : ViewModelBase
         AllCommands.Add(new CommandPaletteItem { Title = "Go to Command Center", Description = "Overview, quick drop & telemetry", Category = "Workspace", Shortcut = "Ctrl+1", Command = new RelayCommand(() => NavigateToView("Dashboard")) });
         AllCommands.Add(new CommandPaletteItem { Title = "Open Conversion Studio", Description = "Universal batch format converter", Category = "Workspace", Shortcut = "Ctrl+2", Command = new RelayCommand(() => NavigateToView("Universal")) });
         AllCommands.Add(new CommandPaletteItem { Title = "Open Image Studio", Description = "Resize, crop, convert & compress images", Category = "Workspace", Shortcut = "Ctrl+3", Command = new RelayCommand(() => NavigateToView("Image")) });
+        AllCommands.Add(new CommandPaletteItem { Title = "Open AI Image Upscaler", Description = "2x, 4x, 8x SIMD Neural & Lanczos3 Super-Resolution", Category = "Workspace", Shortcut = "Ctrl+U", Command = new RelayCommand(() => NavigateToView("Upscaler")) });
         AllCommands.Add(new CommandPaletteItem { Title = "Open Audio Studio", Description = "Audio trim, bitrate & convert", Category = "Workspace", Shortcut = "Ctrl+4", Command = new RelayCommand(() => NavigateToView("Audio")) });
         AllCommands.Add(new CommandPaletteItem { Title = "Open Video Studio", Description = "Video compression, trim & scale", Category = "Workspace", Shortcut = "Ctrl+5", Command = new RelayCommand(() => NavigateToView("Video")) });
         AllCommands.Add(new CommandPaletteItem { Title = "Open PDF Studio", Description = "Merge, split & convert PDFs", Category = "Workspace", Shortcut = "Ctrl+6", Command = new RelayCommand(() => NavigateToView("Pdf")) });

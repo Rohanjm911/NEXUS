@@ -113,6 +113,7 @@ public partial class App : System.Windows.Application
         services.AddSingleton<DashboardViewModel>();
         services.AddSingleton<UniversalConversionViewModel>();
         services.AddSingleton<ImageStudioViewModel>();
+        services.AddSingleton<ImageUpscalerViewModel>();
         services.AddSingleton<AudioStudioViewModel>();
         services.AddSingleton<VideoStudioViewModel>();
         services.AddSingleton<PdfStudioViewModel>();

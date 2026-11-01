@@ -76,6 +76,12 @@
                                 <TextBlock Text="Image Master" FontSize="11" FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Upscaler" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Image Upscaler" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Audio" Height="32" Padding="14,0" Margin="0,0,8,0">
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Audio}" Fill="{DynamicResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />

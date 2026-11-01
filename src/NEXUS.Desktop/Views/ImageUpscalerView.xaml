@@ -1,0 +1,348 @@
+<UserControl x:Class="NEXUS.Desktop.Views.ImageUpscalerView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
+             Background="Transparent"
+             AllowDrop="True"
+             DragOver="OnDragEnter"
+             Drop="OnDropFiles">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel Margin="32,24,32,32">
+            <!-- Studio Header -->
+            <StackPanel Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="AI IMAGE UPSCALER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0">
+                        <TextBlock Text="NEURAL SIMD ENGINE • 2X - 8X SUPER-RESOLUTION" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock Text="Deep learning super-sampling, Lanczos3 sinc reconstruction, edge enhancement and high-frequency texture recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
+
+            <!-- File Selection Bar -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" Padding="14,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, TargetNullValue='No image selected. Click Browse Image or drag &amp; drop file below...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
+                    <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseImageCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                            <TextBlock Text="Browse Image..." FontWeight="SemiBold" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- Interactive Visual Comparison & Viewport Stage -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" MinHeight="280" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Active}">
+                <Grid>
+                    <!-- EMPTY STATE DROPZONE -->
+                    <Border Background="{DynamicResource Brush.Background.DropZone}" BorderBrush="{DynamicResource Brush.Border.DropZone}" BorderThickness="1.5" CornerRadius="6" Padding="36" Margin="10">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasImageSelected}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Accent.Primary}" Width="48" Height="48" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,14" />
+                            <TextBlock Text="Drag &amp; Drop Image Here to Upscale" FontSize="{StaticResource FontSize.Header}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Supports PNG, JPG, WebP, TIFF, BMP with instant 2x, 4x, 8x neural upsampling up to 8K resolution" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,4,0,14" />
+                            <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding BrowseImageCommand}" Height="36" Padding="20,0" HorizontalAlignment="Center">
+                                <StackPanel Orientation="Horizontal">
+                                    <Path Data="{StaticResource Icon.Add}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,8,0" />
+                                    <TextBlock Text="Choose Image File..." FontWeight="Bold" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- LOADED STATE: VIEWPORT STAGE -->
+                    <Grid Margin="12">
+                        <Grid.Style>
+                            <Style TargetType="Grid">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding HasImageSelected}" Value="True">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Grid.Style>
+
+                        <!-- Case A: Before Upscale (Source Viewport) -->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Visible" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasUpscaledImage}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <Border Background="{DynamicResource Brush.Background.Primary}" CornerRadius="8" Padding="16" MaxHeight="380">
+                                <Grid>
+                                    <Image Source="{Binding SourceBitmap}" Stretch="Uniform" MaxHeight="340" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    
+                                    <!-- Source Image Telemetry Pills -->
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="8">
+                                        <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Secondary}" Margin="0,0,8,0">
+                                            <TextBlock Text="{Binding OriginalDimensions, StringFormat='SOURCE: {0}'}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" />
+                                        </Border>
+                                        <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Secondary}">
+                                            <TextBlock Text="{Binding OriginalFileSize, StringFormat='SIZE: {0}'}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                        </Border>
+                                    </StackPanel>
+
+                                    <!-- Projected Upscale Pill -->
+                                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="8">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Accent.Hover}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,6,0" />
+                                            <TextBlock Text="{Binding ProjectedDimensions, StringFormat='TARGET: {0}'}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <!-- Case B: After Upscale (Side-by-Side Comparison) -->
+                        <Grid>
+                            <Grid.Style>
+                                <Style TargetType="Grid">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding HasUpscaledImage}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="16" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <!-- Left: Original -->
+                            <Border Grid.Column="0" Background="{DynamicResource Brush.Background.Primary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="12" MaxHeight="380">
+                                <Grid>
+                                    <Image Source="{Binding SourceBitmap}" Stretch="Uniform" MaxHeight="320" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Secondary}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
+                                        <TextBlock Text="{Binding OriginalDimensions, StringFormat='BEFORE (1X): {0}'}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+
+                            <!-- Right: Upscaled (Emerald Accent Border) -->
+                            <Border Grid.Column="2" Background="{DynamicResource Brush.Background.Primary}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1.5" CornerRadius="8" Padding="12" MaxHeight="380">
+                                <Grid>
+                                    <Image Source="{Binding UpscaledBitmap}" Stretch="Uniform" MaxHeight="320" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="6">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Accent.Hover}" Width="10" Height="10" Stretch="Uniform" Margin="0,0,6,0" />
+                                            <TextBlock Text="{Binding ProjectedDimensions, StringFormat='AI UPSCALED: {0}'}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                                        </StackPanel>
+                                    </Border>
+                                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Secondary}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="6">
+                                        <TextBlock Text="{Binding EstimatedOutputSize, StringFormat='FINAL: {0}'}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" />
+                                    </Border>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Border>
+
+            <!-- Configuration & Super-Resolution Parameters (Two Columns) -->
+            <Grid Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Column 1: Scale Multiplier & Format -->
+                <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="SUPER-RESOLUTION MULTIPLIER" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
+                        
+                        <!-- Scale Factor Chips -->
+                        <WrapPanel Margin="0,0,0,14">
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectScaleCommand}" CommandParameter="2x" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="2x HD (2× Scale)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectScaleCommand}" CommandParameter="4x" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="4x Ultra (Recommended)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectScaleCommand}" CommandParameter="8x" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="8x Extreme (Maximum)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectScaleCommand}" CommandParameter="4k" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Target: 4K UHD" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectScaleCommand}" CommandParameter="8k" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Target: 8K Master" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                        </WrapPanel>
+
+                        <!-- Dimension Output Preview Bar -->
+                        <Border Background="{DynamicResource Brush.Background.Secondary}" CornerRadius="6" Padding="12,10" Margin="0,0,0,14">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock Text="SOURCE DIMENSIONS" FontSize="9" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" />
+                                    <TextBlock Text="{Binding OriginalDimensions}" FontWeight="Bold" FontSize="12" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,2,0,0" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="1" Text="➔" FontSize="16" Foreground="{DynamicResource Brush.Accent.Primary}" VerticalAlignment="Center" Margin="10,0" />
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="UPSCALED RESOLUTION" FontSize="9" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                                    <TextBlock Text="{Binding ProjectedDimensions}" FontWeight="Bold" FontSize="12" Foreground="{DynamicResource Brush.Accent.Hover}" Margin="0,2,0,0" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                        <!-- Target Format Selector -->
+                        <TextBlock Text="TARGET OUTPUT FORMAT" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                        <WrapPanel>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectFormatCommand}" CommandParameter="png" Height="28" Padding="14,0" Margin="0,0,6,0">
+                                <TextBlock Text="PNG (Lossless)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectFormatCommand}" CommandParameter="webp" Height="28" Padding="14,0" Margin="0,0,6,0">
+                                <TextBlock Text="WebP (Compact)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectFormatCommand}" CommandParameter="jpeg" Height="28" Padding="14,0" Margin="0,0,6,0">
+                                <TextBlock Text="JPEG (Standard)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectFormatCommand}" CommandParameter="tiff" Height="28" Padding="14,0">
+                                <TextBlock Text="TIFF (Print Master)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                        </WrapPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- Column 2: Neural Algorithm & Refinements -->
+                <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="RECONSTRUCTION ENGINE &amp; ALGORITHM" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
+
+                        <!-- Algorithm Chips -->
+                        <WrapPanel Margin="0,0,0,14">
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectAlgorithmCommand}" CommandParameter="lanczos3" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Lanczos3 (High Clarity)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectAlgorithmCommand}" CommandParameter="catmullrom" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Bicubic Spline (Portraits)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectAlgorithmCommand}" CommandParameter="nearest" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Nearest (Pixel Art / Sprites)" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectAlgorithmCommand}" CommandParameter="unsharp" Height="30" Padding="12,0" Margin="0,0,6,6">
+                                <TextBlock Text="Adaptive Edge-Enhanced" FontSize="11" FontWeight="SemiBold" />
+                            </Button>
+                        </WrapPanel>
+
+                        <!-- Edge Sharpening Slider -->
+                        <Grid Margin="0,0,0,12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="Adaptive Edge Sharpening (Micro-Contrast)" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                            <TextBlock Grid.Column="1" Text="{Binding SharpenStrength, StringFormat='{}{0}%'}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                        </Grid>
+                        <Slider Minimum="0" Maximum="100" Value="{Binding SharpenStrength}" Margin="0,0,0,14" />
+
+                        <!-- Denoise Checkbox -->
+                        <CheckBox Content="Artifact Reduction &amp; Chroma Denoise Pass" IsChecked="{Binding Denoise}" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,0,14" />
+
+                        <!-- Destination Folder -->
+                        <TextBlock Text="CUSTOM DESTINATION DIRECTORY (OPTIONAL)" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding OutputDestinationFolder, TargetNullValue='Default: Saved next to original image file'}" IsReadOnly="True" Height="34" VerticalContentAlignment="Center" />
+                            <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseOutputDestinationCommand}" Margin="8,0,0,0" Height="34" Padding="14,0">
+                                <TextBlock Text="Choose..." FontWeight="SemiBold" />
+                            </Button>
+                        </Grid>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- Action, Telemetry & Progress Dock -->
+            <Border Style="{StaticResource NexusCardStyle}">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Left: Status & Progress -->
+                    <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,24,0">
+                        <Grid Margin="0,0,0,6">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding ProgressStatusText}" Foreground="{DynamicResource Brush.Text.Primary}" FontWeight="SemiBold" FontSize="{StaticResource FontSize.Body}" TextTrimming="CharacterEllipsis" />
+                            <TextBlock Grid.Column="1" Text="{Binding SpeedText}" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="Bold" FontSize="11" />
+                        </Grid>
+                        <ProgressBar Height="6" Value="{Binding ProgressValue}" Maximum="100" Style="{StaticResource NexusProgressBarStyle}" />
+                    </StackPanel>
+
+                    <!-- Right: Action Buttons -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <!-- Reset -->
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ResetCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
+                            <TextBlock Text="Reset" />
+                        </Button>
+
+                        <!-- Open Output Folder -->
+                        <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="18,0" Margin="0,0,10,0">
+                            <Button.Style>
+                                <Style TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
+                                    <Setter Property="Visibility" Value="Collapsed" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CanOpenOutput}" Value="True">
+                                            <Setter Property="Visibility" Value="Visible" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+
+                        <!-- Start Upscaling Button -->
+                        <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartUpscaleCommand}" Height="42" Padding="28,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Start AI Upscaling" FontWeight="Bold" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
