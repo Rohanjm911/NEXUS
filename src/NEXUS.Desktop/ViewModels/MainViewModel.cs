@@ -87,6 +87,8 @@ public partial class MainViewModel : ViewModelBase
     public ObservableCollection<CommandPaletteItem> AllCommands { get; } = new();
     public ObservableCollection<CommandPaletteItem> FilteredCommands { get; } = new();
 
+    public bool IsDarkTheme => _themeService.IsDark;
+
     public IRelayCommand ToggleCommandPaletteCommand { get; }
     public IRelayCommand<string> NavigateCommand { get; }
     public IRelayCommand ToggleFocusModeCommand { get; }
@@ -103,6 +105,11 @@ public partial class MainViewModel : ViewModelBase
         _taskRepository = taskRepository;
         _systemMetricsService = systemMetricsService;
         _themeService = themeService;
+
+        _themeService.ThemeChanged += dark =>
+        {
+            OnPropertyChanged(nameof(IsDarkTheme));
+        };
 
         ToggleCommandPaletteCommand = new RelayCommand(() =>
         {
@@ -132,6 +139,7 @@ public partial class MainViewModel : ViewModelBase
         ToggleThemeCommand = new RelayCommand(() =>
         {
             _themeService.ToggleTheme();
+            OnPropertyChanged(nameof(IsDarkTheme));
             AddNotification(
                 "Theme Toggled",
                 _themeService.IsDark ? "Switched to Emerald Obsidian Dark mode." : "Switched to Emerald Clean Light mode.",

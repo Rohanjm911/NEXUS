@@ -13,11 +13,11 @@
             <StackPanel Margin="0,0,0,24">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
-                        <TextBlock Text="LANCZOS3 ENGINE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="LANCZOS3 ENGINE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                     </Border>
                 </StackPanel>
-                <TextBlock Text="Resize, crop, convert, optimize, compare before/after and strip metadata with Rust SIMD acceleration" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Resize, crop, convert, optimize, compare before/after and strip metadata with Rust SIMD acceleration" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- File Selection Card -->
@@ -27,7 +27,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="SOURCE IMAGE FILE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                    <TextBlock Grid.Row="0" Text="SOURCE IMAGE FILE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -36,7 +36,7 @@
                         <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, TargetNullValue='No image selected. Click Browse to select an image...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
                         <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseImageCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Browse Image..." FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
@@ -55,7 +55,7 @@
                 <!-- Left Column: Resolution & Quality -->
                 <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="TRANSFORMATION SETTINGS" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="TRANSFORMATION SETTINGS" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,16" />
 
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
@@ -64,35 +64,35 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="Target Width (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBlock Text="Target Width (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
                                 <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetWidth, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
                             </StackPanel>
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Target Height (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBlock Text="Target Height (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
                                 <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetHeight, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
                             </StackPanel>
                         </Grid>
 
                         <Grid Margin="0,0,0,6">
-                            <TextBlock Text="Compression Quality" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                            <TextBlock Text="{Binding Quality, StringFormat={}{0}%}" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                            <TextBlock Text="Compression Quality" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                            <TextBlock Text="{Binding Quality, StringFormat={}{0}%}" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
                         </Grid>
                         <Slider Minimum="1" Maximum="100" Value="{Binding Quality}" Margin="0,0,0,20" />
 
-                        <CheckBox IsChecked="{Binding StripMetadata}" Foreground="{StaticResource Brush.Text.Primary}" Content="Strip EXIF &amp; GPS Location Metadata (Privacy Protection)" />
+                        <CheckBox IsChecked="{Binding StripMetadata}" Foreground="{DynamicResource Brush.Text.Primary}" Content="Strip EXIF &amp; GPS Location Metadata (Privacy Protection)" />
                     </StackPanel>
                 </Border>
 
                 <!-- Right Column: Output Format & Presets -->
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="OUTPUT FORMAT &amp; CODEC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="OUTPUT FORMAT &amp; CODEC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,16" />
                         <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,16" />
                         
-                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14" Margin="0,8,0,0">
+                        <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14" Margin="0,8,0,0">
                             <StackPanel>
-                                <TextBlock Text="Format Guide:" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" Margin="0,0,0,6" />
-                                <TextBlock Text="• WebP / AVIF: Next-gen web formats, up to 40% smaller than JPEG with identical perceptual fidelity.&#x0a;• PNG: Lossless raster with transparent alpha channel.&#x0a;• JPG: Universal photography standard with tunable DCT compression." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                                <TextBlock Text="Format Guide:" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" Margin="0,0,0,6" />
+                                <TextBlock Text="• WebP / AVIF: Next-gen web formats, up to 40% smaller than JPEG with identical perceptual fidelity.&#x0a;• PNG: Lossless raster with transparent alpha channel.&#x0a;• JPG: Universal photography standard with tunable DCT compression." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
                             </StackPanel>
                         </Border>
                     </StackPanel>
@@ -109,10 +109,10 @@
 
                     <Grid Grid.Row="0" Margin="0,0,0,12">
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                            <Path Data="{StaticResource Icon.Compare}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
-                            <TextBlock Text="BEFORE / AFTER VISUAL COMPARISON" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" />
+                            <Path Data="{StaticResource Icon.Compare}" Fill="{DynamicResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                            <TextBlock Text="BEFORE / AFTER VISUAL COMPARISON" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
                         </StackPanel>
-                        <TextBlock Text="{Binding OriginalDimensions, StringFormat={}Source: {0}}" FontSize="11" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                        <TextBlock Text="{Binding OriginalDimensions, StringFormat={}Source: {0}}" FontSize="11" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
                     </Grid>
 
                     <Grid Grid.Row="1">
@@ -123,25 +123,25 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- Left: Original Image Preview -->
-                        <Border Grid.Column="0" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14">
+                        <Border Grid.Column="0" Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14">
                             <StackPanel HorizontalAlignment="Center">
-                                <TextBlock Text="ORIGINAL IMAGE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
-                                <TextBlock Text="{Binding OriginalFileSize, StringFormat={}File Size: {0}}" FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,2,0,6" />
+                                <TextBlock Text="ORIGINAL IMAGE" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                                <TextBlock Text="{Binding OriginalFileSize, StringFormat={}File Size: {0}}" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,2,0,6" />
                                 <Image Source="{Binding SourceImagePath}" MaxHeight="120" Stretch="Uniform" HorizontalAlignment="Center" />
                             </StackPanel>
                         </Border>
 
-                        <Path Grid.Column="1" Data="{StaticResource Icon.ChevronRight}" Fill="{StaticResource Brush.Accent.Primary}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="10,0" />
+                        <Path Grid.Column="1" Data="{StaticResource Icon.ChevronRight}" Fill="{DynamicResource Brush.Accent.Primary}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="10,0" />
 
                         <!-- Right: Target Specification -->
-                        <Border Grid.Column="2" Background="{StaticResource Brush.Accent.Muted}" BorderBrush="{StaticResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="14">
+                        <Border Grid.Column="2" Background="{DynamicResource Brush.Accent.Muted}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="14">
                             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <TextBlock Text="OPTIMIZED TARGET" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Center" />
-                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
+                                <TextBlock Text="OPTIMIZED TARGET" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Center" />
+                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
                                     <TextBlock Text="{Binding TargetFormat, StringFormat={}.{0}}" FontWeight="Bold" Foreground="#0A1C14" />
                                 </Border>
-                                <TextBlock Text="{Binding TargetWidth, StringFormat={}{0} px (W)}" FontSize="11" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
-                                <TextBlock Text="Lanczos3 Rescaled • EXIF Stripped" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,2,0,0" />
+                                <TextBlock Text="{Binding TargetWidth, StringFormat={}{0} px (W)}" FontSize="11" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                <TextBlock Text="Lanczos3 Rescaled • EXIF Stripped" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,2,0,0" />
                             </StackPanel>
                         </Border>
                     </Grid>
@@ -151,7 +151,7 @@
             <!-- Action & Status Card -->
             <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
-                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
@@ -166,14 +166,14 @@
                                 </Style>
                             </Button.Style>
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessImageCommand}" Height="42" Padding="28,0">
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Image}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Process Image" FontWeight="Bold" />
                             </StackPanel>
                         </Button>

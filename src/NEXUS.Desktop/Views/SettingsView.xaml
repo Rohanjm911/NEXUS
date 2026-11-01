@@ -10,66 +10,66 @@
             <StackPanel Margin="0,0,0,24">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="NEXUS SETTINGS &amp; PREFERENCES" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
-                        <TextBlock Text="EMERALD EDITION" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="EMERALD EDITION" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                     </Border>
                 </StackPanel>
-                <TextBlock Text="Personalization, hardware concurrency, background engine IPC and privacy preferences" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Personalization, hardware concurrency, background engine IPC and privacy preferences" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- Appearance & Theme Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="APPEARANCE &amp; EMERALD PALETTE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <TextBlock Text="APPEARANCE &amp; EMERALD PALETTE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
                     <ComboBox SelectedIndex="{Binding ThemeIndex}" Height="38" Width="340" HorizontalAlignment="Left" Margin="0,0,0,8">
                         <ComboBoxItem Content="Emerald Dark (Deep Forest &amp; Mint)" IsSelected="True" />
                         <ComboBoxItem Content="Emerald Clean Light (High Contrast)" />
                         <ComboBoxItem Content="System Adaptive (Windows 11 Preference)" />
                     </ComboBox>
-                    <TextBlock Text="Changes apply live dynamically across all windows and controls without requiring an app restart." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                    <TextBlock Text="Changes apply live dynamically across all windows and controls without requiring an app restart." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                 </StackPanel>
             </Border>
 
             <!-- Performance & Concurrency Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="PERFORMANCE &amp; ENGINE CONCURRENCY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <TextBlock Text="PERFORMANCE &amp; ENGINE CONCURRENCY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
                     <Grid Margin="0,0,0,8" MaxWidth="400" HorizontalAlignment="Left">
                         <TextBlock Text="Maximum Parallel Processing Threads" FontSize="{StaticResource FontSize.Body}" />
-                        <TextBlock Text="{Binding MaxConcurrency, StringFormat={}{0} Workers}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                        <TextBlock Text="{Binding MaxConcurrency, StringFormat={}{0} Workers}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
                     </Grid>
                     <Slider Minimum="1" Maximum="16" Value="{Binding MaxConcurrency}" Width="400" HorizontalAlignment="Left" Margin="0,0,0,12" />
-                    <TextBlock Text="Controls how many worker threads run concurrently in the Rust Tokio native engine." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                    <TextBlock Text="Controls how many worker threads run concurrently in the Rust Tokio native engine." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                 </StackPanel>
             </Border>
 
             <!-- Engine Architecture & Telemetry Card -->
             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <StackPanel>
-                    <TextBlock Text="BACKGROUND ENGINE &amp; IPC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                    <TextBlock Text="BACKGROUND ENGINE &amp; IPC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="220" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Daemon Pipe Endpoint:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                        <TextBlock Grid.Column="1" Text="\\.\pipe\nexus-engine" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
+                        <TextBlock Grid.Column="0" Text="Daemon Pipe Endpoint:" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="\\.\pipe\nexus-engine" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Accent.Hover}" />
                     </Grid>
                     <Grid Margin="0,0,0,8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="220" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Task Database Storage:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                        <TextBlock Grid.Column="1" Text="Local SQLite (Encrypted / Isolated WAL Mode)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" />
+                        <TextBlock Grid.Column="0" Text="Task Database Storage:" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="Local SQLite (Encrypted / Isolated WAL Mode)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Primary}" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="220" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Grid.Column="0" Text="Privacy &amp; Telemetry:" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                        <TextBlock Grid.Column="1" Text="Zero Cloud Telemetry • 100% Local-First Processing" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.SuccessText}" FontWeight="SemiBold" />
+                        <TextBlock Grid.Column="0" Text="Privacy &amp; Telemetry:" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                        <TextBlock Grid.Column="1" Text="Zero Cloud Telemetry • 100% Local-First Processing" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Status.SuccessText}" FontWeight="SemiBold" />
                     </Grid>
                 </StackPanel>
             </Border>
@@ -81,13 +81,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" Width="64" Height="64" CornerRadius="12" Background="{StaticResource Brush.Background.Tertiary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" Margin="0,0,20,0">
+                    <Border Grid.Column="0" Width="64" Height="64" CornerRadius="12" Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" Margin="0,0,20,0">
                         <Image Source="pack://application:,,,/Assets/logo.png" Width="48" Height="48" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     </Border>
                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                         <TextBlock Text="NEXUS Desktop Studio — Version 1.0.0 (Emerald Edition)" FontWeight="Bold" FontSize="{StaticResource FontSize.Header}" />
-                        <TextBlock Text="Universal File Conversion &amp; Processing Platform for Windows 10 &amp; 11" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-                        <TextBlock Text="Engineered with C# .NET 11 WPF &amp; Rust Tokio Native Engine. Licensed under MIT." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="0,2,0,0" />
+                        <TextBlock Text="Universal File Conversion &amp; Processing Platform for Windows 10 &amp; 11" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                        <TextBlock Text="Engineered with C# .NET 11 WPF &amp; Rust Tokio Native Engine. Licensed under MIT." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,2,0,0" />
                     </StackPanel>
                 </Grid>
             </Border>

@@ -29,17 +29,17 @@
             <StackPanel Grid.Column="0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="CONVERSION STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="12,0,0,0">
-                        <TextBlock Text="EMERALD PIPELINE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0">
+                        <TextBlock Text="EMERALD PIPELINE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                     </Border>
                 </StackPanel>
-                <TextBlock Text="Universal three-part workspace: Inspect, compare before &amp; after, configure presets, and batch convert" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Universal three-part workspace: Inspect, compare before &amp; after, configure presets, and batch convert" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                 <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding AddFilesCommand}" Height="38" Padding="18,0" Margin="0,0,8,0">
                     <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource Icon.Add}" Fill="{StaticResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                        <Path Data="{StaticResource Icon.Add}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                         <TextBlock Text="Import Files..." FontWeight="Bold" />
                     </StackPanel>
                 </Button>
@@ -78,9 +78,9 @@
 
                     <!-- Title & Count Badge -->
                     <Grid Grid.Row="0" Margin="0,0,0,12">
-                        <TextBlock Text="IMPORTED FILES" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" VerticalAlignment="Center" />
-                        <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{StaticResource Brush.Background.Tertiary}">
-                            <TextBlock Text="{Binding FilteredQueuedItems.Count, StringFormat={}{0} queued}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                        <TextBlock Text="IMPORTED FILES" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" VerticalAlignment="Center" />
+                        <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{DynamicResource Brush.Background.Tertiary}">
+                            <TextBlock Text="{Binding FilteredQueuedItems.Count, StringFormat={}{0} queued}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                         </Border>
                     </Grid>
 
@@ -118,14 +118,14 @@
                                     <StackPanel Grid.Column="0" VerticalAlignment="Center" Margin="0,0,8,0">
                                         <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
                                         <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
-                                            <TextBlock Text="{Binding FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" />
-                                            <TextBlock Text=" • " FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" />
-                                            <TextBlock Text="{Binding Status}" FontSize="11" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" />
+                                            <TextBlock Text=" • " FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" />
+                                            <TextBlock Text="{Binding Status}" FontSize="11" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" />
                                         </StackPanel>
                                         <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Height="3" Margin="0,4,0,0" />
                                     </StackPanel>
                                     <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" VerticalAlignment="Center">
-                                        <TextBlock Text="{Binding SourceFormat, StringFormat={}.{0}}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                        <TextBlock Text="{Binding SourceFormat, StringFormat={}.{0}}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                     </Border>
                                 </Grid>
                             </DataTemplate>
@@ -133,7 +133,7 @@
                     </ListBox>
 
                     <!-- Clean Dashed Empty State for Left List -->
-                    <Border Grid.Row="2" Background="{StaticResource Brush.Background.Tertiary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="16" IsHitTestVisible="False">
+                    <Border Grid.Row="2" Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="16" IsHitTestVisible="False">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="Visibility" Value="Collapsed" />
@@ -145,15 +145,15 @@
                             </Style>
                         </Border.Style>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                            <Path Data="{StaticResource Icon.Drop}" Fill="{StaticResource Brush.Accent.Hover}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                            <TextBlock Text="No files queued" FontSize="{StaticResource FontSize.Subheader}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Center" />
-                            <TextBlock Text="Drag &amp; drop files or click&#x0a;'Import Files...' above to begin" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,6,0,0" LineHeight="16" />
+                            <Path Data="{StaticResource Icon.Drop}" Fill="{DynamicResource Brush.Accent.Hover}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                            <TextBlock Text="No files queued" FontSize="{StaticResource FontSize.Subheader}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Drag &amp; drop files or click&#x0a;'Import Files...' above to begin" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" TextAlignment="Center" HorizontalAlignment="Center" Margin="0,6,0,0" LineHeight="16" />
                         </StackPanel>
                     </Border>
 
                     <!-- Bottom Quick Stat -->
-                    <Border Grid.Row="3" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="10,8" Margin="0,10,0,0">
-                        <TextBlock Text="Local processing • Files never leave machine" FontSize="11" Foreground="{StaticResource Brush.Status.SuccessText}" HorizontalAlignment="Center" />
+                    <Border Grid.Row="3" Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="10,8" Margin="0,10,0,0">
+                        <TextBlock Text="Local processing • Files never leave machine" FontSize="11" Foreground="{DynamicResource Brush.Status.SuccessText}" HorizontalAlignment="Center" />
                     </Border>
                 </Grid>
             </Border>
@@ -182,33 +182,33 @@
                             <!-- Center Header -->
                             <Grid Margin="0,0,0,16">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Path Data="{StaticResource Icon.Compare}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
-                                    <TextBlock Text="INSPECT &amp; BEFORE/AFTER COMPARISON" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" />
+                                    <Path Data="{StaticResource Icon.Compare}" Fill="{DynamicResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                                    <TextBlock Text="INSPECT &amp; BEFORE/AFTER COMPARISON" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
                                 </StackPanel>
-                                <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{StaticResource Brush.Background.Tertiary}">
-                                    <TextBlock Text="{Binding SelectedTaskItem.Category}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{DynamicResource Brush.Background.Tertiary}">
+                                    <TextBlock Text="{Binding SelectedTaskItem.Category}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                 </Border>
                             </Grid>
 
                             <!-- File Showcase Hero Card -->
-                            <Border Background="{StaticResource Brush.Background.Tertiary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,0,16">
+                            <Border Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Padding="16" Margin="0,0,0,16">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Border Grid.Column="0" Width="48" Height="48" Background="{StaticResource Brush.Background.Primary}" CornerRadius="8" Margin="0,0,16,0">
-                                        <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Accent.Primary}" Width="22" Height="22" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                    <Border Grid.Column="0" Width="48" Height="48" Background="{DynamicResource Brush.Background.Primary}" CornerRadius="8" Margin="0,0,16,0">
+                                        <Path Data="{StaticResource Icon.Convert}" Fill="{DynamicResource Brush.Accent.Primary}" Width="22" Height="22" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
                                     </Border>
                                     <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                         <TextBlock Text="{Binding SelectedTaskItem.Name}" FontSize="{StaticResource FontSize.Subheader}" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
-                                        <TextBlock Text="{Binding SelectedTaskItem.SourceFilePath}" FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" TextTrimming="CharacterEllipsis" Margin="0,4,0,0" />
+                                        <TextBlock Text="{Binding SelectedTaskItem.SourceFilePath}" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" TextTrimming="CharacterEllipsis" Margin="0,4,0,0" />
                                     </StackPanel>
                                 </Grid>
                             </Border>
 
                             <!-- Interactive Before / After Comparison Display -->
-                            <Border Background="{StaticResource Brush.Background.Primary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Height="200" Margin="0,0,0,16" Padding="16">
+                            <Border Background="{DynamicResource Brush.Background.Primary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8" Height="200" Margin="0,0,0,16" Padding="16">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="*" />
@@ -224,27 +224,27 @@
                                         </Grid.ColumnDefinitions>
 
                                         <!-- Original Stage -->
-                                        <Border Grid.Column="0" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,0,6,0">
+                                        <Border Grid.Column="0" Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,0,6,0">
                                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <TextBlock Text="ORIGINAL INPUT" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
-                                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
-                                                    <TextBlock Text="{Binding SelectedTaskItem.SourceFormat, StringFormat={}.{0}}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                                <TextBlock Text="ORIGINAL INPUT" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
+                                                    <TextBlock Text="{Binding SelectedTaskItem.SourceFormat, StringFormat={}.{0}}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                                 </Border>
-                                                <TextBlock Text="{Binding SelectedTaskItem.FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                                <TextBlock Text="{Binding SelectedTaskItem.FileSizeBytes, StringFormat={}{0:N0} bytes}" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
                                             </StackPanel>
                                         </Border>
 
                                         <!-- Arrow Divider -->
-                                        <Path Grid.Column="1" Data="{StaticResource Icon.ChevronRight}" Fill="{StaticResource Brush.Accent.Primary}" Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center" Margin="4,0" />
+                                        <Path Grid.Column="1" Data="{StaticResource Icon.ChevronRight}" Fill="{DynamicResource Brush.Accent.Primary}" Width="18" Height="18" Stretch="Uniform" VerticalAlignment="Center" Margin="4,0" />
 
                                         <!-- Transformed Target Stage -->
-                                        <Border Grid.Column="2" Background="{StaticResource Brush.Accent.Muted}" BorderBrush="{StaticResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="6,0,0,0">
+                                        <Border Grid.Column="2" Background="{DynamicResource Brush.Accent.Muted}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="12" Margin="6,0,0,0">
                                             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                                                <TextBlock Text="CONVERTED TARGET" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Center" />
-                                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
+                                                <TextBlock Text="CONVERTED TARGET" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Center" />
+                                                <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" HorizontalAlignment="Center" Margin="0,8,0,0">
                                                     <TextBlock Text="{Binding SelectedTargetFormat, StringFormat={}.{0}}" FontWeight="Bold" Foreground="#0A1C14" />
                                                 </Border>
-                                                <TextBlock Text="{Binding SelectedPreset}" FontSize="11" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
+                                                <TextBlock Text="{Binding SelectedPreset}" FontSize="11" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
                                             </StackPanel>
                                         </Border>
                                     </Grid>
@@ -256,15 +256,15 @@
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <TextBlock Grid.Column="0" Text="Original Master" FontSize="10" Foreground="{StaticResource Brush.Text.Tertiary}" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                        <TextBlock Grid.Column="0" Text="Original Master" FontSize="10" Foreground="{DynamicResource Brush.Text.Tertiary}" VerticalAlignment="Center" Margin="0,0,10,0" />
                                         <Slider Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding ComparisonSliderValue}" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Column="2" Text="Target Output" FontSize="10" Foreground="{StaticResource Brush.Accent.Hover}" VerticalAlignment="Center" Margin="10,0,0,0" />
+                                        <TextBlock Grid.Column="2" Text="Target Output" FontSize="10" Foreground="{DynamicResource Brush.Accent.Hover}" VerticalAlignment="Center" Margin="10,0,0,0" />
                                     </Grid>
                                 </Grid>
                             </Border>
 
                             <!-- Metadata & Parameters Table -->
-                            <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="8" Padding="16">
+                            <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="8" Padding="16">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
@@ -276,14 +276,14 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Engine Pipeline:" FontSize="12" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
-                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Rust Tokio Native Pipe (Zero-Copy)" FontSize="12" FontWeight="SemiBold" Foreground="{StaticResource Brush.Status.SuccessText}" Margin="0,0,0,6" />
+                                    <TextBlock Grid.Row="0" Grid.Column="0" Text="Engine Pipeline:" FontSize="12" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                    <TextBlock Grid.Row="0" Grid.Column="1" Text="Rust Tokio Native Pipe (Zero-Copy)" FontSize="12" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Status.SuccessText}" Margin="0,0,0,6" />
 
-                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Processing Mode:" FontSize="12" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
-                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Lossless Master Transcode" FontSize="12" Foreground="{StaticResource Brush.Text.Primary}" Margin="0,0,0,6" />
+                                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Processing Mode:" FontSize="12" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Lossless Master Transcode" FontSize="12" Foreground="{DynamicResource Brush.Text.Primary}" Margin="0,0,0,6" />
 
-                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Security Assurance:" FontSize="12" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Sandbox Verified • Path Traversal Protected" FontSize="12" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Security Assurance:" FontSize="12" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Sandbox Verified • Path Traversal Protected" FontSize="12" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                                 </Grid>
                             </Border>
                         </StackPanel>
@@ -304,12 +304,12 @@
                             </StackPanel.Style>
 
                             <!-- Welcome Icon with Glow -->
-                            <Border Width="64" Height="64" CornerRadius="16" Background="{StaticResource Brush.Accent.Muted}" BorderBrush="{StaticResource Brush.Accent.Primary}" BorderThickness="1.5" HorizontalAlignment="Center" Margin="0,0,0,16">
-                                <Path Data="{StaticResource Icon.Sparkle}" Fill="{StaticResource Brush.Accent.Hover}" Width="28" Height="28" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Border Width="64" Height="64" CornerRadius="16" Background="{DynamicResource Brush.Accent.Muted}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1.5" HorizontalAlignment="Center" Margin="0,0,0,16">
+                                <Path Data="{StaticResource Icon.Sparkle}" Fill="{DynamicResource Brush.Accent.Hover}" Width="28" Height="28" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
 
                             <TextBlock Text="Conversion Studio Pipeline" FontSize="{StaticResource FontSize.Title}" FontWeight="Bold" HorizontalAlignment="Center" />
-                            <TextBlock Text="Select a file from the queue or import new media to inspect and configure" FontSize="{StaticResource FontSize.Body}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,6,0,24" />
+                            <TextBlock Text="Select a file from the queue or import new media to inspect and configure" FontSize="{StaticResource FontSize.Body}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,6,0,24" />
 
                             <!-- 3 Capability Showcase Cards -->
                             <Grid Margin="0,0,0,24" MaxWidth="500">
@@ -319,19 +319,19 @@
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
 
-                                <Border Grid.Column="0" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="8" Padding="14">
+                                <Border Grid.Column="0" Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="8" Padding="14">
                                     <StackPanel>
-                                        <Path Data="{StaticResource Icon.Compare}" Fill="{StaticResource Brush.Accent.Hover}" Width="16" Height="16" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,0,8" />
+                                        <Path Data="{StaticResource Icon.Compare}" Fill="{DynamicResource Brush.Accent.Hover}" Width="16" Height="16" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,0,8" />
                                         <TextBlock Text="Before/After Slider" FontWeight="Bold" FontSize="12" />
-                                        <TextBlock Text="Interactive quality &amp; compression preview before converting" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" LineHeight="16" />
+                                        <TextBlock Text="Interactive quality &amp; compression preview before converting" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" LineHeight="16" />
                                     </StackPanel>
                                 </Border>
 
-                                <Border Grid.Column="2" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="8" Padding="14">
+                                <Border Grid.Column="2" Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="8" Padding="14">
                                     <StackPanel>
-                                        <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Accent.Hover}" Width="16" Height="16" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,0,8" />
+                                        <Path Data="{StaticResource Icon.Convert}" Fill="{DynamicResource Brush.Accent.Hover}" Width="16" Height="16" Stretch="Uniform" HorizontalAlignment="Left" Margin="0,0,0,8" />
                                         <TextBlock Text="Rust Tokio Core" FontWeight="Bold" FontSize="12" />
-                                        <TextBlock Text="High-throughput asynchronous zero-copy processing" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" LineHeight="16" />
+                                        <TextBlock Text="High-throughput asynchronous zero-copy processing" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" LineHeight="16" />
                                     </StackPanel>
                                 </Border>
                             </Grid>
@@ -339,7 +339,7 @@
                             <!-- Primary Action Button -->
                             <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding AddFilesCommand}" HorizontalAlignment="Center" Height="40" Padding="24,0">
                                 <StackPanel Orientation="Horizontal">
-                                    <Path Data="{StaticResource Icon.Add}" Fill="{StaticResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                    <Path Data="{StaticResource Icon.Add}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                     <TextBlock Text="Import Files to Begin..." FontWeight="Bold" />
                                 </StackPanel>
                             </Button>
@@ -361,7 +361,7 @@
                     <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
                         <StackPanel>
                             <!-- Right Header -->
-                            <TextBlock Text="PIPELINE SETTINGS" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                            <TextBlock Text="PIPELINE SETTINGS" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,16" />
 
                             <!-- Output Target Format -->
                             <TextBlock Text="Target Format" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Margin="0,0,0,6" />
@@ -373,24 +373,24 @@
 
                             <!-- Destination Directory (Clean Card: No text clipping!) -->
                             <TextBlock Text="Output Destination" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Margin="0,0,0,6" />
-                            <Border Background="{StaticResource Brush.Background.Tertiary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="6" Height="38" Padding="12,0" Margin="0,0,0,16">
+                            <Border Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="6" Height="38" Padding="12,0" Margin="0,0,0,16">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*" />
                                         <ColumnDefinition Width="Auto" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Grid.Column="0" Text="{Binding OutputDestinationDirectory, TargetNullValue='Same as source file directory'}" VerticalAlignment="Center" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="0" Text="{Binding OutputDestinationDirectory, TargetNullValue='Same as source file directory'}" VerticalAlignment="Center" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" TextTrimming="CharacterEllipsis" />
                                     <Button Grid.Column="1" Style="{StaticResource WindowButtonStyle}" Command="{Binding BrowseOutputDestinationCommand}" Width="28" Height="28" Padding="0" ToolTip="Choose Custom Folder">
-                                        <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Accent.Hover}" Width="14" Height="14" Stretch="Uniform" />
+                                        <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Accent.Hover}" Width="14" Height="14" Stretch="Uniform" />
                                     </Button>
                                 </Grid>
                             </Border>
 
                             <!-- Pipeline Feature Highlights -->
-                            <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14">
+                            <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14">
                                 <StackPanel>
-                                    <TextBlock Text="Emerald Engine Highlights:" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" Margin="0,0,0,6" />
-                                    <TextBlock Text="• Multi-threaded worker queue&#x0a;• Automatic format heuristics&#x0a;• Non-destructive master conversion&#x0a;• Instant cancellation &amp; retry" FontSize="11" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" />
+                                    <TextBlock Text="Emerald Engine Highlights:" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" Margin="0,0,0,6" />
+                                    <TextBlock Text="• Multi-threaded worker queue&#x0a;• Automatic format heuristics&#x0a;• Non-destructive master conversion&#x0a;• Instant cancellation &amp; retry" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" LineHeight="18" />
                                 </StackPanel>
                             </Border>
                         </StackPanel>
@@ -398,10 +398,10 @@
 
                     <!-- Bottom Batch Action Button -->
                     <StackPanel Grid.Row="1" Margin="0,16,0,0">
-                        <TextBlock Text="{Binding StatusMessage}" FontSize="11" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,0,8" />
+                        <TextBlock Text="{Binding StatusMessage}" FontSize="11" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,0,8" />
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding StartConversionCommand}" Height="46" Padding="0">
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Convert}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Start Batch Conversion" FontSize="{StaticResource FontSize.Body}" FontWeight="Bold" />
                             </StackPanel>
                         </Button>

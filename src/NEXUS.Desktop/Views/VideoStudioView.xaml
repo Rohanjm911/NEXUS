@@ -12,7 +12,7 @@
             <!-- Header -->
             <StackPanel Margin="0,0,0,24">
                 <TextBlock Text="VIDEO STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                <TextBlock Text="Compress, transcode, scale resolutions and extract audio streams" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Compress, transcode, scale resolutions and extract audio streams" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- File Selection Card -->
@@ -22,7 +22,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="SOURCE VIDEO FILE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                    <TextBlock Grid.Row="0" Text="SOURCE VIDEO FILE" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,8" />
                     <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -31,7 +31,7 @@
                         <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceVideoPath, TargetNullValue='No video selected. Click Browse to select a video file...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
                         <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseVideoCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Browse Video..." FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
@@ -50,12 +50,12 @@
                 <!-- Left Column: Video Parameters -->
                 <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="VIDEO RESOLUTION &amp; SCALING" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
-                        <TextBlock Text="Target Resolution (e.g. 1920x1080, 1280x720, 3840x2160)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBlock Text="VIDEO RESOLUTION &amp; SCALING" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="Target Resolution (e.g. 1920x1080, 1280x720, 3840x2160)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
                         <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding Resolution, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" Margin="0,0,0,16" />
 
-                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12">
-                            <TextBlock Text="Presets:&#x0a;• 1920x1080 (1080p Full HD)&#x0a;• 1280x720 (720p HD)&#x0a;• 854x480 (480p Mobile / Small size)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                        <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12">
+                            <TextBlock Text="Presets:&#x0a;• 1920x1080 (1080p Full HD)&#x0a;• 1280x720 (720p HD)&#x0a;• 854x480 (480p Mobile / Small size)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
                         </Border>
                     </StackPanel>
                 </Border>
@@ -63,11 +63,11 @@
                 <!-- Right Column: Output Format -->
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="OUTPUT CONTAINER &amp; CODEC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="OUTPUT CONTAINER &amp; CODEC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,16" />
                         <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,16" />
                         
-                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,8,0,0">
-                            <TextBlock Text="MP4: H.264/AAC universal playback on all devices and browsers.&#x0a;MKV: Multi-audio and subtitle container.&#x0a;WEBM: Optimized for HTML5 web streaming." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                        <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,8,0,0">
+                            <TextBlock Text="MP4: H.264/AAC universal playback on all devices and browsers.&#x0a;MKV: Multi-audio and subtitle container.&#x0a;WEBM: Optimized for HTML5 web streaming." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
                         </Border>
                     </StackPanel>
                 </Border>
@@ -76,7 +76,7 @@
             <!-- Action & Status Card -->
             <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
-                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
+                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
                     
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
@@ -91,14 +91,14 @@
                                 </Style>
                             </Button.Style>
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessVideoCommand}" Height="42" Padding="28,0">
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Video}" Fill="{StaticResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <Path Data="{StaticResource Icon.Video}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                                 <TextBlock Text="Process Video" FontWeight="Bold" />
                             </StackPanel>
                         </Button>

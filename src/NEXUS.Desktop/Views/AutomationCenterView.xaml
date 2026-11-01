@@ -15,7 +15,7 @@
             <!-- Header -->
             <StackPanel Grid.Row="0" Margin="0,0,0,24">
                 <TextBlock Text="AUTOMATION CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                <TextBlock Text="Configure real-time watch folders and automatic conversion pipelines" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <TextBlock Text="Configure real-time watch folders and automatic conversion pipelines" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- Action Bar -->
@@ -24,7 +24,7 @@
                     <TextBlock Text="ACTIVE WATCH DIRECTORIES" FontWeight="SemiBold" VerticalAlignment="Center" />
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFolderCommand}" HorizontalAlignment="Right" Height="38" Padding="18,0">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource Icon.Folder}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                            <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Add Watch Folder..." FontWeight="SemiBold" />
                         </StackPanel>
                     </Button>
@@ -37,7 +37,7 @@
                     <ListBox ItemsSource="{Binding WatchFolders}" Background="Transparent" BorderThickness="0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,12">
+                                <Border BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,12">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
@@ -46,11 +46,11 @@
                                             <ColumnDefinition Width="170" />
                                         </Grid.ColumnDefinitions>
 
-                                        <Path Grid.Column="0" Data="{StaticResource Icon.Automation}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" VerticalAlignment="Center" />
+                                        <Path Grid.Column="0" Data="{StaticResource Icon.Automation}" Fill="{DynamicResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" VerticalAlignment="Center" />
 
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                             <TextBlock Text="{Binding Path}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="Recursive file monitoring &amp; automatic conversion pipeline enabled" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,2,0,0" />
+                                            <TextBlock Text="Recursive file monitoring &amp; automatic conversion pipeline enabled" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,2,0,0" />
                                         </StackPanel>
 
                                         <Border Grid.Column="2" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
@@ -58,11 +58,11 @@
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Setter Property="Text" Value="Active" />
-                                                        <Setter Property="Foreground" Value="{StaticResource Brush.Status.SuccessText}" />
+                                                        <Setter Property="Foreground" Value="{DynamicResource Brush.Status.SuccessText}" />
                                                         <Style.Triggers>
                                                             <DataTrigger Binding="{Binding IsActive}" Value="False">
                                                                 <Setter Property="Text" Value="Paused" />
-                                                                <Setter Property="Foreground" Value="{StaticResource Brush.Status.WarningText}" />
+                                                                <Setter Property="Foreground" Value="{DynamicResource Brush.Status.WarningText}" />
                                                             </DataTrigger>
                                                         </Style.Triggers>
                                                     </Style>
@@ -81,7 +81,7 @@
                                                     Command="{Binding DataContext.RemoveFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}"
                                                     Padding="12,6">
-                                                <TextBlock Text="Remove" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
+                                                <TextBlock Text="Remove" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Status.DangerText}" />
                                             </Button>
                                         </StackPanel>
                                     </Grid>
@@ -102,9 +102,9 @@
                                 </Style.Triggers>
                             </Style>
                         </StackPanel.Style>
-                        <Path Data="{StaticResource Icon.Automation}" Fill="{StaticResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                        <TextBlock Text="No watch folders configured" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
-                        <TextBlock Text="Add a directory above to automatically process newly dropped files" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        <Path Data="{StaticResource Icon.Automation}" Fill="{DynamicResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                        <TextBlock Text="No watch folders configured" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="Add a directory above to automatically process newly dropped files" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
                     </StackPanel>
                 </Grid>
             </Border>

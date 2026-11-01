@@ -12,8 +12,8 @@
         Height="780" Width="1300"
         MinHeight="620" MinWidth="980"
         WindowStartupLocation="CenterScreen"
-        Background="{StaticResource Brush.Background.Primary}"
-        Foreground="{StaticResource Brush.Text.Primary}"
+        Background="{DynamicResource Brush.Background.Primary}"
+        Foreground="{DynamicResource Brush.Text.Primary}"
         WindowStyle="None"
         UseLayoutRounding="True"
         SnapsToDevicePixels="True"
@@ -74,7 +74,7 @@
 
     <Grid>
         <!-- Outer Shell Border with 1px subtle border -->
-        <Border x:Name="RootBorder" Background="{StaticResource Brush.Background.Primary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8">
+        <Border x:Name="RootBorder" Background="{DynamicResource Brush.Background.Primary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="44" />
@@ -84,7 +84,7 @@
                 <!-- ============================================================== -->
                 <!-- TOP NAVIGATION BAR                                             -->
                 <!-- ============================================================== -->
-                <Border Grid.Row="0" Background="{StaticResource Brush.Background.Sidebar}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" MouseDown="OnTitleBarMouseDown">
+                <Border Grid.Row="0" Background="{DynamicResource Brush.Background.Sidebar}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" MouseDown="OnTitleBarMouseDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -96,12 +96,12 @@
                         <!-- Brand Logo, Title & Sidebar Toggle -->
                         <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,16,0" WindowChrome.IsHitTestVisibleInChrome="True">
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleSidebarCommand}" Width="32" Height="30" Padding="0" Margin="0,0,10,0" ToolTip="Toggle Sidebar (Ctrl+B)">
-                                <Path Data="{StaticResource Icon.Menu}" Fill="{StaticResource Brush.Text.Secondary}" Width="14" Height="14" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Path Data="{StaticResource Icon.Menu}" Fill="{DynamicResource Brush.Text.Secondary}" Width="14" Height="14" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Button>
                             <Image Source="pack://application:,,,/Assets/logo.png" Width="26" Height="26" Margin="0,0,10,0" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
-                            <TextBlock Text="NEXUS" FontWeight="Bold" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Primary}" VerticalAlignment="Center" />
-                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="8,0,0,0">
-                                <TextBlock Text="EMERALD" FontSize="9" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                            <TextBlock Text="NEXUS" FontWeight="Bold" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Primary}" VerticalAlignment="Center" />
+                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="8,0,0,0">
+                                <TextBlock Text="EMERALD" FontSize="9" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                             </Border>
                         </StackPanel>
 
@@ -109,11 +109,11 @@
                         <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleCommandPaletteCommand}" HorizontalAlignment="Center" Width="460" Height="30" Padding="12,0" WindowChrome.IsHitTestVisibleInChrome="True">
                             <Grid Width="436">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Path Data="{StaticResource Icon.Search}" Fill="{StaticResource Brush.Text.Tertiary}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,8,0" />
-                                    <TextBlock Text="Search tools, formats, studios..." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                                    <Path Data="{StaticResource Icon.Search}" Fill="{DynamicResource Brush.Text.Tertiary}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,8,0" />
+                                    <TextBlock Text="Search tools, formats, studios..." FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                                 </StackPanel>
-                                <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{StaticResource Brush.Background.Elevated}" Padding="6,1">
-                                    <TextBlock Text="Ctrl + Shift + P" FontSize="10" Foreground="{StaticResource Brush.Text.Tertiary}" />
+                                <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{DynamicResource Brush.Background.Elevated}" Padding="6,1">
+                                    <TextBlock Text="Ctrl + Shift + P" FontSize="10" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                                 </Border>
                             </Grid>
                         </Button>
@@ -123,35 +123,56 @@
                             <!-- Focus Mode Toggle -->
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleFocusModeCommand}" Height="30" Padding="10,0" Margin="0,0,8,0" ToolTip="Focus Mode: Distraction-free processing (F10)">
                                 <StackPanel Orientation="Horizontal">
-                                    <Path Data="{StaticResource Icon.Focus}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                    <Path Data="{StaticResource Icon.Focus}" Fill="{DynamicResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
                                     <TextBlock Text="Focus" FontSize="11" FontWeight="SemiBold" />
                                 </StackPanel>
                             </Button>
 
                             <!-- Theme Toggle Button -->
-                            <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ToggleThemeCommand}" Width="32" Height="30" Padding="0" Margin="0,0,10,0" ToolTip="Toggle Emerald Dark / Light Theme (Ctrl+T)">
-                                <Path Data="{StaticResource Icon.Sun}" Fill="{StaticResource Brush.Accent.Hover}" Width="14" Height="14" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                            <Button Command="{Binding ToggleThemeCommand}" Width="32" Height="30" Padding="0" Margin="0,0,10,0">
+                                <Button.Style>
+                                    <Style TargetType="Button" BasedOn="{StaticResource SecondaryButtonStyle}">
+                                        <Setter Property="ToolTip" Value="Switch to Emerald Clean Light mode (Ctrl+T)" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsDarkTheme}" Value="False">
+                                                <Setter Property="ToolTip" Value="Switch to Emerald Obsidian Dark mode (Ctrl+T)" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Button.Style>
+                                <Path Width="14" Height="14" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" Fill="{DynamicResource Brush.Accent.Hover}">
+                                    <Path.Style>
+                                        <Style TargetType="Path">
+                                            <Setter Property="Data" Value="{StaticResource Icon.Sun}" />
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsDarkTheme}" Value="False">
+                                                    <Setter Property="Data" Value="{StaticResource Icon.Moon}" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Path.Style>
+                                </Path>
                             </Button>
 
                             <!-- Live Telemetry Stats -->
-                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Tertiary}" Margin="0,0,6,0">
-                                <TextBlock Text="{Binding QuickCpuPercentage, StringFormat={}CPU {0:F0}%}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Tertiary}" Margin="0,0,6,0">
+                                <TextBlock Text="{Binding QuickCpuPercentage, StringFormat={}CPU {0:F0}%}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                             </Border>
-                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Tertiary}">
-                                <TextBlock Text="{Binding QuickRamPercentage, StringFormat={}RAM {0:F0}%}" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Tertiary}">
+                                <TextBlock Text="{Binding QuickRamPercentage, StringFormat={}RAM {0:F0}%}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                             </Border>
                         </StackPanel>
 
                         <!-- Window Controls (Min, Max, Close) -->
                         <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Top" WindowChrome.IsHitTestVisibleInChrome="True">
                             <Button Style="{StaticResource WindowButtonStyle}" Click="OnMinimizeClick">
-                                <Path Data="{StaticResource Icon.Minimize}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="2" Stretch="Uniform" />
+                                <Path Data="{StaticResource Icon.Minimize}" Fill="{DynamicResource Brush.Text.Secondary}" Width="10" Height="2" Stretch="Uniform" />
                             </Button>
                             <Button x:Name="MaximizeBtn" Style="{StaticResource WindowButtonStyle}" Click="OnMaximizeClick" ToolTip="Maximize">
-                                <Path x:Name="MaximizeIcon" Data="{StaticResource Icon.Maximize}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
+                                <Path x:Name="MaximizeIcon" Data="{StaticResource Icon.Maximize}" Fill="{DynamicResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
                             </Button>
                             <Button Style="{StaticResource WindowCloseButtonStyle}" Click="OnCloseClick">
-                                <Path Data="{StaticResource Icon.Close}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
+                                <Path Data="{StaticResource Icon.Close}" Fill="{DynamicResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
                             </Button>
                         </StackPanel>
                     </Grid>
@@ -167,7 +188,7 @@
                     </Grid.ColumnDefinitions>
 
                     <!-- Left Navigation Sidebar -->
-                    <Border Grid.Column="0" Background="{StaticResource Brush.Background.Sidebar}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,1,0">
+                    <Border Grid.Column="0" Background="{DynamicResource Brush.Background.Sidebar}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,1,0">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="Width" Value="240" />
@@ -192,7 +213,7 @@
                             <ScrollViewer Grid.Row="0" VerticalScrollBarVisibility="Auto">
                                 <StackPanel Margin="6,12,6,8">
                                     <!-- SECTION 1: WORKSPACE -->
-                                    <TextBlock Text="WORKSPACE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="12,6,0,6">
+                                    <TextBlock Text="WORKSPACE" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="12,6,0,6">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Style.Triggers>
@@ -207,7 +228,7 @@
                                     <!-- Command Center -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Dashboard" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Dashboard}" ToolTip="Command Center Dashboard (Ctrl+1)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Dashboard}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Dashboard}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Command Center" />
                                         </StackPanel>
                                     </Button>
@@ -215,7 +236,7 @@
                                     <!-- Conversion Studio -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Universal" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Universal}" ToolTip="Universal Conversion Studio (Ctrl+2)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Convert}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Conversion Studio" />
                                         </StackPanel>
                                     </Button>
@@ -223,7 +244,7 @@
                                     <!-- Image Studio -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Image" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Image}" ToolTip="Image Studio (Ctrl+3)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Image}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Image Studio" />
                                         </StackPanel>
                                     </Button>
@@ -231,7 +252,7 @@
                                     <!-- Audio Studio -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Audio" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Audio}" ToolTip="Audio Studio (Ctrl+4)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Audio}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Audio}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Audio Studio" />
                                         </StackPanel>
                                     </Button>
@@ -239,7 +260,7 @@
                                     <!-- Video Studio -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Video" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Video}" ToolTip="Video Studio (Ctrl+5)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Video}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Video}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Video Studio" />
                                         </StackPanel>
                                     </Button>
@@ -247,7 +268,7 @@
                                     <!-- PDF Studio -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Pdf" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Pdf}" ToolTip="PDF Studio (Ctrl+6)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Pdf}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="PDF Studio" />
                                         </StackPanel>
                                     </Button>
@@ -255,13 +276,13 @@
                                     <!-- Archive Manager -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Archive" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Archive}" ToolTip="Archive Manager (Ctrl+7)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Archive}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Archive}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Archive Manager" />
                                         </StackPanel>
                                     </Button>
 
                                     <!-- SECTION 2: MANAGEMENT -->
-                                    <TextBlock Text="MANAGEMENT" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="12,18,0,6">
+                                    <TextBlock Text="MANAGEMENT" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="12,18,0,6">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Style.Triggers>
@@ -277,11 +298,11 @@
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Processing" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Processing}" ToolTip="Processing Center (Ctrl+9)">
                                         <Grid Width="200">
                                             <StackPanel Orientation="Horizontal">
-                                                <Path Data="{StaticResource Icon.Queue}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                                <Path Data="{StaticResource Icon.Queue}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                                 <TextBlock Text="Processing Center" />
                                             </StackPanel>
-                                            <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{StaticResource Brush.Accent.Muted}">
-                                                <TextBlock Text="{Binding ActiveTasksCount}" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                            <Border Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Right" Background="{DynamicResource Brush.Accent.Muted}">
+                                                <TextBlock Text="{Binding ActiveTasksCount}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                             </Border>
                                         </Grid>
                                     </Button>
@@ -289,7 +310,7 @@
                                     <!-- Automation Center -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Automation" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Automation}" ToolTip="Automation Center">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Automation}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Automation}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Automation Center" />
                                         </StackPanel>
                                     </Button>
@@ -297,13 +318,13 @@
                                     <!-- Storage Analyzer -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Storage" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Storage}" ToolTip="Storage Analyzer">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Storage}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Storage}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Storage Analyzer" />
                                         </StackPanel>
                                     </Button>
 
                                     <!-- SECTION 3: TOOLS -->
-                                    <TextBlock Text="TOOLS" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" Margin="12,18,0,6">
+                                    <TextBlock Text="TOOLS" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="12,18,0,6">
                                         <TextBlock.Style>
                                             <Style TargetType="TextBlock">
                                                 <Style.Triggers>
@@ -318,7 +339,7 @@
                                     <!-- Developer Toolkit -->
                                     <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="DevTools" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=DevTools}" ToolTip="Developer Toolkit (Ctrl+8)">
                                         <StackPanel Orientation="Horizontal">
-                                            <Path Data="{StaticResource Icon.Code}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                            <Path Data="{StaticResource Icon.Code}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                             <TextBlock Text="Developer Toolkit" />
                                         </StackPanel>
                                     </Button>
@@ -326,10 +347,10 @@
                             </ScrollViewer>
 
                             <!-- Bottom Settings Button -->
-                            <Border Grid.Row="1" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,1,0,0" Padding="6,8">
+                            <Border Grid.Row="1" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,1,0,0" Padding="6,8">
                                 <Button Style="{StaticResource NavButtonStyle}" Command="{Binding NavigateCommand}" CommandParameter="Settings" Tag="{Binding CurrentViewName, Converter={StaticResource StringEqualsConverter}, ConverterParameter=Settings}" ToolTip="Settings &amp; Info (Ctrl+,)">
                                     <StackPanel Orientation="Horizontal">
-                                        <Path Data="{StaticResource Icon.Settings}" Fill="{StaticResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
+                                        <Path Data="{StaticResource Icon.Settings}" Fill="{DynamicResource Brush.Text.Secondary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" />
                                         <TextBlock Text="Settings &amp; Info" />
                                     </StackPanel>
                                 </Button>
@@ -345,7 +366,7 @@
                 <!-- COMMAND PALETTE MODAL OVERLAY (Ctrl+Shift+P / Ctrl+K)           -->
                 <!-- ============================================================== -->
                 <Grid Grid.Row="0" Grid.RowSpan="2" Background="#A005120D" Visibility="{Binding IsCommandPaletteOpen, Converter={StaticResource BoolToVisConverter}}" x:Name="CommandPaletteOverlay" MouseDown="OnOverlayMouseDown">
-                    <Border Width="620" Height="440" VerticalAlignment="Top" Margin="0,75,0,0" Style="{StaticResource NexusCardStyle}" Background="{StaticResource Brush.Background.Secondary}" BorderBrush="{StaticResource Brush.Border.Active}" BorderThickness="1.5">
+                    <Border Width="620" Height="440" VerticalAlignment="Top" Margin="0,75,0,0" Style="{StaticResource NexusCardStyle}" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Active}" BorderThickness="1.5">
                         <Border.Effect>
                             <DropShadowEffect BlurRadius="24" Direction="270" ShadowDepth="8" Opacity="0.6" Color="#000000" />
                         </Border.Effect>
@@ -368,10 +389,10 @@
                                                 </Grid.ColumnDefinitions>
                                                 <StackPanel Grid.Column="0">
                                                     <TextBlock Text="{Binding Title}" FontWeight="SemiBold" />
-                                                    <TextBlock Text="{Binding Description}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,2,0,0" />
+                                                    <TextBlock Text="{Binding Description}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,2,0,0" />
                                                 </StackPanel>
-                                                <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Tertiary}">
-                                                    <TextBlock Text="{Binding Shortcut}" FontSize="10" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                                <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Tertiary}">
+                                                    <TextBlock Text="{Binding Shortcut}" FontSize="10" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                                 </Border>
                                             </Grid>
                                         </Border>
@@ -388,10 +409,10 @@
                 <ItemsControl Grid.Row="1" ItemsSource="{Binding Notifications}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,16,16,0" Width="320" IsHitTestVisible="False">
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,8" Background="{StaticResource Brush.Background.Elevated}" BorderBrush="{StaticResource Brush.Accent.Primary}" BorderThickness="1.5">
+                            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,8" Background="{DynamicResource Brush.Background.Elevated}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1.5">
                                 <StackPanel>
-                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
-                                    <TextBlock Text="{Binding Message}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0" />
+                                    <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                                    <TextBlock Text="{Binding Message}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0" />
                                 </StackPanel>
                             </Border>
                         </DataTemplate>
