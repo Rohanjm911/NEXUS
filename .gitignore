@@ -19,4 +19,12 @@ Cargo.lock
 # Distribution / Build output
 dist/
 *.log
+/NEXUS.exe
+/NEXUS.Desktop.exe
+/nexus-engine.exe
+/*.dll
+/*.pdb
+/*.deps.json
+/*.runtimeconfig.json
+
 
