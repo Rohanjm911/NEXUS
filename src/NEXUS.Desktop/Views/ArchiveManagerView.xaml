@@ -94,7 +94,7 @@
                     <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
                     <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding CreateArchiveCommand}" HorizontalAlignment="Right" Height="42" Padding="28,0">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource Icon.Archive}" Fill="#FFFFFF" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                            <Path Data="{StaticResource Icon.Archive}" Fill="{StaticResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Generate Archive" FontWeight="Bold" />
                         </StackPanel>
                     </Button>

@@ -11,7 +11,9 @@
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <StackPanel Margin="32,24,32,32">
             
-            <!-- Hero Header -->
+            <!-- ============================================================== -->
+            <!-- WELCOME & HERO HEADER                                          -->
+            <!-- ============================================================== -->
             <Grid Margin="0,0,0,24">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -19,22 +21,92 @@
                 </Grid.ColumnDefinitions>
                 
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <Image Source="pack://application:,,,/Assets/logo.png" Width="52" Height="52" Margin="0,0,16,0" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" />
+                    <Border Width="56" Height="56" CornerRadius="12" Background="{StaticResource Brush.Background.Secondary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" Margin="0,0,16,0">
+                        <Image Source="pack://application:,,,/Assets/logo.png" Width="42" Height="42" RenderOptions.BitmapScalingMode="HighQuality" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    </Border>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="NEXUS COMMAND CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Primary}" />
-                        <TextBlock Text="Universal File Conversion &amp; Processing Engine • Offline &amp; Privacy-First" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="NEXUS COMMAND CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Primary}" />
+                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
+                                <TextBlock Text="EMERALD EDITION" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                            </Border>
+                        </StackPanel>
+                        <TextBlock Text="Welcome back • Privacy-First Universal Desktop Processing Engine • Local-Only" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
                     </StackPanel>
                 </StackPanel>
 
-                <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                        <TextBlock Text="Refresh Stats" />
-                    </StackPanel>
-                </Button>
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Secondary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" Margin="0,0,10,0" Padding="12,6">
+                        <StackPanel Orientation="Horizontal">
+                            <Ellipse Width="8" Height="8" Fill="{StaticResource Brush.Status.Success}" Margin="0,0,8,0" />
+                            <TextBlock Text="Engine Online (\\.\pipe\nexus-engine)" FontSize="11" FontWeight="SemiBold" Foreground="{StaticResource Brush.Status.SuccessText}" />
+                        </StackPanel>
+                    </Border>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                            <TextBlock Text="Refresh Stats" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
             </Grid>
 
-            <!-- Metrics Overview Cards -->
+            <!-- ============================================================== -->
+            <!-- QUICK ACTIONS DOCK (1-Click Workflow Launchers)                -->
+            <!-- ============================================================== -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,24" Padding="16,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Grid.Column="0" Text="QUICK ACTIONS DOCK" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Tertiary}" VerticalAlignment="Center" Margin="0,0,20,0" />
+
+                    <WrapPanel Grid.Column="1" VerticalAlignment="Center">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Universal" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Convert}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Universal Studio" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Image" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Image Master" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Audio" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Audio}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Audio Converter" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Video" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Video}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Video Transcoder" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Pdf" Height="32" Padding="14,0" Margin="0,0,8,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Pdf}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="PDF Tools" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding DataContext.NavigateCommand, RelativeSource={RelativeSource AncestorType=Window}}" CommandParameter="Archive" Height="32" Padding="14,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Path Data="{StaticResource Icon.Archive}" Fill="{StaticResource Brush.Accent.Hover}" Width="13" Height="13" Stretch="Uniform" Margin="0,0,6,0" />
+                                <TextBlock Text="Archive Manager" FontSize="11" FontWeight="SemiBold" />
+                            </StackPanel>
+                        </Button>
+                    </WrapPanel>
+                </Grid>
+            </Border>
+
+            <!-- ============================================================== -->
+            <!-- PROCESSING & SYSTEM TELEMETRY OVERVIEW CARDS                   -->
+            <!-- ============================================================== -->
             <Grid Margin="0,0,0,24">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -50,7 +122,7 @@
                 <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
                         <Grid>
-                            <TextBlock Text="CPU LOAD" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" />
+                            <TextBlock Text="CPU UTILIZATION" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" />
                             <Path Data="{StaticResource Icon.Cpu}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" HorizontalAlignment="Right" />
                         </Grid>
                         <TextBlock Text="{Binding CpuUsage, StringFormat={}{0:F1}%}" FontSize="{StaticResource FontSize.Title}" FontWeight="Bold" Margin="0,8,0,8" />
@@ -96,13 +168,15 @@
                 </Border>
             </Grid>
 
-            <!-- Drag & Drop Quick Area -->
+            <!-- ============================================================== -->
+            <!-- DRAG & DROP QUICK WORKSPACE                                    -->
+            <!-- ============================================================== -->
             <Border x:Name="DropZoneBorder" 
                     Background="{StaticResource Brush.Background.DropZone}"
-                    BorderBrush="{StaticResource Brush.Border.Subtle}"
-                    BorderThickness="2"
+                    BorderBrush="{StaticResource Brush.Border.DropZone}"
+                    BorderThickness="1.5"
                     CornerRadius="10"
-                    Padding="32"
+                    Padding="36,28"
                     Margin="0,0,0,28"
                     AllowDrop="True"
                     Drop="OnDropFiles"
@@ -111,13 +185,15 @@
                     Cursor="Hand">
                 <StackPanel HorizontalAlignment="Center">
                     <Path Data="{StaticResource Icon.Drop}" Fill="{StaticResource Brush.Accent.Primary}" Width="40" Height="40" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                    <TextBlock Text="Drag and drop files here to convert" FontSize="{StaticResource FontSize.Header}" FontWeight="SemiBold" HorizontalAlignment="Center" />
-                    <TextBlock Text="Universal support: Images, Audio, Video, Documents, and Archives are automatically recognized" FontSize="{StaticResource FontSize.Body}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
+                    <TextBlock Text="Drag and drop files or folders here" FontSize="{StaticResource FontSize.Header}" FontWeight="SemiBold" HorizontalAlignment="Center" />
+                    <TextBlock Text="Universal batch recognition: Images, Audio, Video, Documents, and Archives automatically routed to engine" FontSize="{StaticResource FontSize.Body}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,6,0,0" />
                 </StackPanel>
             </Border>
 
-            <!-- Format Category Grid -->
-            <TextBlock Text="Supported Formats &amp; Studios" FontSize="{StaticResource FontSize.Header}" FontWeight="SemiBold" Margin="0,0,0,12" />
+            <!-- ============================================================== -->
+            <!-- FORMAT CATEGORY GRID                                           -->
+            <!-- ============================================================== -->
+            <TextBlock Text="Specialized Studios &amp; Capabilities" FontSize="{StaticResource FontSize.Header}" FontWeight="SemiBold" Margin="0,0,0,12" />
             <Grid Margin="0,0,0,28">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
@@ -139,7 +215,7 @@
                             <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Image Studio" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="PNG, JPG, WEBP, AVIF, TIFF, BMP, SVG, GIF" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="PNG, JPG, WEBP, AVIF, TIFF, BMP, SVG, GIF (Lanczos3 rescaler)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
 
@@ -150,7 +226,7 @@
                             <Path Data="{StaticResource Icon.Audio}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Audio Studio" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="MP3, WAV, FLAC, AAC, OGG, M4A, WMA" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="MP3, WAV, FLAC, AAC, OGG, M4A, WMA (Lossless &amp; VBR)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
 
@@ -161,7 +237,7 @@
                             <Path Data="{StaticResource Icon.Video}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Video Studio" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="MP4, MKV, MOV, AVI, WEBM, WMV, FLV" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="MP4, MKV, MOV, AVI, WEBM, WMV (H.264, VP9 transcoding)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
 
@@ -172,7 +248,7 @@
                             <Path Data="{StaticResource Icon.Pdf}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Document &amp; PDF" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="PDF, DOCX, DOC, TXT, ODT, RTF" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="PDF Linear Merge, DOCX, DOC, TXT, ODT, RTF Document Tools" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
 
@@ -183,7 +259,7 @@
                             <Path Data="{StaticResource Icon.Archive}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Archive Manager" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="ZIP, 7Z, RAR, TAR, GZ" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="ZIP, 7Z, TAR, GZ, RAR (Path traversal security hardened)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
 
@@ -194,12 +270,14 @@
                             <Path Data="{StaticResource Icon.Code}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Developer Toolkit" FontWeight="SemiBold" />
                         </StackPanel>
-                        <TextBlock Text="JSON Formatter, Base64, MD5, SHA-256, Hex Viewer" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
+                        <TextBlock Text="Offline JSON Formatter, Base64, SHA-256, SHA-512, MD5, Hex Viewer" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextWrapping="Wrap" />
                     </StackPanel>
                 </Border>
             </Grid>
 
-            <!-- Recent Tasks List -->
+            <!-- ============================================================== -->
+            <!-- RECENT PROCESSING ACTIVITY                                     -->
+            <!-- ============================================================== -->
             <Grid Margin="0,0,0,12">
                 <TextBlock Text="Recent Processing Activity" FontSize="{StaticResource FontSize.Header}" FontWeight="SemiBold" />
             </Grid>
@@ -218,19 +296,19 @@
                                     </Grid.ColumnDefinitions>
 
                                     <!-- Name & Source -->
-                                    <StackPanel Grid.Column="0">
-                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                                        <TextBlock Text="{Binding SourceFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                                    <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
+                                        <TextBlock Text="{Binding SourceFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" TextTrimming="CharacterEllipsis" Margin="0,2,0,0" />
                                     </StackPanel>
 
                                     <!-- Format Pill -->
                                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0">
                                         <Border Style="{StaticResource NexusBadgeStyle}">
-                                            <TextBlock Text="{Binding SourceFormat}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                            <TextBlock Text="{Binding SourceFormat, StringFormat={}.{0}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
                                         </Border>
                                         <TextBlock Text=" → " Foreground="{StaticResource Brush.Text.Tertiary}" VerticalAlignment="Center" Margin="4,0" />
                                         <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Background.Tertiary}">
-                                            <TextBlock Text="{Binding TargetFormat}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" />
+                                            <TextBlock Text="{Binding TargetFormat, StringFormat={}.{0}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Primary}" FontWeight="SemiBold" />
                                         </Border>
                                     </StackPanel>
 
@@ -252,4 +330,3 @@
         </StackPanel>
     </ScrollViewer>
 </UserControl>
-

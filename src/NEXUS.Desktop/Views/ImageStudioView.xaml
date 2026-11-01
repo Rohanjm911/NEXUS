@@ -8,8 +8,13 @@
         <StackPanel Margin="32,24,32,32">
             <!-- Header -->
             <StackPanel Margin="0,0,0,24">
-                <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                <TextBlock Text="Resize, crop, convert, optimize and strip metadata with Rust Lanczos3 engine" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{StaticResource Brush.Accent.Muted}" Margin="12,0,0,0" VerticalAlignment="Center">
+                        <TextBlock Text="LANCZOS3 ENGINE" FontSize="10" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock Text="Resize, crop, convert, optimize, compare before/after and strip metadata with Rust SIMD acceleration" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- File Selection Card -->
@@ -75,18 +80,63 @@
                     </StackPanel>
                 </Border>
 
-                <!-- Right Column: Output Format -->
+                <!-- Right Column: Output Format & Presets -->
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="OUTPUT FORMAT" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
+                        <TextBlock Text="OUTPUT FORMAT &amp; CODEC" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,16" />
                         <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,16" />
                         
-                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12" Margin="0,8,0,0">
-                            <TextBlock Text="Recommended for web: WebP / AVIF (up to 40% smaller than JPEG with identical perceptual quality).&#x0a;PNG: Lossless graphics with alpha channel.&#x0a;JPG: Standard photograph compression." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                        <Border Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="14" Margin="0,8,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Format Guide:" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" Margin="0,0,0,6" />
+                                <TextBlock Text="• WebP / AVIF: Next-gen web formats, up to 40% smaller than JPEG with identical perceptual fidelity.&#x0a;• PNG: Lossless raster with transparent alpha channel.&#x0a;• JPG: Universal photography standard with tunable DCT compression." FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" LineHeight="18" TextWrapping="Wrap" />
+                            </StackPanel>
                         </Border>
                     </StackPanel>
                 </Border>
             </Grid>
+
+            <!-- Before/After Quality Comparison Preview Card -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="0" Margin="0,0,0,12">
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <Path Data="{StaticResource Icon.Compare}" Fill="{StaticResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                            <TextBlock Text="BEFORE / AFTER VISUAL COMPARISON" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" />
+                        </StackPanel>
+                        <TextBlock Text="Interactive Comparison" FontSize="11" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border Grid.Column="0" Background="{StaticResource Brush.Background.Tertiary}" CornerRadius="6" Padding="16">
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock Text="ORIGINAL IMAGE" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Original Metadata Intact • Uncompressed Source" FontSize="11" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Border>
+
+                        <Path Grid.Column="1" Data="{StaticResource Icon.ChevronRight}" Fill="{StaticResource Brush.Accent.Primary}" Width="20" Height="20" Stretch="Uniform" VerticalAlignment="Center" Margin="10,0" />
+
+                        <Border Grid.Column="2" Background="{StaticResource Brush.Accent.Muted}" BorderBrush="{StaticResource Brush.Accent.Primary}" BorderThickness="1" CornerRadius="6" Padding="16">
+                            <StackPanel HorizontalAlignment="Center">
+                                <TextBlock Text="OPTIMIZED OUTPUT" FontSize="11" FontWeight="Bold" Foreground="{StaticResource Brush.Accent.Hover}" HorizontalAlignment="Center" />
+                                <TextBlock Text="Lanczos3 Rescaled • EXIF Stripped • Web Optimized" FontSize="11" Foreground="{StaticResource Brush.Text.Primary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Grid>
+            </Border>
 
             <!-- Action & Status Card -->
             <Border Style="{StaticResource NexusCardStyle}">
@@ -94,13 +144,12 @@
                     <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{StaticResource Brush.Accent.Hover}" FontWeight="SemiBold" />
                     <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessImageCommand}" HorizontalAlignment="Right" Height="42" Padding="28,0">
                         <StackPanel Orientation="Horizontal">
-                            <Path Data="{StaticResource Icon.Image}" Fill="#FFFFFF" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
+                            <Path Data="{StaticResource Icon.Image}" Fill="{StaticResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
                             <TextBlock Text="Process Image" FontWeight="Bold" />
                         </StackPanel>
                     </Button>
                 </Grid>
             </Border>
-
         </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -22,13 +22,30 @@ public partial class MainWindow : Window
 
     private void OnWindowKeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key == Key.K && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        // Ctrl+Shift+P or Ctrl+K -> Command Palette
+        if (((e.Key == Key.P && (Keyboard.Modifiers & (ModifierKeys.Control | ModifierKeys.Shift)) == (ModifierKeys.Control | ModifierKeys.Shift)) ||
+             (e.Key == Key.K && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)))
         {
             _viewModel.ToggleCommandPaletteCommand.Execute(null);
             if (_viewModel.IsCommandPaletteOpen)
             {
                 CommandQueryBox.Focus();
             }
+            e.Handled = true;
+        }
+        else if (e.Key == Key.F10)
+        {
+            _viewModel.ToggleFocusModeCommand.Execute(null);
+            e.Handled = true;
+        }
+        else if (e.Key == Key.T && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            _viewModel.ToggleThemeCommand.Execute(null);
+            e.Handled = true;
+        }
+        else if (e.Key == Key.B && (Keyboard.Modifiers & ModifierKeys.Control) == ModifierKeys.Control)
+        {
+            _viewModel.ToggleSidebarCommand.Execute(null);
             e.Handled = true;
         }
         else if (e.Key == Key.Escape && _viewModel.IsCommandPaletteOpen)

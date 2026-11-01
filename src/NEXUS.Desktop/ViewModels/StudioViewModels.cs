@@ -8,6 +8,8 @@ using CommunityToolkit.Mvvm.Input;
 using NEXUS.Core.Enums;
 using NEXUS.Core.Interfaces;
 using NEXUS.Core.Models;
+using NEXUS.Desktop.Services;
+using ThemeMode = NEXUS.Core.Enums.ThemeMode;
 
 namespace NEXUS.Desktop.ViewModels;
 
@@ -19,7 +21,9 @@ public class UniversalConversionViewModel : ViewModelBase
     private readonly IPresetRepository _presetRepository;
 
     public ObservableCollection<TaskItem> QueuedItems { get; } = new();
+    public ObservableCollection<TaskItem> FilteredQueuedItems { get; } = new();
     public ObservableCollection<string> TargetFormats { get; } = new();
+    public ObservableCollection<string> Presets { get; } = new();
 
     private string _selectedTargetFormat = "png";
     public string SelectedTargetFormat
@@ -28,9 +32,52 @@ public class UniversalConversionViewModel : ViewModelBase
         set => SetProperty(ref _selectedTargetFormat, value);
     }
 
+    private string _selectedCategoryFilter = "All";
+    public string SelectedCategoryFilter
+    {
+        get => _selectedCategoryFilter;
+        set
+        {
+            if (SetProperty(ref _selectedCategoryFilter, value))
+            {
+                ApplyCategoryFilter();
+            }
+        }
+    }
+
+    private TaskItem? _selectedTaskItem;
+    public TaskItem? SelectedTaskItem
+    {
+        get => _selectedTaskItem;
+        set => SetProperty(ref _selectedTaskItem, value);
+    }
+
+    private string _selectedPreset = "Balanced (Default)";
+    public string SelectedPreset
+    {
+        get => _selectedPreset;
+        set => SetProperty(ref _selectedPreset, value);
+    }
+
+    private string? _outputDestinationDirectory;
+    public string? OutputDestinationDirectory
+    {
+        get => _outputDestinationDirectory;
+        set => SetProperty(ref _outputDestinationDirectory, value);
+    }
+
+    private double _comparisonSliderValue = 50.0;
+    public double ComparisonSliderValue
+    {
+        get => _comparisonSliderValue;
+        set => SetProperty(ref _comparisonSliderValue, value);
+    }
+
     public IRelayCommand AddFilesCommand { get; }
     public IRelayCommand ClearQueueCommand { get; }
     public IRelayCommand StartConversionCommand { get; }
+    public IRelayCommand BrowseOutputDestinationCommand { get; }
+    public IRelayCommand<string> SetCategoryFilterCommand { get; }
 
     public UniversalConversionViewModel(
         ITaskExecutionService taskExecutionService,
@@ -44,17 +91,45 @@ public class UniversalConversionViewModel : ViewModelBase
         _presetRepository = presetRepository;
 
         AddFilesCommand = new RelayCommand(AddFiles);
-        ClearQueueCommand = new RelayCommand(QueuedItems.Clear);
+        ClearQueueCommand = new RelayCommand(() =>
+        {
+            QueuedItems.Clear();
+            FilteredQueuedItems.Clear();
+            SelectedTaskItem = null;
+        });
         StartConversionCommand = new AsyncRelayCommand(StartConversionAsync);
+
+        BrowseOutputDestinationCommand = new RelayCommand(() =>
+        {
+            var dlg = new Microsoft.Win32.OpenFolderDialog { Title = "Select Output Destination Directory" };
+            if (dlg.ShowDialog() == true)
+            {
+                OutputDestinationDirectory = dlg.FolderName;
+            }
+        });
+
+        SetCategoryFilterCommand = new RelayCommand<string>(cat =>
+        {
+            if (!string.IsNullOrEmpty(cat)) SelectedCategoryFilter = cat;
+        });
 
         TargetFormats.Add("png");
         TargetFormats.Add("jpg");
         TargetFormats.Add("webp");
+        TargetFormats.Add("avif");
         TargetFormats.Add("mp3");
+        TargetFormats.Add("wav");
+        TargetFormats.Add("flac");
         TargetFormats.Add("mp4");
+        TargetFormats.Add("mkv");
         TargetFormats.Add("pdf");
         TargetFormats.Add("tar.gz");
         TargetFormats.Add("zip");
+
+        Presets.Add("Balanced (Default)");
+        Presets.Add("Maximum Master Quality");
+        Presets.Add("Fast Streaming / Web");
+        Presets.Add("Ultra Compressed");
     }
 
     private void AddFiles()
@@ -72,7 +147,7 @@ public class UniversalConversionViewModel : ViewModelBase
                 var detection = _formatDetector.DetectFormat(file);
                 var info = new FileInfo(file);
 
-                QueuedItems.Add(new TaskItem
+                var item = new TaskItem
                 {
                     Name = info.Name,
                     SourceFilePath = file,
@@ -81,8 +156,42 @@ public class UniversalConversionViewModel : ViewModelBase
                     Category = detection.Category,
                     FileSizeBytes = info.Length,
                     Status = ProcessingStatus.Queued
-                });
+                };
+
+                QueuedItems.Add(item);
             }
+
+            ApplyCategoryFilter();
+
+            if (SelectedTaskItem == null && FilteredQueuedItems.Count > 0)
+            {
+                SelectedTaskItem = FilteredQueuedItems[0];
+            }
+        }
+    }
+
+    private void ApplyCategoryFilter()
+    {
+        FilteredQueuedItems.Clear();
+        foreach (var item in QueuedItems)
+        {
+            bool match = SelectedCategoryFilter switch
+            {
+                "All" => true,
+                "Images" => item.Category == FileCategory.Image,
+                "Audio" => item.Category == FileCategory.Audio,
+                "Video" => item.Category == FileCategory.Video,
+                "Documents" => item.Category == FileCategory.Document,
+                "Archives" => item.Category == FileCategory.Archive,
+                _ => true
+            };
+
+            if (match) FilteredQueuedItems.Add(item);
+        }
+
+        if (SelectedTaskItem != null && !FilteredQueuedItems.Contains(SelectedTaskItem))
+        {
+            SelectedTaskItem = FilteredQueuedItems.FirstOrDefault();
         }
     }
 
@@ -95,11 +204,15 @@ public class UniversalConversionViewModel : ViewModelBase
 
         var itemsToProcess = QueuedItems.ToList();
         QueuedItems.Clear();
+        FilteredQueuedItems.Clear();
+        SelectedTaskItem = null;
 
         foreach (var item in itemsToProcess)
         {
             item.TargetFormat = SelectedTargetFormat;
-            var dir = Path.GetDirectoryName(item.SourceFilePath) ?? "";
+            var dir = !string.IsNullOrWhiteSpace(OutputDestinationDirectory) 
+                ? OutputDestinationDirectory 
+                : (Path.GetDirectoryName(item.SourceFilePath) ?? "");
             var name = Path.GetFileNameWithoutExtension(item.SourceFilePath);
             item.OutputFilePath = Path.Combine(dir, $"{name}_converted.{SelectedTargetFormat}");
 
@@ -846,6 +959,7 @@ public class StorageAnalyzerViewModel : ViewModelBase
 public class SettingsViewModel : ViewModelBase
 {
     private readonly ISettingsRepository _settingsRepository;
+    private readonly IThemeService _themeService;
 
     private int _themeIndex;
     public int ThemeIndex
@@ -855,7 +969,9 @@ public class SettingsViewModel : ViewModelBase
         {
             if (SetProperty(ref _themeIndex, value))
             {
-                _ = _settingsRepository.SetSettingAsync("General.Theme", (NEXUS.Core.Enums.ThemeMode)value);
+                var mode = (ThemeMode)value;
+                _themeService.ApplyTheme(mode);
+                _ = _settingsRepository.SetSettingAsync("General.Theme", mode);
             }
         }
     }
@@ -873,9 +989,10 @@ public class SettingsViewModel : ViewModelBase
         }
     }
 
-    public SettingsViewModel(ISettingsRepository settingsRepository)
+    public SettingsViewModel(ISettingsRepository settingsRepository, IThemeService themeService)
     {
         _settingsRepository = settingsRepository;
+        _themeService = themeService;
     }
 
     public override async Task InitializeAsync()

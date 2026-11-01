@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using NEXUS.Application;
 using NEXUS.Core.Interfaces;
+using NEXUS.Desktop.Services;
 using NEXUS.Desktop.ViewModels;
 
 namespace NEXUS.Desktop;
@@ -51,6 +52,16 @@ public partial class App : System.Windows.Application
             var db = ServiceProvider.GetRequiredService<IDatabaseService>();
             await db.InitializeAsync();
 
+            // Apply Saved Theme (Emerald Dark / Light / Adaptive)
+            try
+            {
+                var settings = ServiceProvider.GetRequiredService<ISettingsRepository>();
+                var savedTheme = await settings.GetSettingAsync("General.Theme", NEXUS.Core.Enums.ThemeMode.ObsidianDark);
+                var themeService = ServiceProvider.GetRequiredService<IThemeService>();
+                themeService.ApplyTheme(savedTheme);
+            }
+            catch { }
+
             // 2. Warm up Engine in background
             try
             {
@@ -93,6 +104,9 @@ public partial class App : System.Windows.Application
 
         // Core and Infrastructure
         services.AddNexusCoreAndInfrastructure();
+
+        // Services
+        services.AddSingleton<IThemeService, ThemeService>();
 
         // ViewModels
         services.AddSingleton<MainViewModel>();
