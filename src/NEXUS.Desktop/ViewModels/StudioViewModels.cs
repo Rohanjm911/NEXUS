@@ -272,15 +272,16 @@ public class ImageStudioViewModel : ViewModelBase
     private readonly ITaskExecutionService _taskExecutionService;
     private readonly ITaskRepository _taskRepository;
 
-    private string _sourceImagePath = string.Empty;
-    public string SourceImagePath
+    private string? _sourceImagePath = null;
+    public string? SourceImagePath
     {
         get => _sourceImagePath;
         set
         {
-            if (SetProperty(ref _sourceImagePath, value))
+            var clean = string.IsNullOrWhiteSpace(value) ? null : value;
+            if (SetProperty(ref _sourceImagePath, clean))
             {
-                OnSourceImageChanged(value);
+                OnSourceImageChanged(clean ?? string.Empty);
             }
         }
     }
@@ -495,15 +496,16 @@ public class AudioStudioViewModel : ViewModelBase
     private readonly ITaskExecutionService _taskExecutionService;
     private readonly ITaskRepository _taskRepository;
 
-    private string _sourceAudioPath = string.Empty;
-    public string SourceAudioPath
+    private string? _sourceAudioPath = null;
+    public string? SourceAudioPath
     {
         get => _sourceAudioPath;
         set
         {
-            if (SetProperty(ref _sourceAudioPath, value))
+            var clean = string.IsNullOrWhiteSpace(value) ? null : value;
+            if (SetProperty(ref _sourceAudioPath, clean))
             {
-                OnSourceAudioChanged(value);
+                OnSourceAudioChanged(clean ?? string.Empty);
             }
         }
     }
@@ -665,15 +667,16 @@ public class VideoStudioViewModel : ViewModelBase
     private readonly ITaskExecutionService _taskExecutionService;
     private readonly ITaskRepository _taskRepository;
 
-    private string _sourceVideoPath = string.Empty;
-    public string SourceVideoPath
+    private string? _sourceVideoPath = null;
+    public string? SourceVideoPath
     {
         get => _sourceVideoPath;
         set
         {
-            if (SetProperty(ref _sourceVideoPath, value))
+            var clean = string.IsNullOrWhiteSpace(value) ? null : value;
+            if (SetProperty(ref _sourceVideoPath, clean))
             {
-                OnSourceVideoChanged(value);
+                OnSourceVideoChanged(clean ?? string.Empty);
             }
         }
     }
@@ -977,11 +980,15 @@ public class ArchiveManagerViewModel : ViewModelBase
         set => SetProperty(ref _archiveFormat, value);
     }
 
-    private string _extractSourcePath = string.Empty;
-    public string ExtractSourcePath
+    private string? _extractSourcePath = null;
+    public string? ExtractSourcePath
     {
         get => _extractSourcePath;
-        set => SetProperty(ref _extractSourcePath, value);
+        set
+        {
+            var clean = string.IsNullOrWhiteSpace(value) ? null : value;
+            SetProperty(ref _extractSourcePath, clean);
+        }
     }
 
     private string _extractDestinationPath = string.Empty;

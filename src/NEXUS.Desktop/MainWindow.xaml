@@ -410,6 +410,16 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,8" Background="{DynamicResource Brush.Background.Elevated}" BorderBrush="{DynamicResource Brush.Accent.Primary}" BorderThickness="1.5">
+                                <Border.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.2" />
+                                                <ThicknessAnimation Storyboard.TargetProperty="Margin" From="20,0,0,8" To="0,0,0,8" Duration="0:0:0.2" DecelerationRatio="0.8" />
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                </Border.Triggers>
                                 <StackPanel>
                                     <TextBlock Text="{Binding Title}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
                                     <TextBlock Text="{Binding Message}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" TextWrapping="Wrap" Margin="0,4,0,0" />

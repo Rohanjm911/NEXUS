@@ -155,20 +155,43 @@ public partial class MainViewModel : ViewModelBase
         await RefreshGlobalMetricsAsync();
     }
 
-    public void AddNotification(string title, string message, string type = "Info")
+    public void AddNotification(string title, string message, string type = "Info", int autoDismissSeconds = 2)
     {
         System.Windows.Application.Current?.Dispatcher.Invoke(() =>
         {
-            Notifications.Insert(0, new NotificationItem
+            // Remove previous notification with the same title to avoid repetitive stacking
+            for (int i = Notifications.Count - 1; i >= 0; i--)
+            {
+                if (Notifications[i].Title == title)
+                {
+                    Notifications.RemoveAt(i);
+                }
+            }
+
+            var item = new NotificationItem
             {
                 Title = title,
                 Message = message,
                 Type = type
-            });
+            };
+
+            Notifications.Insert(0, item);
 
             if (Notifications.Count > 5)
             {
                 Notifications.RemoveAt(Notifications.Count - 1);
+            }
+
+            if (autoDismissSeconds > 0)
+            {
+                _ = Task.Run(async () =>
+                {
+                    await Task.Delay(TimeSpan.FromSeconds(autoDismissSeconds));
+                    System.Windows.Application.Current?.Dispatcher.Invoke(() =>
+                    {
+                        Notifications.Remove(item);
+                    });
+                });
             }
         });
     }
