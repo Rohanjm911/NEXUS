@@ -36,3 +36,4 @@ public partial class ImageUpscalerView : UserControl
         }
     }
 }
+
