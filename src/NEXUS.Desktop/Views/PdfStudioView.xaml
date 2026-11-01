@@ -8,58 +8,82 @@
              Drop="OnDropFiles">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-        <Grid Margin="32,24,32,32">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <!-- Header -->
-            <StackPanel Grid.Row="0" Margin="0,0,0,24">
-                <TextBlock Text="PDF STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                <TextBlock Text="Merge multiple PDFs, reorder pages, extract pages and compress documents" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+        <StackPanel Margin="32,24,32,32">
+            <!-- Studio Header -->
+            <StackPanel Margin="0,0,0,20">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="PDF STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0">
+                        <TextBlock Text="DOCUMENT PUBLISHER &amp; BINDER" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                    </Border>
+                </StackPanel>
+                <TextBlock Text="Merge multiple PDF documents, reorder pages, organize document archives and produce unified publications" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
-            <!-- Top Actions Bar -->
-            <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+            <!-- Binder Control Bar -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" Padding="16,12">
                 <Grid>
-                    <TextBlock Text="SELECTED PDF DOCUMENTS FOR MERGING" FontWeight="SemiBold" VerticalAlignment="Center" />
-                    
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                        <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,10,0" />
+                        <TextBlock Text="DOCUMENT STAGING BOARD" FontWeight="Bold" VerticalAlignment="Center" />
+                        <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Tertiary}" Margin="12,0,0,0">
+                            <TextBlock Text="{Binding TotalPdfCount, StringFormat={}{0} Documents Staged}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                        </Border>
+                    </StackPanel>
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddPdfCommand}" Height="38" Padding="18,0" Margin="0,0,8,0">
+                        <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding AddPdfCommand}" Height="36" Padding="18,0" Margin="0,0,8,0">
                             <StackPanel Orientation="Horizontal">
-                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Add PDF Files..." FontWeight="SemiBold" />
+                                <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
+                                <TextBlock Text="Add PDF Documents..." FontWeight="Bold" />
                             </StackPanel>
                         </Button>
-                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearPdfCommand}" Height="38" Padding="14,0">
-                            <TextBlock Text="Clear List" />
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearPdfCommand}" Height="36" Padding="14,0">
+                            <TextBlock Text="Clear All" />
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <!-- PDF Files List -->
-            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="260">
+            <!-- Interactive Staging List -->
+            <Border Style="{StaticResource NexusCardStyle}" MinHeight="260" Margin="0,0,0,16" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Active}">
                 <Grid>
-                    <ListBox ItemsSource="{Binding PdfFiles}" Background="Transparent" BorderThickness="0">
+                    <!-- PDF Documents Collection -->
+                    <ListBox ItemsSource="{Binding PdfFiles}" Background="Transparent" BorderThickness="0" Margin="8">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,10">
+                                <Border Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="6" Margin="0,0,0,8" Padding="12,10">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
-                                        <Path Grid.Column="0" Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Accent.Primary}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,12,0" VerticalAlignment="Center" />
+
+                                        <!-- PDF Icon -->
+                                        <Border Grid.Column="0" Background="{DynamicResource Brush.Accent.Muted}" CornerRadius="4" Width="36" Height="36" Margin="0,0,14,0" VerticalAlignment="Center">
+                                            <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Accent.Hover}" Width="18" Height="18" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                        </Border>
+
+                                        <!-- Document Info -->
                                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="PDF Document queued for linear page merge" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,2,0,0" />
+                                            <TextBlock Text="{Binding}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" FontSize="{StaticResource FontSize.Body}" />
+                                            <TextBlock Text="PDF Document staged for sequential linear page bind" FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,3,0,0" />
                                         </StackPanel>
-                                        <Button Grid.Column="2" Style="{StaticResource WindowCloseButtonStyle}" Command="{Binding DataContext.RemovePdfCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Width="28" Height="28" VerticalAlignment="Center" ToolTip="Remove from list">
+
+                                        <!-- Move Up / Move Down Reordering Controls -->
+                                        <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0">
+                                            <Button Style="{StaticResource WindowButtonStyle}" Command="{Binding DataContext.MovePdfUpCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Width="30" Height="30" Margin="0,0,4,0" ToolTip="Move Up in Bind Sequence">
+                                                <Path Data="{StaticResource Icon.ArrowUp}" Fill="{DynamicResource Brush.Text.Secondary}" Width="12" Height="12" Stretch="Uniform" />
+                                            </Button>
+                                            <Button Style="{StaticResource WindowButtonStyle}" Command="{Binding DataContext.MovePdfDownCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Width="30" Height="30" ToolTip="Move Down in Bind Sequence">
+                                                <Path Data="{StaticResource Icon.ArrowDown}" Fill="{DynamicResource Brush.Text.Secondary}" Width="12" Height="12" Stretch="Uniform" />
+                                            </Button>
+                                        </StackPanel>
+
+                                        <!-- Delete Item Button -->
+                                        <Button Grid.Column="3" Style="{StaticResource WindowCloseButtonStyle}" Command="{Binding DataContext.RemovePdfCommand, RelativeSource={RelativeSource AncestorType=ListBox}}" CommandParameter="{Binding}" Width="30" Height="30" VerticalAlignment="Center" ToolTip="Remove from Queue">
                                             <Path Data="{StaticResource Icon.Close}" Fill="{DynamicResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
                                         </Button>
                                     </Grid>
@@ -69,9 +93,9 @@
                     </ListBox>
 
                     <!-- Empty State Placeholder -->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,32">
-                        <StackPanel.Style>
-                            <Style TargetType="StackPanel">
+                    <Border Background="{DynamicResource Brush.Background.DropZone}" BorderBrush="{DynamicResource Brush.Border.DropZone}" BorderThickness="1.5" CornerRadius="6" Padding="32" Margin="10">
+                        <Border.Style>
+                            <Style TargetType="Border">
                                 <Setter Property="Visibility" Value="Collapsed" />
                                 <Style.Triggers>
                                     <DataTrigger Binding="{Binding PdfFiles.Count}" Value="0">
@@ -79,19 +103,48 @@
                                     </DataTrigger>
                                 </Style.Triggers>
                             </Style>
-                        </StackPanel.Style>
-                        <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                        <TextBlock Text="No PDF documents selected" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
-                        <TextBlock Text="Click 'Add PDF Files...' or drag &amp; drop at least 2 PDF documents to merge" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
+                        </Border.Style>
+
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Accent.Primary}" Width="44" Height="44" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
+                            <TextBlock Text="No PDF Documents Staged" FontSize="{StaticResource FontSize.Header}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" />
+                            <TextBlock Text="Click 'Add PDF Documents...' or drag &amp; drop 2 or more PDF files here to bind into a single publication" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,4,0,14" />
+                            <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" HorizontalAlignment="Center">
+                                <TextBlock Text="PDF 1.4 - 2.0 • Vector Graphics • High-DPI Print Ready" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                            </Border>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </Border>
+
+            <!-- Binder Output Settings Deck -->
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" Padding="16">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <!-- Output File Name -->
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="OUTPUT FILE NAME" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding OutputPdfName, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
+                    </StackPanel>
+
+                    <!-- Page Range & Options -->
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="PAGE EXTRACTION &amp; NORMALIZATION" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding PageRange, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
                     </StackPanel>
                 </Grid>
             </Border>
 
-            <!-- Bottom Action Bar -->
-            <Border Grid.Row="3" Style="{StaticResource NexusCardStyle}" Margin="0,16,0,0">
+            <!-- Bottom Action & Merge Dock -->
+            <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
                     <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
-                    
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
                             <Button.Style>
@@ -106,19 +159,19 @@
                             </Button.Style>
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Open Merged PDF" FontWeight="SemiBold" />
+                                <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding MergePdfCommand}" Height="42" Padding="28,0">
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Pdf}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Merge Selected PDFs" FontWeight="Bold" />
+                                <TextBlock Text="Merge PDF Documents" FontWeight="Bold" />
                             </StackPanel>
                         </Button>
                     </StackPanel>
                 </Grid>
             </Border>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </UserControl>

@@ -356,11 +356,28 @@ public class ImageStudioViewModel : ViewModelBase
         set => SetProperty(ref _canOpenOutput, value);
     }
 
+    private bool _isAspectRatioLocked = true;
+    public bool IsAspectRatioLocked
+    {
+        get => _isAspectRatioLocked;
+        set => SetProperty(ref _isAspectRatioLocked, value);
+    }
+
+    private string _resampleFilter = "Lanczos3 (Sharp)";
+    public string ResampleFilter
+    {
+        get => _resampleFilter;
+        set => SetProperty(ref _resampleFilter, value);
+    }
+    public ObservableCollection<string> ResampleFilters { get; } = new() { "Lanczos3 (Sharp)", "Bicubic (Smooth)", "Bilinear (Fast)" };
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "webp", "png", "jpg", "avif", "bmp", "tiff", "gif" };
 
     public IRelayCommand BrowseImageCommand { get; }
     public IRelayCommand ProcessImageCommand { get; }
     public IRelayCommand OpenOutputFolderCommand { get; }
+    public IRelayCommand ToggleAspectLockCommand { get; }
+    public IRelayCommand<string> ApplyPresetCommand { get; }
 
     public ImageStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -368,6 +385,48 @@ public class ImageStudioViewModel : ViewModelBase
     {
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
+
+        ToggleAspectLockCommand = new RelayCommand(() =>
+        {
+            IsAspectRatioLocked = !IsAspectRatioLocked;
+        });
+
+        ApplyPresetCommand = new RelayCommand<string>(preset =>
+        {
+            switch (preset)
+            {
+                case "webp-85":
+                    TargetFormat = "webp";
+                    Quality = 85;
+                    StatusMessage = "Preset applied: WebP 85% Optimized";
+                    break;
+                case "png-lossless":
+                    TargetFormat = "png";
+                    Quality = 100;
+                    StatusMessage = "Preset applied: Lossless PNG with Alpha";
+                    break;
+                case "fhd-1080p":
+                    TargetWidth = 1920;
+                    TargetHeight = 1080;
+                    StatusMessage = "Preset applied: Full HD (1920 × 1080)";
+                    break;
+                case "4k-2160p":
+                    TargetWidth = 3840;
+                    TargetHeight = 2160;
+                    StatusMessage = "Preset applied: 4K UHD (3840 × 2160)";
+                    break;
+                case "avatar-512":
+                    TargetWidth = 512;
+                    TargetHeight = 512;
+                    StatusMessage = "Preset applied: Square Avatar (512 × 512)";
+                    break;
+                case "thumb-256":
+                    TargetWidth = 256;
+                    TargetHeight = 256;
+                    StatusMessage = "Preset applied: Thumbnail (256 × 256)";
+                    break;
+            }
+        });
 
         BrowseImageCommand = new RelayCommand(() =>
         {
@@ -559,11 +618,51 @@ public class AudioStudioViewModel : ViewModelBase
         set => SetProperty(ref _canOpenOutput, value);
     }
 
+    private string _trackTitle = string.Empty;
+    public string TrackTitle
+    {
+        get => _trackTitle;
+        set => SetProperty(ref _trackTitle, value);
+    }
+
+    private string _artistName = string.Empty;
+    public string ArtistName
+    {
+        get => _artistName;
+        set => SetProperty(ref _artistName, value);
+    }
+
+    private string _albumName = string.Empty;
+    public string AlbumName
+    {
+        get => _albumName;
+        set => SetProperty(ref _albumName, value);
+    }
+
+    private string _channelMode = "Stereo 2.0";
+    public string ChannelMode
+    {
+        get => _channelMode;
+        set => SetProperty(ref _channelMode, value);
+    }
+    public ObservableCollection<string> ChannelModes { get; } = new() { "Stereo 2.0", "Mono 1.0" };
+
+    private bool _isPlaying;
+    public bool IsPlaying
+    {
+        get => _isPlaying;
+        set => SetProperty(ref _isPlaying, value);
+    }
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "mp3", "wav", "flac", "aac", "ogg", "m4a", "wma" };
 
     public IRelayCommand BrowseAudioCommand { get; }
     public IRelayCommand ProcessAudioCommand { get; }
     public IRelayCommand OpenOutputFolderCommand { get; }
+    public IRelayCommand TogglePlayCommand { get; }
+    public IRelayCommand<string> SelectBitrateCommand { get; }
+    public IRelayCommand<string> SelectSampleRateCommand { get; }
+    public IRelayCommand<string> SelectTargetFormatCommand { get; }
 
     public AudioStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -571,6 +670,46 @@ public class AudioStudioViewModel : ViewModelBase
     {
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
+
+        TogglePlayCommand = new RelayCommand(() =>
+        {
+            if (HasAudioSelected)
+            {
+                IsPlaying = !IsPlaying;
+                StatusMessage = IsPlaying ? "Playing audio preview..." : "Playback paused.";
+            }
+            else
+            {
+                StatusMessage = "Please select an audio file first.";
+            }
+        });
+
+        SelectBitrateCommand = new RelayCommand<string>(b =>
+        {
+            if (!string.IsNullOrWhiteSpace(b))
+            {
+                Bitrate = b;
+                StatusMessage = $"Bitrate set to {b}ps";
+            }
+        });
+
+        SelectSampleRateCommand = new RelayCommand<string>(sr =>
+        {
+            if (!string.IsNullOrWhiteSpace(sr))
+            {
+                SampleRate = sr;
+                StatusMessage = $"Sample rate set to {sr} Hz";
+            }
+        });
+
+        SelectTargetFormatCommand = new RelayCommand<string>(fmt =>
+        {
+            if (!string.IsNullOrWhiteSpace(fmt))
+            {
+                TargetFormat = fmt;
+                StatusMessage = $"Target container set to .{fmt.ToUpperInvariant()}";
+            }
+        });
 
         BrowseAudioCommand = new RelayCommand(() =>
         {
@@ -723,11 +862,37 @@ public class VideoStudioViewModel : ViewModelBase
         set => SetProperty(ref _canOpenOutput, value);
     }
 
+    private string _selectedCodec = "H.264 (Universal)";
+    public string SelectedCodec
+    {
+        get => _selectedCodec;
+        set => SetProperty(ref _selectedCodec, value);
+    }
+    public ObservableCollection<string> SupportedCodecs { get; } = new() { "H.264 (Universal)", "HEVC / H.265 (High Efficiency)", "VP9 (Web)", "AV1 (Next-Gen)" };
+
+    private string _selectedFramerate = "Same as Source";
+    public string SelectedFramerate
+    {
+        get => _selectedFramerate;
+        set => SetProperty(ref _selectedFramerate, value);
+    }
+    public ObservableCollection<string> SupportedFramerates { get; } = new() { "Same as Source", "60 FPS (Smooth)", "30 FPS (Standard)", "24 FPS (Cinematic)" };
+
+    private string _audioHandling = "Transcode AAC 192k";
+    public string AudioHandling
+    {
+        get => _audioHandling;
+        set => SetProperty(ref _audioHandling, value);
+    }
+    public ObservableCollection<string> AudioHandlingOptions { get; } = new() { "Transcode AAC 192k", "Direct Stream Copy", "Mute Audio Track" };
+
     public ObservableCollection<string> SupportedFormats { get; } = new() { "mp4", "mkv", "mov", "avi", "webm" };
 
     public IRelayCommand BrowseVideoCommand { get; }
     public IRelayCommand ProcessVideoCommand { get; }
     public IRelayCommand OpenOutputFolderCommand { get; }
+    public IRelayCommand<string> ApplyVideoProfileCommand { get; }
+    public IRelayCommand<string> SelectTargetFormatCommand { get; }
 
     public VideoStudioViewModel(
         ITaskExecutionService taskExecutionService,
@@ -735,6 +900,55 @@ public class VideoStudioViewModel : ViewModelBase
     {
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
+
+        ApplyVideoProfileCommand = new RelayCommand<string>(profile =>
+        {
+            switch (profile)
+            {
+                case "youtube-4k":
+                    Resolution = "3840x2160";
+                    TargetFormat = "mp4";
+                    SelectedCodec = "H.264 (Universal)";
+                    SelectedFramerate = "60 FPS (Smooth)";
+                    StatusMessage = "Profile applied: YouTube 4K (3840 × 2160 @ 60 FPS)";
+                    break;
+                case "discord-25mb":
+                    Resolution = "1280x720";
+                    TargetFormat = "mp4";
+                    SelectedCodec = "H.264 (Universal)";
+                    SelectedFramerate = "30 FPS (Standard)";
+                    AudioHandling = "Transcode AAC 192k";
+                    StatusMessage = "Profile applied: Discord / Web (< 25 MB Target)";
+                    break;
+                case "fhd-1080p":
+                    Resolution = "1920x1080";
+                    TargetFormat = "mp4";
+                    SelectedFramerate = "60 FPS (Smooth)";
+                    StatusMessage = "Profile applied: Full HD (1920 × 1080 @ 60 FPS)";
+                    break;
+                case "mobile-720p":
+                    Resolution = "1280x720";
+                    TargetFormat = "mp4";
+                    SelectedFramerate = "30 FPS (Standard)";
+                    StatusMessage = "Profile applied: Mobile 720p (Fast Playback)";
+                    break;
+                case "cinematic-24":
+                    Resolution = "1920x1080";
+                    TargetFormat = "mkv";
+                    SelectedFramerate = "24 FPS (Cinematic)";
+                    StatusMessage = "Profile applied: Cinematic 24 FPS Master";
+                    break;
+            }
+        });
+
+        SelectTargetFormatCommand = new RelayCommand<string>(fmt =>
+        {
+            if (!string.IsNullOrWhiteSpace(fmt))
+            {
+                TargetFormat = fmt;
+                StatusMessage = $"Target container set to .{fmt.ToUpperInvariant()}";
+            }
+        });
 
         BrowseVideoCommand = new RelayCommand(() =>
         {
@@ -847,8 +1061,33 @@ public class PdfStudioViewModel : ViewModelBase
         set => SetProperty(ref _canOpenOutput, value);
     }
 
+    private string _selectedTab = "Merge";
+    public string SelectedTab
+    {
+        get => _selectedTab;
+        set => SetProperty(ref _selectedTab, value);
+    }
+
+    private string _pageRange = "All Pages (1 - End)";
+    public string PageRange
+    {
+        get => _pageRange;
+        set => SetProperty(ref _pageRange, value);
+    }
+
+    private string _outputPdfName = "nexus_merged_document.pdf";
+    public string OutputPdfName
+    {
+        get => _outputPdfName;
+        set => SetProperty(ref _outputPdfName, value);
+    }
+
+    public int TotalPdfCount => PdfFiles.Count;
+
     public IRelayCommand AddPdfCommand { get; }
     public IRelayCommand<string> RemovePdfCommand { get; }
+    public IRelayCommand<string> MovePdfUpCommand { get; }
+    public IRelayCommand<string> MovePdfDownCommand { get; }
     public IRelayCommand ClearPdfCommand { get; }
     public IRelayCommand MergePdfCommand { get; }
     public IRelayCommand OpenOutputFolderCommand { get; }
@@ -859,6 +1098,28 @@ public class PdfStudioViewModel : ViewModelBase
     {
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
+
+        MovePdfUpCommand = new RelayCommand<string>(path =>
+        {
+            if (path == null) return;
+            int idx = PdfFiles.IndexOf(path);
+            if (idx > 0)
+            {
+                PdfFiles.Move(idx, idx - 1);
+                StatusMessage = $"Moved {Path.GetFileName(path)} up.";
+            }
+        });
+
+        MovePdfDownCommand = new RelayCommand<string>(path =>
+        {
+            if (path == null) return;
+            int idx = PdfFiles.IndexOf(path);
+            if (idx >= 0 && idx < PdfFiles.Count - 1)
+            {
+                PdfFiles.Move(idx, idx + 1);
+                StatusMessage = $"Moved {Path.GetFileName(path)} down.";
+            }
+        });
 
         AddPdfCommand = new RelayCommand(() =>
         {
@@ -1012,6 +1273,21 @@ public class ArchiveManagerViewModel : ViewModelBase
         set => SetProperty(ref _canOpenOutput, value);
     }
 
+    private string _compressionLevel = "Normal (Balanced)";
+    public string CompressionLevel
+    {
+        get => _compressionLevel;
+        set => SetProperty(ref _compressionLevel, value);
+    }
+    public ObservableCollection<string> CompressionLevels { get; } = new() { "Store (0% CPU)", "Fast (Low Ratio)", "Normal (Balanced)", "Maximum (LZMA2)", "Ultra (SIMD)" };
+
+    private string _encryptionPassword = string.Empty;
+    public string EncryptionPassword
+    {
+        get => _encryptionPassword;
+        set => SetProperty(ref _encryptionPassword, value);
+    }
+
     public ObservableCollection<string> SupportedArchiveFormats { get; } = new() { "tar.gz", "tar", "zip" };
 
     public IRelayCommand AddFilesCommand { get; }
@@ -1023,6 +1299,8 @@ public class ArchiveManagerViewModel : ViewModelBase
     public IRelayCommand ExtractArchiveCommand { get; }
     public IRelayCommand ToggleModeCommand { get; }
     public IRelayCommand OpenOutputFolderCommand { get; }
+    public IRelayCommand<string> SelectArchiveFormatCommand { get; }
+    public IRelayCommand<string> SelectCompressionLevelCommand { get; }
 
     public ArchiveManagerViewModel(
         ITaskExecutionService taskExecutionService,
@@ -1030,6 +1308,24 @@ public class ArchiveManagerViewModel : ViewModelBase
     {
         _taskExecutionService = taskExecutionService;
         _taskRepository = taskRepository;
+
+        SelectArchiveFormatCommand = new RelayCommand<string>(fmt =>
+        {
+            if (!string.IsNullOrWhiteSpace(fmt))
+            {
+                ArchiveFormat = fmt;
+                StatusMessage = $"Archive container set to .{fmt}";
+            }
+        });
+
+        SelectCompressionLevelCommand = new RelayCommand<string>(lvl =>
+        {
+            if (!string.IsNullOrWhiteSpace(lvl))
+            {
+                CompressionLevel = lvl;
+                StatusMessage = $"Compression level set to {lvl}";
+            }
+        });
 
         ToggleModeCommand = new RelayCommand(() =>
         {
