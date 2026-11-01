@@ -4,82 +4,84 @@
              xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
              Background="Transparent">
 
-    <Grid Margin="32,24,32,32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="32,24,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="DEVELOPER TOOLKIT" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Offline utilities: JSON formatter &amp; validator, Base64 encoder/decoder, Cryptographic hashing (SHA-256, MD5)" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-        </StackPanel>
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="DEVELOPER TOOLKIT" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Offline utilities: JSON formatter &amp; validator, Base64 encoder/decoder, Cryptographic hashing (SHA-256, MD5)" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
-        <!-- Utility Bar -->
-        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
-            <WrapPanel>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding FormatJsonCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="Format JSON" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ValidateJsonCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="Validate JSON" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64EncodeCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="Base64 Encode" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64DecodeCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="Base64 Decode" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha256Command}" Margin="0,0,8,4">
-                    <TextBlock Text="SHA-256" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha512Command}" Margin="0,0,8,4">
-                    <TextBlock Text="SHA-512" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeMd5Command}" Margin="0,0,8,4">
-                    <TextBlock Text="MD5" />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeFileChecksumsCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="File Checksum Report..." />
-                </Button>
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding InspectFileHexCommand}" Margin="0,0,8,4">
-                    <TextBlock Text="File Hex Viewer..." />
-                </Button>
-            </WrapPanel>
-        </Border>
-
-        <!-- Split Input / Output Panels -->
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="16" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
-            <!-- Input Panel -->
-            <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="INPUT DATA / TEXT / JSON" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
-                    <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding InputData, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource FontFamily.Monospace}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
-                </Grid>
+            <!-- Utility Bar -->
+            <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <WrapPanel>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding FormatJsonCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="Format JSON" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ValidateJsonCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="Validate JSON" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64EncodeCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="Base64 Encode" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64DecodeCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="Base64 Decode" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha256Command}" Margin="0,0,8,4">
+                        <TextBlock Text="SHA-256" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha512Command}" Margin="0,0,8,4">
+                        <TextBlock Text="SHA-512" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeMd5Command}" Margin="0,0,8,4">
+                        <TextBlock Text="MD5" />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeFileChecksumsCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="File Checksum Report..." />
+                    </Button>
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding InspectFileHexCommand}" Margin="0,0,8,4">
+                        <TextBlock Text="File Hex Viewer..." />
+                    </Button>
+                </WrapPanel>
             </Border>
 
-            <!-- Output Panel -->
-            <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" Text="OUTPUT / CHECKSUM / FORMATTED" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
-                    <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding OutputData}" FontFamily="{StaticResource FontFamily.Monospace}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" />
-                </Grid>
-            </Border>
+            <!-- Split Input / Output Panels -->
+            <Grid Grid.Row="2" MinHeight="360">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="16" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Input Panel -->
+                <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="INPUT DATA / TEXT / JSON" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                        <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding InputData, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource FontFamily.Monospace}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="260" />
+                    </Grid>
+                </Border>
+
+                <!-- Output Panel -->
+                <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="0" Text="OUTPUT / CHECKSUM / FORMATTED" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,0,0,8" />
+                        <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding OutputData}" FontFamily="{StaticResource FontFamily.Monospace}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="260" />
+                    </Grid>
+                </Border>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </UserControl>

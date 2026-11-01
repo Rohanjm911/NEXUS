@@ -4,82 +4,84 @@
              xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
              Background="Transparent">
 
-    <Grid Margin="32,24,32,32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="32,24,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="PROCESSING CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Centralized queue management, task priorities, progress monitoring and error recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-        </StackPanel>
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="PROCESSING CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Centralized queue management, task priorities, progress monitoring and error recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
-        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
-            <Grid>
-                <TextBlock Text="TASK QUEUE MANAGEMENT" FontWeight="SemiBold" VerticalAlignment="Center" />
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" Margin="0,0,8,0">
-                        <TextBlock Text="Refresh Tasks" />
-                    </Button>
-                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearCompletedCommand}">
-                        <TextBlock Text="Clear Completed" />
-                    </Button>
-                </StackPanel>
-            </Grid>
-        </Border>
+            <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <Grid>
+                    <TextBlock Text="TASK QUEUE MANAGEMENT" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" Margin="0,0,8,0">
+                            <TextBlock Text="Refresh Tasks" />
+                        </Button>
+                        <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearCompletedCommand}">
+                            <TextBlock Text="Clear Completed" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Border>
 
-        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}">
-            <ListBox ItemsSource="{Binding Tasks}" Background="Transparent" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="150" />
-                                    <ColumnDefinition Width="80" />
-                                    <ColumnDefinition Width="140" />
-                                </Grid.ColumnDefinitions>
+            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="250">
+                <ListBox ItemsSource="{Binding Tasks}" Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="150" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="140" />
+                                    </Grid.ColumnDefinitions>
 
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
-                                    <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                    <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
-                                </StackPanel>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Name}" FontWeight="SemiBold" />
+                                        <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                                        <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
+                                    </StackPanel>
 
-                                <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                    <TextBlock Text="{Binding Priority}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
-                                </Border>
+                                    <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
+                                        <TextBlock Text="{Binding Priority}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Accent.Hover}" />
+                                    </Border>
 
-                                <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0">
-                                    <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Margin="0,0,0,4" />
-                                    <TextBlock Text="{Binding Status}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
-                                </StackPanel>
+                                    <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0">
+                                        <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Margin="0,0,0,4" />
+                                        <TextBlock Text="{Binding Status}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
+                                    </StackPanel>
 
-                                <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
-                                <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                    <Button Style="{StaticResource SecondaryButtonStyle}"
-                                            Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}"
-                                            Padding="8,4" Margin="0,0,6,0">
-                                        <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" />
-                                    </Button>
-                                    <Button Style="{StaticResource SecondaryButtonStyle}"
-                                            Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}"
-                                            Padding="8,4">
-                                        <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Border>
-    </Grid>
+                                    <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Padding="8,4" Margin="0,0,6,0">
+                                            <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" />
+                                        </Button>
+                                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Padding="8,4">
+                                            <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

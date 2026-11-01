@@ -4,77 +4,79 @@
              xmlns:vm="clr-namespace:NEXUS.Desktop.ViewModels"
              Background="Transparent">
 
-    <Grid Margin="32,24,32,32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="32,24,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Margin="0,0,0,20">
-            <TextBlock Text="AUTOMATION CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-            <TextBlock Text="Configure watch folders and conditional automation pipelines" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
-        </StackPanel>
+            <StackPanel Grid.Row="0" Margin="0,0,0,20">
+                <TextBlock Text="AUTOMATION CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <TextBlock Text="Configure watch folders and conditional automation pipelines" FontSize="{StaticResource FontSize.Subheader}" Foreground="{StaticResource Brush.Text.Secondary}" Margin="0,4,0,0" />
+            </StackPanel>
 
-        <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
-            <Grid>
-                <TextBlock Text="WATCH FOLDERS" FontWeight="SemiBold" VerticalAlignment="Center" />
-                <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFolderCommand}" HorizontalAlignment="Right">
-                    <TextBlock Text="Add Watch Folder..." />
-                </Button>
-            </Grid>
-        </Border>
+            <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
+                <Grid>
+                    <TextBlock Text="WATCH FOLDERS" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding AddFolderCommand}" HorizontalAlignment="Right">
+                        <TextBlock Text="Add Watch Folder..." />
+                    </Button>
+                </Grid>
+            </Border>
 
-        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}">
-            <ListBox ItemsSource="{Binding WatchFolders}" Background="Transparent" BorderThickness="0">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="100" />
-                                    <ColumnDefinition Width="160" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel Grid.Column="0">
-                                    <TextBlock Text="{Binding Path}" FontWeight="SemiBold" />
-                                    <TextBlock Text="Automatic pipeline enabled (Recursive)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
-                                </StackPanel>
-                                <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                    <TextBlock FontSize="{StaticResource FontSize.Small}">
-                                        <TextBlock.Style>
-                                            <Style TargetType="TextBlock">
-                                                <Setter Property="Text" Value="Active" />
-                                                <Setter Property="Foreground" Value="{StaticResource Brush.Status.SuccessText}" />
-                                                <Style.Triggers>
-                                                    <DataTrigger Binding="{Binding IsActive}" Value="False">
-                                                        <Setter Property="Text" Value="Paused" />
-                                                        <Setter Property="Foreground" Value="{StaticResource Brush.Status.WarningText}" />
-                                                    </DataTrigger>
-                                                </Style.Triggers>
-                                            </Style>
-                                        </TextBlock.Style>
-                                    </TextBlock>
-                                </Border>
-                                <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
-                                    <Button Style="{StaticResource SecondaryButtonStyle}"
-                                            Command="{Binding DataContext.ToggleFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}"
-                                            Padding="8,4" Margin="0,0,6,0">
-                                        <TextBlock Text="Toggle" FontSize="{StaticResource FontSize.Small}" />
-                                    </Button>
-                                    <Button Style="{StaticResource SecondaryButtonStyle}"
-                                            Command="{Binding DataContext.RemoveFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
-                                            CommandParameter="{Binding}"
-                                            Padding="8,4">
-                                        <TextBlock Text="Remove" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
-                        </Border>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-        </Border>
-    </Grid>
+            <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="250">
+                <ListBox ItemsSource="{Binding WatchFolders}" Background="Transparent" BorderThickness="0">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="0,10">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="160" />
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel Grid.Column="0">
+                                        <TextBlock Text="{Binding Path}" FontWeight="SemiBold" />
+                                        <TextBlock Text="Automatic pipeline enabled (Recursive)" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Text.Secondary}" />
+                                    </StackPanel>
+                                    <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
+                                        <TextBlock FontSize="{StaticResource FontSize.Small}">
+                                            <TextBlock.Style>
+                                                <Style TargetType="TextBlock">
+                                                    <Setter Property="Text" Value="Active" />
+                                                    <Setter Property="Foreground" Value="{StaticResource Brush.Status.SuccessText}" />
+                                                    <Style.Triggers>
+                                                        <DataTrigger Binding="{Binding IsActive}" Value="False">
+                                                            <Setter Property="Text" Value="Paused" />
+                                                            <Setter Property="Foreground" Value="{StaticResource Brush.Status.WarningText}" />
+                                                        </DataTrigger>
+                                                    </Style.Triggers>
+                                                </Style>
+                                            </TextBlock.Style>
+                                        </TextBlock>
+                                    </Border>
+                                    <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
+                                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                Command="{Binding DataContext.ToggleFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Padding="8,4" Margin="0,0,6,0">
+                                            <TextBlock Text="Toggle" FontSize="{StaticResource FontSize.Small}" />
+                                        </Button>
+                                        <Button Style="{StaticResource SecondaryButtonStyle}"
+                                                Command="{Binding DataContext.RemoveFolderCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                CommandParameter="{Binding}"
+                                                Padding="8,4">
+                                            <TextBlock Text="Remove" FontSize="{StaticResource FontSize.Small}" Foreground="{StaticResource Brush.Status.DangerText}" />
+                                        </Button>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Border>
+        </Grid>
+    </ScrollViewer>
 </UserControl>

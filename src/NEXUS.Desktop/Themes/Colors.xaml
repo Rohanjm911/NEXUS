@@ -7,33 +7,33 @@
     <Color x:Key="Color.Background.Tertiary">#21262D</Color>
     <Color x:Key="Color.Background.Elevated">#1F242C</Color>
     <Color x:Key="Color.Background.Sidebar">#090D12</Color>
-    <Color x:Key="Color.Background.DropZone">#12171F</Color>
+    <Color x:Key="Color.Background.DropZone">#161D26</Color>
 
     <!-- Borders -->
-    <Color x:Key="Color.Border.Subtle">#30363D</Color>
+    <Color x:Key="Color.Border.Subtle">#3A424D</Color>
     <Color x:Key="Color.Border.Active">#58A6FF</Color>
     <Color x:Key="Color.Border.DropZone">#388BFD</Color>
 
     <!-- Electric Blue Accents -->
     <Color x:Key="Color.Accent.Primary">#388BFD</Color>
-    <Color x:Key="Color.Accent.Hover">#58A6FF</Color>
+    <Color x:Key="Color.Accent.Hover">#79C0FF</Color>
     <Color x:Key="Color.Accent.Pressed">#1F6FEB</Color>
     <Color x:Key="Color.Accent.Muted">#1D2E49</Color>
     <Color x:Key="Color.Accent.Glow">#20388BFD</Color>
 
-    <!-- Status Colors -->
+    <!-- High-Contrast Status Colors -->
     <Color x:Key="Color.Status.Success">#238636</Color>
-    <Color x:Key="Color.Status.SuccessText">#3FB950</Color>
-    <Color x:Key="Color.Status.Warning">#D29922</Color>
+    <Color x:Key="Color.Status.SuccessText">#56D364</Color>
+    <Color x:Key="Color.Status.Warning">#E3B341</Color>
     <Color x:Key="Color.Status.Danger">#DA3633</Color>
-    <Color x:Key="Color.Status.DangerText">#F85149</Color>
-    <Color x:Key="Color.Status.Info">#58A6FF</Color>
+    <Color x:Key="Color.Status.DangerText">#FF7B72</Color>
+    <Color x:Key="Color.Status.Info">#79C0FF</Color>
 
-    <!-- Text Colors -->
-    <Color x:Key="Color.Text.Primary">#F0F6FC</Color>
-    <Color x:Key="Color.Text.Secondary">#8B949E</Color>
-    <Color x:Key="Color.Text.Tertiary">#6E7681</Color>
-    <Color x:Key="Color.Text.Disabled">#484F58</Color>
+    <!-- Crystal Clear Text Colors (Optimized for High Readability) -->
+    <Color x:Key="Color.Text.Primary">#FFFFFF</Color>
+    <Color x:Key="Color.Text.Secondary">#D0D7DE</Color>
+    <Color x:Key="Color.Text.Tertiary">#A4AFBA</Color>
+    <Color x:Key="Color.Text.Disabled">#768390</Color>
     <Color x:Key="Color.Text.OnAccent">#FFFFFF</Color>
 
     <!-- Solid Brushes -->
@@ -67,4 +67,3 @@
     <SolidColorBrush x:Key="Brush.Text.OnAccent" Color="{StaticResource Color.Text.OnAccent}" />
 
 </ResourceDictionary>
-

@@ -2,15 +2,15 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:sys="clr-namespace:System;assembly=System.Runtime">
 
-    <FontFamily x:Key="FontFamily.Primary">Segoe UI Variable Display, Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif</FontFamily>
+    <FontFamily x:Key="FontFamily.Primary">Segoe UI Variable Text, Segoe UI, -apple-system, BlinkMacSystemFont, Roboto, sans-serif</FontFamily>
     <FontFamily x:Key="FontFamily.Monospace">Cascadia Code, Consolas, Courier New, monospace</FontFamily>
 
-    <!-- Font Sizes -->
-    <sys:Double x:Key="FontSize.Small">11</sys:Double>
-    <sys:Double x:Key="FontSize.Body">13</sys:Double>
-    <sys:Double x:Key="FontSize.Subheader">15</sys:Double>
-    <sys:Double x:Key="FontSize.Header">18</sys:Double>
-    <sys:Double x:Key="FontSize.Title">22</sys:Double>
+    <!-- Optimized Font Sizes for Clear Desktop Legibility -->
+    <sys:Double x:Key="FontSize.Small">12</sys:Double>
+    <sys:Double x:Key="FontSize.Body">14</sys:Double>
+    <sys:Double x:Key="FontSize.Subheader">16</sys:Double>
+    <sys:Double x:Key="FontSize.Header">19</sys:Double>
+    <sys:Double x:Key="FontSize.Title">24</sys:Double>
     <sys:Double x:Key="FontSize.Hero">28</sys:Double>
 
 </ResourceDictionary>

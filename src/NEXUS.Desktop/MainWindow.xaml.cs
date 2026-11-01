@@ -36,6 +36,48 @@ public partial class MainWindow : Window
             _viewModel.IsCommandPaletteOpen = false;
             e.Handled = true;
         }
+        else if (e.Key == Key.F11)
+        {
+            ToggleMaximize();
+            e.Handled = true;
+        }
+    }
+
+    private void ToggleMaximize()
+    {
+        WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+    }
+
+    private void OnTitleBarMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ClickCount == 2 && e.ChangedButton == MouseButton.Left)
+        {
+            ToggleMaximize();
+        }
+    }
+
+    private void OnWindowStateChanged(object? sender, EventArgs e)
+    {
+        if (WindowState == WindowState.Maximized)
+        {
+            RootBorder.Margin = new Thickness(7);
+            RootBorder.CornerRadius = new CornerRadius(0);
+            if (MaximizeIcon != null)
+            {
+                MaximizeIcon.Data = (System.Windows.Media.Geometry)FindResource("Icon.Restore");
+                MaximizeBtn.ToolTip = "Restore Down";
+            }
+        }
+        else
+        {
+            RootBorder.Margin = new Thickness(0);
+            RootBorder.CornerRadius = new CornerRadius(8);
+            if (MaximizeIcon != null)
+            {
+                MaximizeIcon.Data = (System.Windows.Media.Geometry)FindResource("Icon.Maximize");
+                MaximizeBtn.ToolTip = "Maximize";
+            }
+        }
     }
 
     private void OnMinimizeClick(object sender, RoutedEventArgs e)
@@ -45,7 +87,7 @@ public partial class MainWindow : Window
 
     private void OnMaximizeClick(object sender, RoutedEventArgs e)
     {
-        WindowState = WindowState == WindowState.Maximized ? WindowState.Normal : WindowState.Maximized;
+        ToggleMaximize();
     }
 
     private void OnCloseClick(object sender, RoutedEventArgs e)

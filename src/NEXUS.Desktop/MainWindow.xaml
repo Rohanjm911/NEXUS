@@ -8,13 +8,18 @@
         mc:Ignorable="d"
         Title="NEXUS — Any Format. One Destination." 
         Icon="Assets/app.ico"
-        Height="840" Width="1360"
-        MinHeight="700" MinWidth="1024"
+        Height="760" Width="1280"
+        MinHeight="600" MinWidth="960"
         WindowStartupLocation="CenterScreen"
         Background="{StaticResource Brush.Background.Primary}"
         Foreground="{StaticResource Brush.Text.Primary}"
         WindowStyle="None"
-        AllowsTransparency="True">
+        UseLayoutRounding="True"
+        SnapsToDevicePixels="True"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        RenderOptions.ClearTypeHint="Enabled"
+        StateChanged="OnWindowStateChanged">
 
     <WindowChrome.WindowChrome>
         <WindowChrome CaptionHeight="42"
@@ -67,7 +72,7 @@
 
     <Grid>
         <!-- Outer Border for 1px subtle dark border -->
-        <Border BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8">
+        <Border x:Name="RootBorder" Background="{StaticResource Brush.Background.Primary}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="1" CornerRadius="8">
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="42" />
@@ -75,7 +80,7 @@
                 </Grid.RowDefinitions>
 
                 <!-- Title Bar & Header -->
-                <Border Grid.Row="0" Background="{StaticResource Brush.Background.Sidebar}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1">
+                <Border Grid.Row="0" Background="{StaticResource Brush.Background.Sidebar}" BorderBrush="{StaticResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" MouseDown="OnTitleBarMouseDown">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="240" />
@@ -119,8 +124,8 @@
                             <Button Style="{StaticResource WindowButtonStyle}" Click="OnMinimizeClick">
                                 <Path Data="{StaticResource Icon.Minimize}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="2" Stretch="Uniform" />
                             </Button>
-                            <Button Style="{StaticResource WindowButtonStyle}" Click="OnMaximizeClick">
-                                <Path Data="{StaticResource Icon.Maximize}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
+                            <Button x:Name="MaximizeBtn" Style="{StaticResource WindowButtonStyle}" Click="OnMaximizeClick" ToolTip="Maximize">
+                                <Path x:Name="MaximizeIcon" Data="{StaticResource Icon.Maximize}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />
                             </Button>
                             <Button Style="{StaticResource WindowCloseButtonStyle}" Click="OnCloseClick">
                                 <Path Data="{StaticResource Icon.Close}" Fill="{StaticResource Brush.Text.Secondary}" Width="10" Height="10" Stretch="Uniform" />

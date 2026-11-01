@@ -8,13 +8,14 @@
              d:DataContext="{d:DesignInstance vm:UniversalConversionViewModel}"
              Background="Transparent">
 
-    <Grid Margin="32,24,32,32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <Grid Margin="32,24,32,32">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
         <!-- Header -->
         <StackPanel Grid.Row="0" Margin="0,0,0,20">
@@ -51,7 +52,7 @@
         </Border>
 
         <!-- Queue Items List -->
-        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}">
+        <Border Grid.Row="2" Style="{StaticResource NexusCardStyle}" MinHeight="220">
             <ListBox ItemsSource="{Binding QueuedItems}" Background="Transparent" BorderThickness="0">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
@@ -90,5 +91,6 @@
             </Button>
         </Grid>
     </Grid>
+    </ScrollViewer>
 </UserControl>
 

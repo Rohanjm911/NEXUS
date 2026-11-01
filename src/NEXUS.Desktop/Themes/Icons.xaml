@@ -21,6 +21,7 @@
     <StreamGeometry x:Key="Icon.Close">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</StreamGeometry>
     <StreamGeometry x:Key="Icon.Minimize">M20,14H4V10H20</StreamGeometry>
     <StreamGeometry x:Key="Icon.Maximize">M4,4H20V20H4V4M6,6V18H18V6H6Z</StreamGeometry>
+    <StreamGeometry x:Key="Icon.Restore">M4,8H8V4H20V16H16V20H4V8M16,8V6H10V8H16M6,10V18H14V10H6Z</StreamGeometry>
     <StreamGeometry x:Key="Icon.Play">M8,5.14V19.14L19,12.14L8,5.14Z</StreamGeometry>
     <StreamGeometry x:Key="Icon.Pause">M14,19H18V5H14M6,19H10V5H6V19Z</StreamGeometry>
     <StreamGeometry x:Key="Icon.Folder">M10,4H4C2.89,4 2,4.89 2,6V18A2,2 0 0,0 4,20H20A2,2 0 0,0 22,18V8C22,6.89 21.1,6 20,6H12L10,4Z</StreamGeometry>
