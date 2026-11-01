@@ -75,3 +75,4 @@ public class RecentFilesRepository : IRecentFilesRepository
         await cmd.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
     }
 }
+

@@ -109,3 +109,4 @@ public class FormatDetector : IFormatDetector
         return Array.Empty<string>();
     }
 }
+

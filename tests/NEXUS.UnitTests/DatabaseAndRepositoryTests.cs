@@ -165,3 +165,4 @@ public class DatabaseAndRepositoryTests : IDisposable
         Assert.NotNull(provider.GetService<IStorageAnalyzerService>());
     }
 }
+

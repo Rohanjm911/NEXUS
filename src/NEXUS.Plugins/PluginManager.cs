@@ -148,3 +148,4 @@ public class PluginManager : IPluginManager
         return Task.FromResult(false);
     }
 }
+

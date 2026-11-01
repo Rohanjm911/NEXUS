@@ -146,3 +146,4 @@ The portable distribution is generated at `dist\nexus-portable\`.
 
 ## License
 MIT License. See [LICENSE](LICENSE) for details.
+

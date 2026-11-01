@@ -39,3 +39,4 @@ pub fn extract_metadata(path: &Path) -> Result<FileMetadataInfo> {
         modified_at,
     })
 }
+

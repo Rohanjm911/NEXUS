@@ -14,3 +14,4 @@ public interface ITaskExecutionService
     event EventHandler<TaskItem>? TaskCompleted;
     event EventHandler<TaskItem>? TaskFailed;
 }
+

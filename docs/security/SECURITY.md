@@ -54,3 +54,4 @@ Files frequently contain sensitive metadata:
 ### 2.5 Plugin Isolation
 - External plugins are loaded into collectible `PluginLoadContext` instances.
 - Plugins are prohibited from executing code directly in the default load context and can be unloaded dynamically to free resources.
+

@@ -67,3 +67,4 @@
     <SolidColorBrush x:Key="Brush.Text.OnAccent" Color="{StaticResource Color.Text.OnAccent}" />
 
 </ResourceDictionary>
+

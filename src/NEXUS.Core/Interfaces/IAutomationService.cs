@@ -11,3 +11,4 @@ public interface IAutomationService
     bool IsRunning { get; }
     IReadOnlyList<WatchFolder> ActiveWatchers { get; }
 }
+

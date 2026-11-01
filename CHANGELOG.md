@@ -56,3 +56,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Security & Privacy**:
   - 100% local-first architecture with zero telemetry, zero mandatory accounts, and offline processing.
   - Path canonicalization preventing arbitrary write access outside destination roots.
+

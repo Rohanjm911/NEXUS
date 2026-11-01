@@ -73,3 +73,4 @@ Write-Host "  Output Directory: $distDir" -ForegroundColor Green
 Write-Host "==========================================================" -ForegroundColor Green
 
 Get-ChildItem -Path $distDir | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize
+

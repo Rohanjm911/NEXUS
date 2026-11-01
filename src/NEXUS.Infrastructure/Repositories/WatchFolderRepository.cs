@@ -214,3 +214,4 @@ public class WatchFolderRepository : IWatchFolderRepository, IAutomationRuleRepo
         };
     }
 }
+

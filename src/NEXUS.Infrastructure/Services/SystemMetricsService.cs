@@ -95,3 +95,4 @@ public class SystemMetricsService : ISystemMetricsService
         return ((ulong)(uint)ft.dwHighDateTime << 32) | (uint)ft.dwLowDateTime;
     }
 }
+

@@ -20,3 +20,4 @@ public abstract class ViewModelBase : ObservableObject
 
     public virtual Task InitializeAsync() => Task.CompletedTask;
 }
+

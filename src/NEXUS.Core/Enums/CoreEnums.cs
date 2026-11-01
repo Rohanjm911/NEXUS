@@ -35,3 +35,4 @@ public enum ThemeMode
     Light = 1,
     SystemAdaptive = 2
 }
+

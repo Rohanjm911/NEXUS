@@ -82,3 +82,4 @@ public class LogRepository : ILogRepository
         await cmd.ExecuteNonQueryAsync(cancellationToken).ConfigureAwait(false);
     }
 }
+

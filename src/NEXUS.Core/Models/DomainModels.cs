@@ -112,3 +112,4 @@ public class FormatDetectionResult
     public bool IsSupportedInput { get; set; }
     public IReadOnlyList<string> RecommendedOutputFormats { get; set; } = Array.Empty<string>();
 }
+

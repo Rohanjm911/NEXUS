@@ -50,3 +50,4 @@ public class FormatDetectorTests
         Assert.False(_detector.IsSupportedSource(""));
     }
 }
+

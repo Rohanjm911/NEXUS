@@ -128,3 +128,4 @@ public interface IPluginManager
     Task<bool> UnloadPluginAsync(string pluginId, CancellationToken cancellationToken = default);
     IReadOnlyList<IPluginContract> LoadedPlugins { get; }
 }
+

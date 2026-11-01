@@ -191,3 +191,4 @@ CREATE TABLE IF NOT EXISTS Settings (
     UpdatedAt TEXT NOT NULL
 );
 ```
+

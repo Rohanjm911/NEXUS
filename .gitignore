@@ -19,3 +19,4 @@ Cargo.lock
 # Distribution / Build output
 dist/
 *.log
+

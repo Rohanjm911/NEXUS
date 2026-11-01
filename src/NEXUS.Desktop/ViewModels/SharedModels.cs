@@ -19,3 +19,4 @@ public class NotificationItem
     public string Type { get; set; } = "Info"; // Info, Success, Warning, Danger
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
 }
+
