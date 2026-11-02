@@ -35,7 +35,7 @@
 - [Emerald Edition Design Identity](#emerald-edition-design-identity)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [How to Launch & Run](#how-to-launch--run)
-- [Complete Application Modules](#complete-application-modules)
+- [Complete Application Modules & UI Tour](#complete-application-modules--ui-tour)
   - [1. Dashboard — Command Center](#1-dashboard--command-center)
   - [2. Universal Conversion Studio](#2-universal-conversion-studio)
   - [3. Image Studio (Digital Darkroom)](#3-image-studio-digital-darkroom)
@@ -44,10 +44,11 @@
   - [6. Video Studio (Cinema Lab)](#6-video-studio-cinema-lab)
   - [7. PDF Studio (Document Publisher & Binder)](#7-pdf-studio-document-publisher--binder)
   - [8. Archive Manager (Compression Vault)](#8-archive-manager-compression-vault)
-  - [9. Developer Toolkit](#9-developer-toolkit)
-  - [10. Processing Center](#10-processing-center)
-  - [11. Automation Center](#11-automation-center)
-  - [12. Storage Analyzer](#12-storage-analyzer)
+  - [9. Processing Center](#9-processing-center)
+  - [10. Developer Toolkit](#10-developer-toolkit)
+  - [11. Storage Analyzer](#11-storage-analyzer)
+  - [12. Settings Experience](#12-settings-experience)
+  - [13. Emerald Clean Light Mode](#13-emerald-clean-light-mode)
 - [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
 - [Directory Layout](#directory-layout)
 - [Building from Source](#building-from-source)
@@ -166,77 +167,231 @@ Double-click **`Launch-NEXUS.bat`** (spawns the GUI and exits the terminal autom
 
 <img src="assets/animated-divider.svg" width="100%" height="8" />
 
-## Complete Application Modules
+## Complete Application Modules & UI Tour
+
+Below are real, uncompressed desktop screenshots of the running NEXUS application along with a functional breakdown of each module.
+
+---
 
 ### 1. Dashboard — Command Center
-* **Live System Telemetry:** Real-time CPU and RAM meters updated every second using high-resolution Win32 APIs.
-* **Quick Actions Dock:** 1-click launchers for Universal Studio, Image Master, Image Upscaler, Audio Converter, Video Transcoder, PDF Tools, and Archive Manager.
-* **Smart Drop Zone:** Drag-and-drop any file to receive instant format identification, MIME category mapping, and recommended target actions.
-* **Recent Activity & Storage Breakdown:** Live view of total files processed, active queue jobs, and storage footprint.
+
+<div align="center">
+  <img src="assets/screenshots/01_command_center.png" alt="NEXUS Command Center Dashboard" width="100%" />
+</div>
+
+<br/>
+
+The **Command Center** serves as the central mission control for your desktop media environment:
+* **Real-Time Hardware Telemetry:** Displays live CPU utilization, physical RAM percentages, and background Rust IPC engine connectivity (`Online (\\.\pipe\nexus-engine)`).
+* **Quick Actions Dock:** One-click instant launchers for all 7 primary workspace studios (`Universal Studio`, `Image Master`, `Image Upscaler`, `Audio Converter`, `Video Transcoder`, `PDF Tools`, `Archive Manager`).
+* **Smart Drop Zone:** Drag and drop any file or folder to automatically inspect file headers, detect MIME types, verify magic bytes, and suggest conversion pathways.
+* **Storage & Queue Overview:** Live statistical telemetry tracking total processed items, active queue throughput, and disk utilization.
+
+---
 
 ### 2. Universal Conversion Studio
-* **Batch Multi-Format Conversion:** Ingest dozens of files simultaneously and convert across categories:
-  * **Images:** PNG, JPG, JPEG, WEBP, AVIF, SVG, TIFF, BMP, GIF.
-  * **Audio:** MP3, WAV, FLAC, AAC, OGG, M4A, WMA.
-  * **Video:** MP4, MKV, MOV, AVI, WEBM.
-  * **Documents:** PDF, DOCX, TXT, ODT.
-  * **Archives:** TAR.GZ, TAR, ZIP.
-* **Three-Part Universal Layout:** Left queue list, Center before/after inspection, and Right pipeline settings deck.
+
+<div align="center">
+  <img src="assets/screenshots/02_universal_conversion.png" alt="Universal Conversion Studio" width="100%" />
+</div>
+
+<br/>
+
+The **Universal Conversion Studio** provides a streamlined three-part workspace engineered for high-throughput batch operations:
+* **Left Ingestion Queue:** Multi-file queue with format category filter chips (`All`, `Images`, `Audio`, `Video`, `Docs`, `Archives`).
+* **Center Inspection Stage:** Before-and-after stage displaying file metadata, dimensions, bitrates, and preview thumbnails before execution.
+* **Right Pipeline Deck:** Target format selection, encoding presets (`Balanced`, `High Quality`, `Ultra Compression`), and custom destination folder routing.
+* **Cross-Format Support:** Converts between images (PNG, JPG, WEBP, AVIF, TIFF, BMP, GIF), audio (MP3, WAV, FLAC, AAC, OGG, M4A), video (MP4, MKV, MOV, AVI, WEBM), documents (PDF, DOCX, TXT), and archives (TAR.GZ, TAR, ZIP).
+
+---
 
 ### 3. Image Studio (Digital Darkroom)
-* **High-Fidelity Resampling:** Lanczos3 high-quality scaling with customizable width, height, and aspect-ratio lock.
-* **Quick Preset Chips:** WebP 85% Optimized, Lossless PNG with Alpha, 1080p Full HD, 4K UHD, Avatar 512×512, Thumbnail 256×256.
-* **Privacy Metadata Stripping:** One-click removal of EXIF, GPS location coordinates, and camera serial numbers.
+
+<div align="center">
+  <img src="assets/screenshots/03_image_studio.png" alt="Image Studio - Digital Darkroom" width="100%" />
+</div>
+
+<br/>
+
+The **Image Studio** is a dedicated raster manipulation darkroom powered by Rust SIMD:
+* **Interactive Canvas Stage:** Live image viewport showing the source image, pixel dimensions, file size, and target output preview.
+* **Lanczos3 Sinc Resampling:** Industry-standard sinc-windowed downscaling and upscaling for crisp edge retention.
+* **Quick Resolution Chips:** Instant presets for `WebP 85%`, `Lossless PNG`, `1080p Full HD`, `4K UHD`, `Avatar 512`, and `Thumbnail 256`.
+* **Aspect-Ratio Lock:** Proportional dimension linking ensuring images are never accidentally stretched or distorted.
+* **Privacy Metadata Scrubbing:** One-click removal of EXIF metadata, GPS location coordinates, camera serial numbers, and exposure tags.
+
+---
 
 ### 4. AI Image Upscaler (Super-Resolution Studio)
-* **2X to 8X Super-Resolution:** Multiply image resolution by 2x, 4x, or 8x, or directly target 4K UHD (3840×2160) and 8K Master (7680×4320).
-* **Multiple Reconstruction Algorithms:**
-  * **Lanczos3 Sinc-Windowed:** Maximum clarity and high-frequency texture recovery for photos.
-  * **Catmull-Rom Bicubic Spline:** Ultra-smooth edge gradients for portraits and soft artwork.
-  * **Nearest Neighbor Integer:** 0-blur, lossless scaling for retro sprites and pixel art.
-  * **Adaptive Edge-Enhanced:** Micro-contrast sharpening pass without haloing artifacts.
-* **Fine-Tuning Parameters:** Micro-contrast edge sharpening slider (0% to 100%), chroma denoise toggle, and custom output folder routing.
-* **Interactive Before / After Comparison:** Live dual-viewport stage displaying the original image side-by-side with the upscaled result.
-* **Dual-Engine Execution:** Executes on Rust SIMD via Named Pipes with automated fallback to high-fidelity C# Fant sampling.
+
+<div align="center">
+  <img src="assets/screenshots/04_ai_image_upscaler.png" alt="AI Image Upscaler Studio" width="100%" />
+</div>
+
+<br/>
+
+The **AI Image Upscaler** delivers pro-grade super-resolution scaling using multi-threaded mathematical interpolation:
+* **2X to 8X Super-Resolution:** Multiply raster resolution by `2x HD`, `4x Ultra`, or `8x Extreme`, or directly target `4K UHD (3840×2160)` and `8K Master (7680×4320)`.
+* **Four Reconstruction Algorithms:**
+  * *Lanczos3 Sinc-Windowed:* High-frequency detail recovery for natural photographs and realistic textures.
+  * *Catmull-Rom Bicubic Spline:* Smooth edge transitions ideal for portraiture, gradients, and digital paintings.
+  * *Nearest Neighbor Integer:* Lossless, pixel-crisp 0-blur magnification designed specifically for retro sprites and pixel art.
+  * *Adaptive Edge-Enhanced:* Micro-contrast sharpening pass that enhances edges without generating ringing halos.
+* **Interactive Before / After Dual Stage:** Visual side-by-side viewport displaying original source and upscaled result with real-time file size comparison.
+* **Fine-Tuning Controls:** Micro-contrast sharpening slider (0% to 100%), chroma denoise & artifact removal toggle, and destination folder selector.
+
+---
 
 ### 5. Audio Studio (Sound Engineer Suite)
-* **Format Transcoding:** Conversion between MP3, WAV, FLAC, AAC, OGG, M4A, and WMA.
-* **Bitrate & Sample Rate Matrix:** Bitrate pills (320k Studio Master, 256k High Fidelity, 192k Balanced, 128k Standard, 64k Voice) and sample rate chips (48000 Hz Cinema, 44100 Hz CD Audio, 96000 Hz Hi-Res).
-* **Audio Waveform Stage:** Interactive visual waveform canvas with playback transport controls.
+
+<div align="center">
+  <img src="assets/screenshots/05_audio_studio.png" alt="Audio Studio - Sound Engineer Suite" width="100%" />
+</div>
+
+<br/>
+
+The **Audio Studio** provides a dedicated workstation for audio engineering, format transcoding, and soundtrack extraction:
+* **Visual Waveform Canvas:** Interactive stage displaying simulated audio frequency waveforms with transport play/pause controls.
+* **Format Transcoding:** Lossless and lossy conversion between MP3, WAV, FLAC, AAC, OGG, M4A, and WMA.
+* **Bitrate Matrix Pills:** Dedicated quick-selection chips for `320k` (Studio Master), `256k` (High Fidelity), `192k` (Balanced), `128k` (Standard), and `64k` (Voice).
+* **Sample Rate Selector:** Direct frequency adjustment between `48000 Hz` (Cinema/Broadcast), `44100 Hz` (CD Audio), and `96000 Hz` (Hi-Res Master).
+* **ID3 Tag Preservation:** Retains embedded track metadata (Artist, Album, Title) across transcoding pipelines.
+
+---
 
 ### 6. Video Studio (Cinema Lab)
-* **Transcoding & Re-encoding:** Convert video streams into MP4 (H.264), MKV, MOV, AVI, or WEBM.
-* **16:9 Cinema Viewport:** Dedicated video staging viewport with resolution chips (4K Cinema, 1080p FHD, 720p HD, 480p Mobile).
-* **Device Profiles & Presets:** YouTube 4K Ultra, Web Stream H.264, Discord <25MB Compressed, Mobile Archival.
+
+<div align="center">
+  <img src="assets/screenshots/06_video_studio.png" alt="Video Studio - Cinema Lab" width="100%" />
+</div>
+
+<br/>
+
+The **Video Studio** offers a modern transcode suite optimized for creators and video producers:
+* **16:9 Cinema Viewport:** Dedicated widescreen cinema viewport for video file inspection and framing.
+* **Resolution Scaling Chips:** Instant downscaling or re-encoding to `4K Cinema` (3840×2160), `1080p FHD`, `720p HD`, or `480p Mobile`.
+* **Device Profiles & Presets:** Pre-configured output profiles:
+  * *YouTube 4K Ultra* (Maximum bitrate & dynamic range)
+  * *Web Stream H.264* (Fast-start MP4 with universal web compatibility)
+  * *Discord <25MB* (Target-bitrate two-pass compression for Discord uploads)
+  * *Mobile Archival* (H.264 baseline for battery-efficient playback)
+* **Audio Track Extraction:** Demux uncompressed or high-bitrate soundtracks directly from video containers without re-encoding video tracks.
+
+---
 
 ### 7. PDF Studio (Document Publisher & Binder)
-* **Multi-Document PDF Merge:** Stitch multiple PDF files into a single consolidated document with valid cross-reference tables.
-* **Interactive Document Staging Board:** Re-order queued documents using visual **▲ Up** and **▼ Down** controls.
-* **Custom Output Naming:** Dedicated binder settings deck for instant publishing.
+
+<div align="center">
+  <img src="assets/screenshots/07_pdf_studio.png" alt="PDF Studio - Document Publisher & Binder" width="100%" />
+</div>
+
+<br/>
+
+The **PDF Studio** provides an offline document binding and publishing workbench:
+* **Multi-Document PDF Stitching:** Merge multiple disparate PDF documents into a single consolidated file with rebuilt cross-reference tables and linearized streams.
+* **Interactive Document Staging Board:** Re-order queued documents effortlessly using visual **▲ Up** and **▼ Down** buttons before binding.
+* **Custom Output Naming:** Dedicated binder settings deck with automated output naming and timestamping.
+* **Client-Side Document Safety:** Operates 100% locally on your machine—protecting legal, financial, and confidential documents from unverified web uploaders.
+
+---
 
 ### 8. Archive Manager (Compression Vault)
-* **Dual Vault Modes:** Dedicated tabbed interfaces for **Create Archive Vault** and **Extract Archive Package**.
-* **SIMD Compression Ratios:** Store (0% CPU), Fast (Quick), Normal (Balanced), Maximum (LZMA2), and Ultra (SIMD).
-* **Zip-Slip Vulnerability Shield:** Sanitizes all internal archive paths against directory traversal attacks (CVE-2018-1002200).
 
-### 9. Developer Toolkit
-* **JSON Formatter & Validator:** Indentation, beautification, minification, and strict JSON syntax verification.
-* **Base64 Encoder / Decoder:** UTF-8 text and binary Base64 conversion with real-time feedback.
-* **Cryptographic Hashes:** Instant computation of MD5, SHA-256, and SHA-512 hashes.
-* **File Checksum Verification:** Compare computed hash against known checksum strings with visual match indicators.
-* **Binary Hex Viewer:** Inspect raw byte streams with 16-byte hex offsets and ASCII decoded representations.
+<div align="center">
+  <img src="assets/screenshots/08_archive_manager.png" alt="Archive Manager - Compression Vault" width="100%" />
+</div>
 
-### 10. Processing Center
-* **Priority Queue Management:** Assign task priority (Low, Normal, High, Critical) with automatic re-ordering.
-* **Real-Time Progress & Throughput:** Individual progress bars, conversion speed metrics, and estimated time to completion (ETA).
-* **Interactive Job Controls:** Cancel running jobs, retry failed conversions, or purge finished entries.
+<br/>
 
-### 11. Automation Center
-* **Watch Folders (`FileSystemWatcher`):** Background folder monitors that automatically detect new files and trigger automated conversion pipelines.
-* **Conditional Rules:** Filter by file extension or file pattern with custom destination routing.
+The **Archive Manager** is an enterprise-grade compression and extraction vault:
+* **Dual Vault Modes:** Tabbed interfaces for **Create Archive Vault** and **Extract Archive Package**.
+* **Container Format Selection:** Full support for `.tar.gz` (GZIP compressed), `.zip` (universal compatibility), and `.tar` (uncompressed tape archive).
+* **SIMD Compression Stepper:** 5 levels of compression efficiency:
+  * *Store* (0% CPU, instant packaging)
+  * *Fast* (Quick ratio)
+  * *Normal* (Balanced default)
+  * *Maximum* (High ratio LZMA2/Deflate)
+  * *Ultra* (SIMD-accelerated multi-threaded compression)
+* **Zip-Slip Vulnerability Shield:** Automated security shield that sanitizes every archive entry against directory traversal attacks (CVE-2018-1002200), rejecting any attempt to write files outside the destination directory via `../` sequences.
 
-### 12. Storage Analyzer
-* **Disk Space Allocation Scanner:** Recursively scans specified directories to compute space breakdown across images, videos, audio, documents, archives, and code.
+---
+
+### 9. Processing Center
+
+<div align="center">
+  <img src="assets/screenshots/09_processing_center.png" alt="Processing Center Queue" width="100%" />
+</div>
+
+<br/>
+
+The **Processing Center** delivers full visibility into all active, queued, and completed tasks:
+* **Priority Queue Management:** Assign task execution priority across four tiers (`Low`, `Normal`, `High`, `Critical`) with dynamic queue reordering.
+* **Real-Time Throughput Telemetry:** Live calculation of processing speed (MB/s), elapsed duration, and estimated time to completion (ETA).
+* **Task Lifecycle Controls:** Pause, resume, retry failed conversions, or purge finished entries.
+* **Direct File Access:** One-click **"Open File in Folder"** button that selects the generated output file directly in Windows File Explorer (`explorer.exe /select`).
+
+---
+
+### 10. Developer Toolkit
+
+<div align="center">
+  <img src="assets/screenshots/10_developer_toolkit.png" alt="Developer Toolkit" width="100%" />
+</div>
+
+<br/>
+
+The **Developer Toolkit** provides essential offline utilities for engineers and technical users:
+* **JSON Formatter & Schema Validator:** Auto-indentation (2 spaces / 4 spaces), single-line minification, and real-time syntax error detection.
+* **Base64 Encoder & Decoder:** UTF-8 text and binary Base64 conversion with real-time feedback.
+* **Cryptographic Hashing Engine:** Real-time generation of **MD5**, **SHA-256**, and **SHA-512** hashes for text and files.
+* **File Checksum Verification Tool:** Compare computed file hashes against publisher reference checksums with visual match/mismatch status indicators.
+* **Binary Hex Viewer:** Inspect raw byte streams with 16-byte hex offsets and ASCII character translation.
+
+---
+
+### 11. Storage Analyzer
+
+<div align="center">
+  <img src="assets/screenshots/11_storage_analyzer.png" alt="Storage Analyzer" width="100%" />
+</div>
+
+<br/>
+
+The **Storage Analyzer** scans directories to diagnose disk consumption:
+* **Recursive Disk Space Scanner:** Recursively traverses directories to calculate accurate file sizes and counts.
+* **Category Breakdown:** Groups disk usage across Images, Videos, Audio, Documents, Archives, and Code files.
+* **Cleanup Recommendations:** Highlights large uncompressed assets suitable for modern format optimization (e.g. converting raw BMP/TIFF to WebP or uncompressed WAV to FLAC).
+
+---
+
+### 12. Settings Experience
+
+<div align="center">
+  <img src="assets/screenshots/12_settings_experience.png" alt="Settings Experience" width="100%" />
+</div>
+
+<br/>
+
+The **Settings Experience** allows full personalization of your NEXUS installation:
+* **Appearance & Theme Configuration:** Switch between Emerald Obsidian Dark, Emerald Clean Light, or System Adaptive mode.
+* **Hardware & Engine Tuning:** Configure parallel worker thread limits, CPU usage preference, and temporary file cleanup behavior.
+* **Notification Preferences:** Toggle Windows desktop notifications, sound alerts, and completion toasts.
+* **Privacy & Local Auditing:** Review local SQLite database status, clear task history, and verify offline data isolation.
+
+---
+
+### 13. Emerald Clean Light Mode
+
+<div align="center">
+  <img src="assets/screenshots/13_emerald_light_theme.png" alt="Emerald Clean Light Theme" width="100%" />
+</div>
+
+<br/>
+
+For bright environments, NEXUS includes a fully styled **Emerald Clean Light Mode**:
+* **High-Contrast Readability:** Soft off-white backgrounds (`#F4F8F5`), pure white cards (`#FFFFFF`), and deep forest typography (`#10251D`).
+* **Vibrant Emerald Accents:** Retains the signature Emerald interactive buttons (`#10B981`) and subtle green-tinted dividers (`#D1E3D8`).
+* **Instant Toggle:** Switch on the fly using the Sun/Moon icon in the top navigation bar or the global `Ctrl + T` keyboard shortcut.
 
 <img src="assets/animated-divider.svg" width="100%" height="8" />
 
@@ -271,6 +426,12 @@ NEXUS/
 ├── NEXUS.Desktop.exe             # Compiled WPF Desktop Application executable
 ├── nexus-engine.exe              # Compiled Rust Processing Engine daemon
 ├── NEXUS.sln                     # Complete Visual Studio / .NET Solution
+│
+├── assets/
+│   ├── screenshots/              # Real desktop UI screenshots
+│   ├── icons/                    # App icons & glyphs
+│   ├── logo.png                  # Project logo
+│   └── pipeline-animation.svg    # Architectural SVG diagrams
 │
 ├── src/
 │   ├── NEXUS.Desktop/            # WPF UI (Views, ViewModels, Themes, Icons, Converters)
