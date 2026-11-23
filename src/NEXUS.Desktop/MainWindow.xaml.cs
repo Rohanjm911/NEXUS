@@ -88,7 +88,7 @@ public partial class MainWindow : Window
         else
         {
             RootBorder.Margin = new Thickness(0);
-            RootBorder.CornerRadius = new CornerRadius(8);
+            RootBorder.CornerRadius = new CornerRadius(0);
             if (MaximizeIcon != null)
             {
                 MaximizeIcon.Data = (System.Windows.Media.Geometry)FindResource("Icon.Maximize");

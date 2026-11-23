@@ -14,7 +14,12 @@
 
             <!-- Header -->
             <StackPanel Grid.Row="0" Margin="0,0,0,24">
-                <TextBlock Text="DEVELOPER TOOLKIT" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="DEVELOPER TOOLKIT" FontSize="{StaticResource FontSize.Hero}" FontWeight="Black" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" Margin="12,0,0,0">
+                        <TextBlock Text="DUAL-TONE // RAW UTILITIES" FontSize="10" FontWeight="Black" Foreground="{DynamicResource Brush.Text.OnAccent}" />
+                    </Border>
+                </StackPanel>
                 <TextBlock Text="Offline utilities: JSON formatter &amp; validator, Base64 encoder/decoder, Cryptographic hashing (SHA-256, SHA-512, MD5) &amp; Hex analysis" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
@@ -22,36 +27,36 @@
             <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <WrapPanel>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding FormatJsonCommand}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="Format JSON" FontWeight="SemiBold" />
+                        <TextBlock Text="Format JSON" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ValidateJsonCommand}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="Validate JSON" FontWeight="SemiBold" />
+                        <TextBlock Text="Validate JSON" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64EncodeCommand}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="Base64 Encode" FontWeight="SemiBold" />
+                        <TextBlock Text="Base64 Encode" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding Base64DecodeCommand}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="Base64 Decode" FontWeight="SemiBold" />
+                        <TextBlock Text="Base64 Decode" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha256Command}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="SHA-256 Hash" FontWeight="SemiBold" />
+                        <TextBlock Text="SHA-256 Hash" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeSha512Command}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="SHA-512 Hash" FontWeight="SemiBold" />
+                        <TextBlock Text="SHA-512 Hash" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeMd5Command}" Height="36" Padding="14,0" Margin="0,0,8,8">
-                        <TextBlock Text="MD5 Checksum" FontWeight="SemiBold" />
+                        <TextBlock Text="MD5 Checksum" FontWeight="Bold" />
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ComputeFileChecksumsCommand}" Height="36" Padding="14,0" Margin="0,0,8,8">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,6,0" />
-                            <TextBlock Text="File Checksum Report..." FontWeight="SemiBold" />
+                            <TextBlock Text="File Checksum Report..." FontWeight="Bold" />
                         </StackPanel>
                     </Button>
                     <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding InspectFileHexCommand}" Height="36" Padding="14,0" Margin="0,0,0,8">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource Icon.Code}" Fill="{DynamicResource Brush.Text.Primary}" Width="12" Height="12" Stretch="Uniform" Margin="0,0,6,0" />
-                            <TextBlock Text="File Hex Viewer..." FontWeight="SemiBold" />
+                            <TextBlock Text="File Hex Viewer..." FontWeight="Bold" />
                         </StackPanel>
                     </Button>
                 </WrapPanel>
@@ -72,7 +77,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="INPUT DATA / TEXT / RAW PAYLOAD" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
+                        <TextBlock Grid.Row="0" Text="// INPUT DATA / TEXT / RAW PAYLOAD" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
                         <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding InputData, UpdateSourceTrigger=PropertyChanged}" FontFamily="{StaticResource FontFamily.Monospace}" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="320" />
                     </Grid>
                 </Border>
@@ -84,7 +89,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <TextBlock Grid.Row="0" Text="OUTPUT / CHECKSUM / FORMATTED RESULT" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
+                        <TextBlock Grid.Row="0" Text="// OUTPUT / CHECKSUM / FORMATTED RESULT" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,10" />
                         <TextBox Grid.Row="1" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding OutputData}" FontFamily="{StaticResource FontFamily.Monospace}" IsReadOnly="True" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="320" />
                     </Grid>
                 </Border>

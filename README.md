@@ -1,4 +1,4 @@
-# PROJECT NEXUS — Emerald Edition
+# PROJECT NEXUS — Dual-Tone Neo-Brutalist Edition
 
 <div align="center">
 
@@ -7,7 +7,7 @@
 ### Any Format. One Destination.
 
 <a href="#">
-  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=10B981&center=true&vCenter=true&width=640&lines=Universal+File+Conversion+Studio;Offline-First+%E2%80%A2+100%25+Privacy-Focused;High-Performance+Rust+Tokio+Daemon;AI+Image+Upscaler+%E2%80%A2+2X+to+8X+Super-Resolution;Emerald+Edition+%E2%80%A2+Dual+Theme+Obsidian+%26+Light" alt="NEXUS Typing Animation" />
+  <img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=20&duration=3000&pause=1000&color=00FF66&center=true&vCenter=true&width=640&lines=Universal+File+Conversion+Studio;Offline-First+%E2%80%A2+100%25+Privacy-Focused;High-Performance+Rust+Tokio+Daemon;AI+Image+Upscaler+%E2%80%A2+2X+to+8X+Super-Resolution;Neo-Brutalist+Dual-Tone+%E2%80%A2+Pitch+Obsidian+%26+Lime" alt="NEXUS Typing Animation" />
 </a>
 
 <br/>
@@ -18,7 +18,7 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011-0078D6?logo=windows)](https://microsoft.com/windows)
 [![UI](https://img.shields.io/badge/UI-C%23%2013%20%7C%20.NET%2011%20WPF-512BD4?logo=dotnet)](https://dotnet.microsoft.com)
-[![Theme](https://img.shields.io/badge/Theme-Emerald%20Edition-10B981)](https://github.com/Rohanjm911/NEXUS)
+[![Theme](https://img.shields.io/badge/Theme-Neo--Brutalist%20Dual--Tone-00FF66?logoColor=000000)](https://github.com/Rohanjm911/NEXUS)
 [![Engine](https://img.shields.io/badge/Engine-Rust%202021%20(Tokio)-DEA584?logo=rust)](https://rust-lang.org)
 [![Storage](https://img.shields.io/badge/Storage-SQLite%20(WAL%20Mode)-003B57?logo=sqlite)](https://sqlite.org)
 [![IPC](https://img.shields.io/badge/IPC-Windows%20Named%20Pipes-0D1117)](https://learn.microsoft.com/windows/win32/ipc/named-pipes)
@@ -32,7 +32,7 @@
 ## Table of Contents
 
 - [Overview](#overview)
-- [Emerald Edition Design Identity](#emerald-edition-design-identity)
+- [Dual-Tone Neo-Brutalist Design Identity](#dual-tone-neo-brutalist-design-identity)
 - [Architecture & Tech Stack](#architecture--tech-stack)
 - [How to Launch & Run](#how-to-launch--run)
 - [Complete Application Modules & UI Tour](#complete-application-modules--ui-tour)
@@ -48,7 +48,7 @@
   - [10. Developer Toolkit](#10-developer-toolkit)
   - [11. Storage Analyzer](#11-storage-analyzer)
   - [12. Settings Experience](#12-settings-experience)
-  - [13. Emerald Clean Light Mode](#13-emerald-clean-light-mode)
+  - [13. Dual-Tone Neo-Brutalist Light Mode](#13-dual-tone-neo-brutalist-light-mode)
 - [Keyboard Shortcuts Reference](#keyboard-shortcuts-reference)
 - [Directory Layout](#directory-layout)
 - [Building from Source](#building-from-source)
@@ -63,29 +63,31 @@
 
 Modern desktop workflows often force users to juggle ad-hoc web converters, bloated subscription tools, or unverified online services that jeopardize sensitive document privacy. 
 
-**NEXUS** replaces this fragmented experience with a single, high-performance, **100% offline-first command center**. By decoupling an expressive **Emerald Edition WPF desktop shell** from a native, multithreaded **Rust processing daemon (`nexus-engine.exe`)** via high-throughput **Windows Named Pipes**, NEXUS guarantees zero UI frame drops, robust memory safety, and complete data privacy.
+**NEXUS** replaces this fragmented experience with a single, high-performance, **100% offline-first command center**. By decoupling an expressive **Dual-Tone Neo-Brutalist WPF desktop shell** from a native, multithreaded **Rust processing daemon (`nexus-engine.exe`)** via high-throughput **Windows Named Pipes**, NEXUS guarantees zero UI frame drops, robust memory safety, and complete data privacy.
 
 <img src="assets/animated-divider.svg" width="100%" height="8" />
 
-## Emerald Edition Design Identity
+## Dual-Tone Neo-Brutalist Design Identity
 
-The **Emerald Edition** introduces a complete design evolution that fuses Windows 11 Fluent Design, Apple-inspired minimalism, and futuristic engineering aesthetics:
+The **Dual-Tone Neo-Brutalist Edition** delivers an unapologetic, high-contrast engineering aesthetic combining architectural brutalism with precision telemetry ergonomics:
 
 | Colour Role | Token | Dark Mode Value | Light Mode Value | Usage |
 |---|---|---|---|---|
-| **Deep Forest** | `Brush.Background.Primary` | `#10251D` | `#F4F8F5` | Main application background |
-| **Graphite** | `Brush.Background.Secondary` | `#18231F` | `#FFFFFF` | Navigation sidebars & elevated cards |
-| **Dark Slate** | `Brush.Background.Tertiary` | `#24332C` | `#E8F2EC` | Input controls, chips & containers |
-| **Emerald** | `Brush.Accent.Primary` | `#10B981` | `#10B981` | Primary interactive buttons & active states |
-| **Mint** | `Brush.Accent.Hover` | `#6EE7B7` | `#059669` | Highlights, badges & indicators |
-| **Subtle Border** | `Brush.Border.Subtle` | `#34443B` | `#D1E3D8` | Structural dividers & borders |
-| **Pure White** | `Brush.Text.Primary` | `#F8FAFC` | `#10251D` | High-contrast headers & readable labels |
+| **Pitch Obsidian / Chalk** | `Brush.Background.Primary` | `#0A0B0E` | `#F4F4EE` | Main application background canvas |
+| **Dark Obsidian / White** | `Brush.Background.Secondary` | `#121318` | `#FFFFFF` | Navigation sidebars & elevated cards |
+| **Elevated Surface** | `Brush.Background.Tertiary` | `#181A22` | `#EAEAE2` | Input controls, chips & containers |
+| **Electric Neo-Lime** | `Brush.Accent.Primary` | `#00FF66` | `#00E65C` | Primary interactive buttons & active states |
+| **Lime Glow / Mint** | `Brush.Accent.Hover` | `#33FF85` | `#00C853` | Highlights, badges & hover indicators |
+| **Stark Border** | `Brush.Border.Subtle` | `#222530` | `#000000` | 2px stark structural dividers & cards |
+| **Pure White / Pitch Text** | `Brush.Text.Primary` | `#FFFFFF` | `#0A0B0E` | High-contrast headers & readable labels |
 
-### Key UX Highlights:
-* **Dynamic Dual-Theme Switching:** Toggle between **Emerald Obsidian Dark** and **Emerald Clean Light** mode in real time using the live header Sun/Moon button or `Ctrl+T`.
+### Key Neo-Brutalist UX Highlights:
+* **Zero-Blur Hard Drop Shadows:** All elevated components feature crisp `BlurRadius="0" ShadowDepth="4"` hard drop shadows for a tactile, physical paper-engineered feel.
+* **Sharp Rectangular Geometry:** Strict `CornerRadius="0"` across all windows, buttons, badges, and viewports for pure brutalist architectural weight.
+* **2px Solid Stark Framing:** High-impact 2px solid structural borders creating razor-sharp separation between functional decks.
+* **Dynamic Dual-Theme Switching:** Instant toggle between **Neo-Brutalist Pitch Obsidian** and **Architectural Chalk Light** mode in real time using the live header Sun/Moon button or `Ctrl+T`.
 * **Distraction-Free Focus Mode (`F10`):** Instantly collapse sidebars and headers into an immersive processing stage.
 * **Unified Command Palette (`Ctrl+Shift+P` / `Ctrl+K`):** Global fuzzy-search launcher across every tool, format, and studio.
-* **Tailored Studio Interfaces:** Each workspace studio features a unique, domain-specific visual layout rather than generic templates.
 
 <img src="assets/animated-divider.svg" width="100%" height="8" />
 
@@ -380,18 +382,19 @@ The **Settings Experience** allows full personalization of your NEXUS installati
 
 ---
 
-### 13. Emerald Clean Light Mode
+### 13. Dual-Tone Neo-Brutalist Light Mode
 
 <div align="center">
-  <img src="assets/screenshots/13_emerald_light_theme.png" alt="Emerald Clean Light Theme" width="100%" />
+  <img src="assets/screenshots/13_emerald_light_theme.png" alt="Dual-Tone Neo-Brutalist Light Mode" width="100%" />
 </div>
 
 <br/>
 
-For bright environments, NEXUS includes a fully styled **Emerald Clean Light Mode**:
-* **High-Contrast Readability:** Soft off-white backgrounds (`#F4F8F5`), pure white cards (`#FFFFFF`), and deep forest typography (`#10251D`).
-* **Vibrant Emerald Accents:** Retains the signature Emerald interactive buttons (`#10B981`) and subtle green-tinted dividers (`#D1E3D8`).
-* **Instant Toggle:** Switch on the fly using the Sun/Moon icon in the top navigation bar or the global `Ctrl + T` keyboard shortcut.
+For high-illumination daylight setups, NEXUS features a purpose-built **Dual-Tone Neo-Brutalist Light Mode**:
+* **Architectural Chalk Canvas:** Architectural chalk paper backdrop (`#F4F4EE`), stark white elevated cards (`#FFFFFF`), and pitch obsidian high-contrast typography (`#0A0B0E`).
+* **2px Pure Black Geometry:** 2px solid black borders (`#000000`) and zero-blur hard drop shadows (`BlurRadius="0" ShadowDepth="4"`) providing physical paper-like contrast.
+* **Punchy Neo-Lime Interactivity:** Vibrant punchy neo-lime accents (`#00E65C`) for active badges, toggles, and primary CTA buttons.
+* **Instant Toggle:** Switch dynamically with zero lag using the Sun/Moon icon in the top navigation bar or the global `Ctrl + T` keyboard shortcut.
 
 <img src="assets/animated-divider.svg" width="100%" height="8" />
 

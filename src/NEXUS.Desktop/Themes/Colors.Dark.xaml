@@ -2,48 +2,53 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <!-- ================================================================ -->
-    <!-- NEXUS EMERALD DARK THEME (Official Palette)                      -->
-    <!-- Canvas: Deep Forest (#10251D) • Accent: Emerald (#10B981)        -->
+    <!-- NEXUS DUAL-TONE NEO-BRUTALIST DARK THEME                         -->
+    <!-- Canvas: Pitch Obsidian (#0A0B0E) • Tone 2: Electric Lime (#00FF66)-->
+    <!-- Architecture: Zero-Blur Hard Shadows • 2px Heavy Stark Borders    -->
     <!-- ================================================================ -->
 
     <!-- Canvas & Surfaces -->
-    <Color x:Key="Color.Background.Primary">#10251D</Color>
-    <Color x:Key="Color.Background.Secondary">#18231F</Color>
-    <Color x:Key="Color.Background.Tertiary">#24332C</Color>
-    <Color x:Key="Color.Background.Elevated">#2D3F37</Color>
-    <Color x:Key="Color.Background.Sidebar">#141C18</Color>
-    <Color x:Key="Color.Background.DropZone">#132E23</Color>
+    <Color x:Key="Color.Background.Primary">#0A0B0E</Color>
+    <Color x:Key="Color.Background.Secondary">#13151D</Color>
+    <Color x:Key="Color.Background.Tertiary">#1B1E26</Color>
+    <Color x:Key="Color.Background.Elevated">#222631</Color>
+    <Color x:Key="Color.Background.Sidebar">#0E1015</Color>
+    <Color x:Key="Color.Background.DropZone">#0B1B12</Color>
 
-    <!-- Borders & Dividers -->
-    <Color x:Key="Color.Border.Subtle">#34443B</Color>
-    <Color x:Key="Color.Border.Active">#10B981</Color>
-    <Color x:Key="Color.Border.Hover">#6EE7B7</Color>
-    <Color x:Key="Color.Border.DropZone">#10B981</Color>
+    <!-- Heavy Neo-Brutalist Borders & Dividers -->
+    <Color x:Key="Color.Border.Subtle">#353B49</Color>
+    <Color x:Key="Color.Border.Hard">#000000</Color>
+    <Color x:Key="Color.Border.Active">#00FF66</Color>
+    <Color x:Key="Color.Border.Hover">#33FF85</Color>
+    <Color x:Key="Color.Border.DropZone">#00FF66</Color>
 
-    <!-- Emerald & Mint Accents -->
-    <Color x:Key="Color.Accent.Primary">#10B981</Color>
-    <Color x:Key="Color.Accent.Hover">#6EE7B7</Color>
-    <Color x:Key="Color.Accent.Pressed">#059669</Color>
-    <Color x:Key="Color.Accent.Muted">#1B382B</Color>
-    <Color x:Key="Color.Accent.Soft">#A7F3D0</Color>
-    <Color x:Key="Color.Accent.Glow">#3010B981</Color>
+    <!-- Signature Hard Zero-Blur Shadow -->
+    <Color x:Key="Color.Shadow.Hard">#000000</Color>
 
-    <!-- Status Indicators -->
-    <Color x:Key="Color.Status.Success">#10B981</Color>
-    <Color x:Key="Color.Status.SuccessText">#6EE7B7</Color>
-    <Color x:Key="Color.Status.Warning">#F59E0B</Color>
-    <Color x:Key="Color.Status.WarningText">#FCD34D</Color>
-    <Color x:Key="Color.Status.Danger">#EF4444</Color>
-    <Color x:Key="Color.Status.DangerText">#F87171</Color>
-    <Color x:Key="Color.Status.Info">#6EE7B7</Color>
+    <!-- Tone 2: High-Voltage Electric Neo-Lime Accent -->
+    <Color x:Key="Color.Accent.Primary">#00FF66</Color>
+    <Color x:Key="Color.Accent.Hover">#33FF85</Color>
+    <Color x:Key="Color.Accent.Pressed">#00CC52</Color>
+    <Color x:Key="Color.Accent.Muted">#0E2B1A</Color>
+    <Color x:Key="Color.Accent.Soft">#80FFB3</Color>
+    <Color x:Key="Color.Accent.Glow">#4000FF66</Color>
 
-    <!-- Typography -->
-    <Color x:Key="Color.Text.Primary">#F8FAFC</Color>
-    <Color x:Key="Color.Text.Secondary">#9CA3AF</Color>
-    <Color x:Key="Color.Text.Tertiary">#6B7280</Color>
-    <Color x:Key="Color.Text.Disabled">#4B5563</Color>
-    <Color x:Key="Color.Text.OnAccent">#0A1C14</Color>
-    <Color x:Key="Color.Text.Highlight">#A7F3D0</Color>
+    <!-- High-Impact Status Indicators -->
+    <Color x:Key="Color.Status.Success">#00FF66</Color>
+    <Color x:Key="Color.Status.SuccessText">#00FF66</Color>
+    <Color x:Key="Color.Status.Warning">#FFE600</Color>
+    <Color x:Key="Color.Status.WarningText">#FFE600</Color>
+    <Color x:Key="Color.Status.Danger">#FF3355</Color>
+    <Color x:Key="Color.Status.DangerText">#FF5570</Color>
+    <Color x:Key="Color.Status.Info">#00F0FF</Color>
+
+    <!-- Typography (Stark High Contrast) -->
+    <Color x:Key="Color.Text.Primary">#FFFFFF</Color>
+    <Color x:Key="Color.Text.Secondary">#9EA4B6</Color>
+    <Color x:Key="Color.Text.Tertiary">#656A7C</Color>
+    <Color x:Key="Color.Text.Disabled">#434756</Color>
+    <Color x:Key="Color.Text.OnAccent">#000000</Color>
+    <Color x:Key="Color.Text.Highlight">#00FF66</Color>
 
     <!-- Solid Brushes -->
     <SolidColorBrush x:Key="Brush.Background.Primary" Color="{StaticResource Color.Background.Primary}" />
@@ -54,9 +59,12 @@
     <SolidColorBrush x:Key="Brush.Background.DropZone" Color="{StaticResource Color.Background.DropZone}" />
 
     <SolidColorBrush x:Key="Brush.Border.Subtle" Color="{StaticResource Color.Border.Subtle}" />
+    <SolidColorBrush x:Key="Brush.Border.Hard" Color="{StaticResource Color.Border.Hard}" />
     <SolidColorBrush x:Key="Brush.Border.Active" Color="{StaticResource Color.Border.Active}" />
     <SolidColorBrush x:Key="Brush.Border.Hover" Color="{StaticResource Color.Border.Hover}" />
     <SolidColorBrush x:Key="Brush.Border.DropZone" Color="{StaticResource Color.Border.DropZone}" />
+
+    <SolidColorBrush x:Key="Brush.Shadow.Hard" Color="{StaticResource Color.Shadow.Hard}" />
 
     <SolidColorBrush x:Key="Brush.Accent.Primary" Color="{StaticResource Color.Accent.Primary}" />
     <SolidColorBrush x:Key="Brush.Accent.Hover" Color="{StaticResource Color.Accent.Hover}" />
@@ -80,15 +88,15 @@
     <SolidColorBrush x:Key="Brush.Text.OnAccent" Color="{StaticResource Color.Text.OnAccent}" />
     <SolidColorBrush x:Key="Brush.Text.Highlight" Color="{StaticResource Color.Text.Highlight}" />
 
-    <!-- Subtle Emerald Accent Gradients -->
+    <!-- Dual-Tone High-Impact Hero Gradients -->
     <LinearGradientBrush x:Key="Brush.Gradient.EmeraldHero" StartPoint="0,0" EndPoint="1,1">
-        <GradientStop Color="#10B981" Offset="0" />
-        <GradientStop Color="#059669" Offset="1" />
+        <GradientStop Color="#00FF66" Offset="0" />
+        <GradientStop Color="#00CC52" Offset="1" />
     </LinearGradientBrush>
 
     <LinearGradientBrush x:Key="Brush.Gradient.EmeraldGlow" StartPoint="0,0" EndPoint="1,0">
-        <GradientStop Color="#152A20" Offset="0" />
-        <GradientStop Color="#1D382B" Offset="1" />
+        <GradientStop Color="#10251A" Offset="0" />
+        <GradientStop Color="#183626" Offset="1" />
     </LinearGradientBrush>
 
 </ResourceDictionary>

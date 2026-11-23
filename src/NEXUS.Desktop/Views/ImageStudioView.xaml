@@ -12,9 +12,9 @@
             <!-- Studio Header -->
             <StackPanel Margin="0,0,0,20">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0">
-                        <TextBlock Text="DIGITAL DARKROOM • LANCZOS3 SIMD" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                    <TextBlock Text="IMAGE STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Black" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" Margin="12,0,0,0">
+                        <TextBlock Text="DUAL-TONE // DIGITAL DARKROOM" FontSize="10" FontWeight="Black" Foreground="{DynamicResource Brush.Text.OnAccent}" />
                     </Border>
                 </StackPanel>
                 <TextBlock Text="Pro-grade raster manipulation, Lanczos3 resampling, EXIF privacy scrubbing and perceptual optimization" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
@@ -27,18 +27,18 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, TargetNullValue='No image selected. Click Browse Image or drag &amp; drop file below...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceImagePath, TargetNullValue='No image selected. Click Browse Image or drag &amp; drop file below...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" FontFamily="{StaticResource FontFamily.Monospace}" />
                     <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseImageCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                            <TextBlock Text="Browse Image..." FontWeight="SemiBold" />
+                            <TextBlock Text="Browse Image..." FontWeight="Bold" />
                         </StackPanel>
                     </Button>
                 </Grid>
             </Border>
 
             <!-- Interactive Digital Darkroom Canvas -->
-            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" MinHeight="260" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Active}">
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" MinHeight="260" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Subtle}">
                 <Grid>
                     <!-- Loaded Image Stage -->
                     <Grid>
@@ -59,18 +59,18 @@
                         </Grid.RowDefinitions>
 
                         <!-- Canvas Top Bar -->
-                        <Border Grid.Row="0" Background="{DynamicResource Brush.Background.Tertiary}" Padding="14,8" CornerRadius="6,6,0,0">
+                        <Border Grid.Row="0" Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,2" Padding="14,8" CornerRadius="2,2,0,0">
                             <Grid>
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                                     <Path Data="{StaticResource Icon.Image}" Fill="{DynamicResource Brush.Accent.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                    <TextBlock Text="INTERACTIVE VIEWPORT" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                    <TextBlock Text="// INTERACTIVE VIEWPORT" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="11" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" />
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                     <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Elevated}" Margin="0,0,8,0">
-                                        <TextBlock Text="{Binding OriginalDimensions, StringFormat={}Canvas: {0}}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                                        <TextBlock Text="{Binding OriginalDimensions, StringFormat={}Canvas: {0}}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Primary}" />
                                     </Border>
                                     <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Elevated}">
-                                        <TextBlock Text="{Binding OriginalFileSize, StringFormat={}Size: {0}}" FontSize="11" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                        <TextBlock Text="{Binding OriginalFileSize, StringFormat={}Size: {0}}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
                                     </Border>
                                 </StackPanel>
                             </Grid>
@@ -85,7 +85,7 @@
                     </Grid>
 
                     <!-- Empty Dropzone Stage -->
-                    <Border Background="{DynamicResource Brush.Background.DropZone}" BorderBrush="{DynamicResource Brush.Border.DropZone}" BorderThickness="1.5" CornerRadius="6" Padding="32">
+                    <Border Background="{DynamicResource Brush.Background.DropZone}" BorderBrush="{DynamicResource Brush.Border.DropZone}" BorderThickness="2" CornerRadius="2" Padding="32">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="Visibility" Value="Visible" />
@@ -98,16 +98,16 @@
                         </Border.Style>
                         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                             <Path Data="{StaticResource Icon.Image}" Fill="{DynamicResource Brush.Accent.Primary}" Width="42" Height="42" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                            <TextBlock Text="Drag and Drop Master Image Here" FontSize="{StaticResource FontSize.Header}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" />
+                            <TextBlock Text="DRAG AND DROP MASTER IMAGE HERE" FontSize="{StaticResource FontSize.Header}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Primary}" HorizontalAlignment="Center" />
                             <TextBlock Text="Or use 'Browse Image...' above to import high-resolution photography or vectors" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" Margin="0,4,0,14" />
                             
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="PNG" FontSize="10" FontWeight="Bold" /></Border>
-                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="JPEG" FontSize="10" FontWeight="Bold" /></Border>
-                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="WEBP" FontSize="10" FontWeight="Bold" /></Border>
-                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="AVIF" FontSize="10" FontWeight="Bold" /></Border>
-                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="TIFF" FontSize="10" FontWeight="Bold" /></Border>
-                                <Border Style="{StaticResource NexusBadgeStyle}"><TextBlock Text="BMP" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="PNG" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="JPEG" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="WEBP" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="AVIF" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}" Margin="0,0,6,0"><TextBlock Text="TIFF" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
+                                <Border Style="{StaticResource NexusBadgeStyle}"><TextBlock Text="BMP" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" /></Border>
                             </StackPanel>
                         </StackPanel>
                     </Border>
@@ -121,26 +121,26 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <TextBlock Grid.Column="0" Text="QUICK PRESETS:" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" VerticalAlignment="Center" Margin="0,0,14,0" />
+                    <TextBlock Grid.Column="0" Text="// QUICK PRESETS:" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="11" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" VerticalAlignment="Center" Margin="0,0,14,0" />
                     
                     <WrapPanel Grid.Column="1" VerticalAlignment="Center">
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="webp-85" Height="30" Padding="12,0" Margin="0,0,6,0">
-                            <TextBlock Text="⚡ WebP 85% (Optimized)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="⚡ WebP 85% (Optimized)" FontSize="11" FontWeight="Bold" />
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="png-lossless" Height="30" Padding="12,0" Margin="0,0,6,0">
-                            <TextBlock Text="💎 Lossless PNG (Alpha)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="💎 Lossless PNG (Alpha)" FontSize="11" FontWeight="Bold" />
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="fhd-1080p" Height="30" Padding="12,0" Margin="0,0,6,0">
-                            <TextBlock Text="📐 Full HD (1920×1080)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="📐 Full HD (1920×1080)" FontSize="11" FontWeight="Bold" />
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="4k-2160p" Height="30" Padding="12,0" Margin="0,0,6,0">
-                            <TextBlock Text="📺 4K UHD (3840×2160)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="📺 4K UHD (3840×2160)" FontSize="11" FontWeight="Bold" />
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="avatar-512" Height="30" Padding="12,0" Margin="0,0,6,0">
-                            <TextBlock Text="👤 Square Avatar (512px)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="👤 Square Avatar (512px)" FontSize="11" FontWeight="Bold" />
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ApplyPresetCommand}" CommandParameter="thumb-256" Height="30" Padding="12,0">
-                            <TextBlock Text="🖼️ Thumbnail (256px)" FontSize="11" FontWeight="SemiBold" />
+                            <TextBlock Text="🖼️ Thumbnail (256px)" FontSize="11" FontWeight="Bold" />
                         </Button>
                     </WrapPanel>
                 </Grid>
@@ -157,7 +157,7 @@
                 <!-- Left Column: Geometry & Resampling -->
                 <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="DIMENSIONS &amp; RESAMPLING" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,14" />
+                        <TextBlock Text="// DIMENSIONS &amp; RESAMPLING" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,14" />
 
                         <Grid Margin="0,0,0,16">
                             <Grid.ColumnDefinitions>
@@ -167,21 +167,21 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0">
-                                <TextBlock Text="Target Width (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
-                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetWidth, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
+                                <TextBlock Text="Target Width (px)" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetWidth, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" FontFamily="{StaticResource FontFamily.Monospace}" />
                             </StackPanel>
 
                             <Button Grid.Column="1" Style="{StaticResource WindowButtonStyle}" Command="{Binding ToggleAspectLockCommand}" Width="36" Height="38" Margin="6,20,6,0" ToolTip="Toggle Aspect Ratio Lock">
-                                <Path Data="{StaticResource Icon.Lock}" Fill="{DynamicResource Brush.Accent.Hover}" Width="14" Height="14" Stretch="Uniform" />
+                                <Path Data="{StaticResource Icon.Lock}" Fill="{DynamicResource Brush.Accent.Primary}" Width="14" Height="14" Stretch="Uniform" />
                             </Button>
 
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="Target Height (px)" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
-                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetHeight, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
+                                <TextBlock Text="Target Height (px)" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                                <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding TargetHeight, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" FontFamily="{StaticResource FontFamily.Monospace}" />
                             </StackPanel>
                         </Grid>
 
-                        <TextBlock Text="Resampling Filter" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBlock Text="Resampling Filter" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
                         <ComboBox ItemsSource="{Binding ResampleFilters}" SelectedItem="{Binding ResampleFilter}" Height="38" Margin="0,0,0,16" />
 
                         <CheckBox IsChecked="{Binding StripMetadata}" Foreground="{DynamicResource Brush.Text.Primary}" Content="Strip EXIF &amp; GPS Location Metadata (Privacy Guard)" />
@@ -191,18 +191,18 @@
                 <!-- Right Column: Format & Compression Fidelity -->
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="OUTPUT FORMAT &amp; FIDELITY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,14" />
+                        <TextBlock Text="// OUTPUT FORMAT &amp; FIDELITY" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,14" />
 
-                        <TextBlock Text="Target Container Format" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
+                        <TextBlock Text="Target Container Format" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,6" />
                         <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,16" />
 
                         <Grid Margin="0,0,0,6">
-                            <TextBlock Text="Compression Quality" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" />
-                            <TextBlock Text="{Binding Quality, StringFormat={}{0}%}" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" HorizontalAlignment="Right" />
+                            <TextBlock Text="Compression Quality" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                            <TextBlock Text="{Binding Quality, StringFormat={}{0}%}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Accent.Primary}" HorizontalAlignment="Right" />
                         </Grid>
                         <Slider Minimum="1" Maximum="100" Value="{Binding Quality}" Margin="0,0,0,12" />
 
-                        <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="12">
+                        <Border Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1.5" CornerRadius="2" Padding="12">
                             <TextBlock Text="• WebP/AVIF: Up to 45% smaller than JPEG with superior SSIM score.&#x0a;• PNG: Zero compression artifacts with transparent alpha channel.&#x0a;• JPEG: Universal photography standard with DCT quantization." FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" LineHeight="17" TextWrapping="Wrap" />
                         </Border>
                     </StackPanel>
@@ -212,7 +212,7 @@
             <!-- Bottom Action & Export Dock -->
             <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
-                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
+                    <TextBlock Text="{Binding StatusMessage}" FontFamily="{StaticResource FontFamily.Monospace}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Primary}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
@@ -228,14 +228,14 @@
                             </Button.Style>
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
+                                <TextBlock Text="Open File in Folder" FontWeight="Bold" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessImageCommand}" Height="42" Padding="28,0">
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Image}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="16" Height="16" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Process Image" FontWeight="Bold" />
+                                <TextBlock Text="Process Image" FontWeight="Black" />
                             </StackPanel>
                         </Button>
                     </StackPanel>

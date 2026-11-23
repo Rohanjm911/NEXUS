@@ -12,9 +12,9 @@
             <!-- Studio Header -->
             <StackPanel Margin="0,0,0,20">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <TextBlock Text="AUDIO STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
-                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Muted}" Margin="12,0,0,0">
-                        <TextBlock Text="SOUND ENGINEER SUITE • LOSSLESS DSP" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
+                    <TextBlock Text="AUDIO STUDIO" FontSize="{StaticResource FontSize.Hero}" FontWeight="Black" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" Margin="12,0,0,0">
+                        <TextBlock Text="DUAL-TONE // SOUND ENGINEER SUITE" FontSize="10" FontWeight="Black" Foreground="{DynamicResource Brush.Text.OnAccent}" />
                     </Border>
                 </StackPanel>
                 <TextBlock Text="Transcode audio formats, customize bitrates and sample rates, tag ID3 metadata and generate studio masters" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
@@ -27,48 +27,48 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceAudioPath, TargetNullValue='No audio file selected. Click Browse Audio or drag &amp; drop audio file below...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" />
+                    <TextBox Grid.Column="0" Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SourceAudioPath, TargetNullValue='No audio file selected. Click Browse Audio or drag &amp; drop audio file below...'}" IsReadOnly="True" Height="38" VerticalContentAlignment="Center" FontFamily="{StaticResource FontFamily.Monospace}" />
                     <Button Grid.Column="1" Style="{StaticResource SecondaryButtonStyle}" Command="{Binding BrowseAudioCommand}" Margin="10,0,0,0" Height="38" Padding="18,0">
                         <StackPanel Orientation="Horizontal">
                             <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                            <TextBlock Text="Browse Audio..." FontWeight="SemiBold" />
+                            <TextBlock Text="Browse Audio..." FontWeight="Bold" />
                         </StackPanel>
                     </Button>
                 </Grid>
             </Border>
 
             <!-- Centerpiece Waveform Visualizer & Transport Deck -->
-            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Active}" Padding="20">
+            <Border Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16" Background="{DynamicResource Brush.Background.Secondary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" Padding="20">
                 <StackPanel>
-                    <!-- Visual Waveform Display -->
-                    <Border Height="80" Background="{DynamicResource Brush.Background.Primary}" CornerRadius="6" Padding="16,8" Margin="0,0,0,14">
+                    <!-- Visual Waveform Display (Brutalist Sharp Bars) -->
+                    <Border Height="80" Background="{DynamicResource Brush.Background.Primary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="2" CornerRadius="2" Padding="16,8" Margin="0,0,0,14">
                         <Grid>
                             <!-- Audio Spectrum Bars Visualizer -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                <Border Width="4" Height="22" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="38" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="54" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="30" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="46" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="62" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="40" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="26" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="48" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="58" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="34" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="50" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="64" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="44" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="28" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="36" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="52" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="2" Margin="2,0" />
-                                <Border Width="4" Height="24" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="2" Margin="2,0" />
+                                <Border Width="5" Height="22" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="38" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="54" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="30" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="46" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="62" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="40" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="26" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="48" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="58" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="34" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="50" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="64" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="44" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="28" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="36" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="52" Background="{DynamicResource Brush.Accent.Primary}" CornerRadius="0" Margin="2,0" />
+                                <Border Width="5" Height="24" Background="{DynamicResource Brush.Accent.Hover}" CornerRadius="0" Margin="2,0" />
                             </StackPanel>
 
                             <!-- Waveform Overlay Pill -->
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
                                 <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Background.Elevated}">
-                                    <TextBlock Text="{Binding AudioFileInfo, TargetNullValue='No Audio Loaded'}" FontSize="10" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" />
+                                    <TextBlock Text="{Binding AudioFileInfo, TargetNullValue='No Audio Loaded'}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="10" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Secondary}" />
                                 </Border>
                             </StackPanel>
                         </Grid>
@@ -89,13 +89,13 @@
 
                         <!-- Playback Progress Slider -->
                         <Grid Grid.Column="1" VerticalAlignment="Center">
-                            <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="35" Height="6" />
+                            <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="35" Height="8" />
                         </Grid>
 
                         <!-- Time Duration Readout -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="16,0,0,0">
-                            <TextBlock Text="00:01:14" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" />
-                            <TextBlock Text=" / 00:03:45" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" />
+                            <TextBlock Text="00:01:14" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Accent.Primary}" />
+                            <TextBlock Text=" / 00:03:45" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" />
                         </StackPanel>
                     </Grid>
                 </StackPanel>
@@ -112,81 +112,81 @@
                 <!-- Left Column: Bitrate & Sample Rate Dials -->
                 <Border Grid.Column="0" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="BITRATE &amp; SAMPLING FIDELITY" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                        <TextBlock Text="// BITRATE &amp; SAMPLING FIDELITY" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
 
                         <!-- Bitrate Preset Chips -->
-                        <TextBlock Text="Target Bitrate Preset" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
+                        <TextBlock Text="Target Bitrate Preset" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
                         <WrapPanel Margin="0,0,0,12">
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectBitrateCommand}" CommandParameter="320k" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="320 kbps (Studio)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="320 kbps (Studio)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectBitrateCommand}" CommandParameter="256k" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="256 kbps (Audiophile)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="256 kbps (Audiophile)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectBitrateCommand}" CommandParameter="192k" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="192 kbps (Standard)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="192 kbps (Standard)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectBitrateCommand}" CommandParameter="128k" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="128 kbps (Podcast)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="128 kbps (Podcast)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectBitrateCommand}" CommandParameter="64k" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="64 kbps (Voice)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="64 kbps (Voice)" FontSize="11" FontWeight="Bold" />
                             </Button>
                         </WrapPanel>
 
                         <!-- Custom Bitrate Input -->
-                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding Bitrate, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" Margin="0,0,0,14" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding Bitrate, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" Margin="0,0,0,14" FontFamily="{StaticResource FontFamily.Monospace}" />
 
                         <!-- Sample Rate Chips -->
-                        <TextBlock Text="Sample Rate Frequency" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
+                        <TextBlock Text="Sample Rate Frequency" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
                         <WrapPanel Margin="0,0,0,10">
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectSampleRateCommand}" CommandParameter="44100" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="44.1 kHz (CD Audio)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="44.1 kHz (CD Audio)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectSampleRateCommand}" CommandParameter="48000" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="48.0 kHz (Film &amp; Video)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="48.0 kHz (Film &amp; Video)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectSampleRateCommand}" CommandParameter="96000" Height="28" Padding="10,0" Margin="0,0,6,6">
-                                <TextBlock Text="96.0 kHz (Hi-Res Master)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="96.0 kHz (Hi-Res Master)" FontSize="11" FontWeight="Bold" />
                             </Button>
                         </WrapPanel>
 
-                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SampleRate, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" />
+                        <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding SampleRate, UpdateSourceTrigger=PropertyChanged}" Height="38" VerticalContentAlignment="Center" FontFamily="{StaticResource FontFamily.Monospace}" />
                     </StackPanel>
                 </Border>
 
                 <!-- Right Column: Container & ID3 Metadata -->
                 <Border Grid.Column="2" Style="{StaticResource NexusCardStyle}">
                     <StackPanel>
-                        <TextBlock Text="OUTPUT CONTAINER &amp; METADATA" FontSize="{StaticResource FontSize.Small}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
+                        <TextBlock Text="// OUTPUT CONTAINER &amp; METADATA" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,0,0,12" />
 
                         <!-- Target Container Pills -->
-                        <TextBlock Text="Target Format Container" FontSize="11" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
+                        <TextBlock Text="Target Format Container" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Text.Tertiary}" Margin="0,0,0,6" />
                         <WrapPanel Margin="0,0,0,12">
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="mp3" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="MP3 (Universal)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="MP3 (Universal)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="flac" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="FLAC (Lossless)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="FLAC (Lossless)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="wav" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="WAV (PCM)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="WAV (PCM)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="aac" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="AAC (Apple)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="AAC (Apple)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="ogg" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="OGG (Vorbis)" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="OGG (Vorbis)" FontSize="11" FontWeight="Bold" />
                             </Button>
                             <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding SelectTargetFormatCommand}" CommandParameter="m4a" Height="28" Padding="12,0" Margin="0,0,6,6">
-                                <TextBlock Text="M4A" FontSize="11" FontWeight="SemiBold" />
+                                <TextBlock Text="M4A" FontSize="11" FontWeight="Bold" />
                             </Button>
                         </WrapPanel>
 
                         <ComboBox ItemsSource="{Binding SupportedFormats}" SelectedItem="{Binding TargetFormat}" Height="38" Margin="0,0,0,14" />
 
                         <!-- ID3 Metadata Tag Fields -->
-                        <TextBlock Text="ID3 Metadata Tags" FontSize="11" FontWeight="Bold" Foreground="{DynamicResource Brush.Accent.Hover}" Margin="0,0,0,8" />
+                        <TextBlock Text="// ID3 METADATA TAGS" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="11" FontWeight="Black" Foreground="{DynamicResource Brush.Accent.Primary}" Margin="0,0,0,8" />
                         <Grid Margin="0,0,0,8">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -198,7 +198,7 @@
                         </Grid>
                         <TextBox Style="{StaticResource NexusTextBoxStyle}" Text="{Binding AlbumName, UpdateSourceTrigger=PropertyChanged}" Height="34" VerticalContentAlignment="Center" Margin="0,0,0,10" Tag="Album" />
 
-                        <Border Background="{DynamicResource Brush.Background.Tertiary}" CornerRadius="6" Padding="10">
+                        <Border Background="{DynamicResource Brush.Background.Tertiary}" BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="1.5" CornerRadius="2" Padding="10">
                             <TextBlock Text="FLAC ensures 100% mathematical fidelity. MP3 uses Psychoacoustic LAME encoding." FontSize="11" Foreground="{DynamicResource Brush.Text.Secondary}" />
                         </Border>
                     </StackPanel>
@@ -208,7 +208,7 @@
             <!-- Bottom Action & Render Dock -->
             <Border Style="{StaticResource NexusCardStyle}">
                 <Grid>
-                    <TextBlock Text="{Binding StatusMessage}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
+                    <TextBlock Text="{Binding StatusMessage}" FontFamily="{StaticResource FontFamily.Monospace}" VerticalAlignment="Center" Foreground="{DynamicResource Brush.Accent.Primary}" FontWeight="Bold" TextTrimming="CharacterEllipsis" Margin="0,0,240,0" />
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Command="{Binding OpenOutputFolderCommand}" Height="42" Padding="16,0" Margin="0,0,10,0">
@@ -224,14 +224,14 @@
                             </Button.Style>
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Folder}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Open File in Folder" FontWeight="SemiBold" />
+                                <TextBlock Text="Open File in Folder" FontWeight="Bold" />
                             </StackPanel>
                         </Button>
 
                         <Button Style="{StaticResource PrimaryButtonStyle}" Command="{Binding ProcessAudioCommand}" Height="42" Padding="28,0">
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Audio}" Fill="{DynamicResource Brush.Text.OnAccent}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Process Audio" FontWeight="Bold" />
+                                <TextBlock Text="Process Audio" FontWeight="Black" />
                             </StackPanel>
                         </Button>
                     </StackPanel>

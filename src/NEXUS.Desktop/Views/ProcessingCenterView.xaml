@@ -14,23 +14,28 @@
 
             <!-- Header -->
             <StackPanel Grid.Row="0" Margin="0,0,0,24">
-                <TextBlock Text="PROCESSING CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Bold" />
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="PROCESSING CENTER" FontSize="{StaticResource FontSize.Hero}" FontWeight="Black" />
+                    <Border Style="{StaticResource NexusBadgeStyle}" Background="{DynamicResource Brush.Accent.Primary}" Margin="12,0,0,0">
+                        <TextBlock Text="DUAL-TONE // PRIORITY QUEUE" FontSize="10" FontWeight="Black" Foreground="{DynamicResource Brush.Text.OnAccent}" />
+                    </Border>
+                </StackPanel>
                 <TextBlock Text="Centralized task priority queue, real-time telemetry, progress tracking and error recovery" FontSize="{StaticResource FontSize.Subheader}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,4,0,0" />
             </StackPanel>
 
             <!-- Action Bar -->
             <Border Grid.Row="1" Style="{StaticResource NexusCardStyle}" Margin="0,0,0,16">
                 <Grid>
-                    <TextBlock Text="ENGINE TASK QUEUE" FontWeight="SemiBold" VerticalAlignment="Center" />
+                    <TextBlock Text="// ENGINE TASK QUEUE" FontFamily="{StaticResource FontFamily.Monospace}" FontWeight="Black" VerticalAlignment="Center" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding RefreshCommand}" Height="38" Padding="16,0" Margin="0,0,8,0">
                             <StackPanel Orientation="Horizontal">
                                 <Path Data="{StaticResource Icon.Convert}" Fill="{DynamicResource Brush.Text.Primary}" Width="14" Height="14" Stretch="Uniform" Margin="0,0,8,0" />
-                                <TextBlock Text="Refresh Tasks" FontWeight="SemiBold" />
+                                <TextBlock Text="Refresh Tasks" FontWeight="Bold" />
                             </StackPanel>
                         </Button>
                         <Button Style="{StaticResource SecondaryButtonStyle}" Command="{Binding ClearCompletedCommand}" Height="38" Padding="14,0">
-                            <TextBlock Text="Clear Completed" />
+                            <TextBlock Text="Clear Completed" FontWeight="Bold" />
                         </Button>
                     </StackPanel>
                 </Grid>
@@ -42,7 +47,7 @@
                     <ListBox ItemsSource="{Binding Tasks}" Background="Transparent" BorderThickness="0">
                         <ListBox.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,1" Padding="4,12">
+                                <Border BorderBrush="{DynamicResource Brush.Border.Subtle}" BorderThickness="0,0,0,2" Padding="4,12">
                                     <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
@@ -53,9 +58,9 @@
                                         </Grid.ColumnDefinitions>
 
                                         <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                            <TextBlock Text="{Binding Name}" FontWeight="SemiBold" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="{Binding OutputFilePath}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" />
-                                            <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Status.DangerText}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis">
+                                            <TextBlock Text="{Binding Name}" FontWeight="Bold" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding OutputFilePath}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis" />
+                                            <TextBlock Text="{Binding ErrorMessage}" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Status.DangerText}" Margin="0,2,0,0" TextTrimming="CharacterEllipsis">
                                                 <TextBlock.Style>
                                                     <Style TargetType="TextBlock">
                                                         <Style.Triggers>
@@ -69,28 +74,28 @@
                                         </StackPanel>
 
                                         <Border Grid.Column="1" Style="{StaticResource NexusBadgeStyle}" HorizontalAlignment="Center">
-                                            <TextBlock Text="{Binding Priority}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Accent.Hover}" FontWeight="SemiBold" />
+                                            <TextBlock Text="{Binding Priority}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Accent.Primary}" FontWeight="Black" />
                                         </Border>
 
                                         <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="16,0">
                                             <ProgressBar Style="{StaticResource NexusProgressBarStyle}" Value="{Binding ProgressPercentage}" Maximum="100" Margin="0,0,0,4" />
-                                            <TextBlock Text="{Binding Status}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
+                                            <TextBlock Text="{Binding Status}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Right" />
                                         </StackPanel>
 
-                                        <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="3" Text="{Binding CreatedAt, StringFormat={}{0:HH:mm:ss}}" FontFamily="{StaticResource FontFamily.Monospace}" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Right" VerticalAlignment="Center" />
 
                                         <StackPanel Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center">
                                             <Button Style="{StaticResource SecondaryButtonStyle}"
                                                     Command="{Binding DataContext.RetryTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}"
                                                     Padding="12,6" Margin="0,0,8,0">
-                                                <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" />
+                                                <TextBlock Text="Retry" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" />
                                             </Button>
                                             <Button Style="{StaticResource SecondaryButtonStyle}"
                                                     Command="{Binding DataContext.CancelTaskCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                                     CommandParameter="{Binding}"
                                                     Padding="12,6">
-                                                <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Status.DangerText}" />
+                                                <TextBlock Text="Cancel" FontSize="{StaticResource FontSize.Small}" FontWeight="Bold" Foreground="{DynamicResource Brush.Status.DangerText}" />
                                             </Button>
                                         </StackPanel>
                                     </Grid>
@@ -112,7 +117,7 @@
                             </Style>
                         </StackPanel.Style>
                         <Path Data="{StaticResource Icon.Queue}" Fill="{DynamicResource Brush.Text.Disabled}" Width="36" Height="36" Stretch="Uniform" HorizontalAlignment="Center" Margin="0,0,0,12" />
-                        <TextBlock Text="No active processing tasks" FontSize="{StaticResource FontSize.Subheader}" FontWeight="SemiBold" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
+                        <TextBlock Text="NO ACTIVE PROCESSING TASKS" FontSize="{StaticResource FontSize.Subheader}" FontWeight="Black" Foreground="{DynamicResource Brush.Text.Secondary}" HorizontalAlignment="Center" />
                         <TextBlock Text="Queued and running tasks from all studios will appear here in real time" FontSize="{StaticResource FontSize.Small}" Foreground="{DynamicResource Brush.Text.Tertiary}" HorizontalAlignment="Center" Margin="0,4,0,0" />
                     </StackPanel>
                 </Grid>
